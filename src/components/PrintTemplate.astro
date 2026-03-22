@@ -42,6 +42,12 @@ const { data } = Astro.props;
           {data.header.location}
         </div>
       )}
+      {data.header.home && (
+        <div class="pdf-contact-row">
+          <span class="pdf-icon-svg"><img src={icons.home} alt="" /></span>
+          {data.header.home}
+        </div>
+      )}
     </div>
     <div class="pdf-header-identity">
       <div class="pdf-name-wrap">

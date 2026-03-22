@@ -1434,7 +1434,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10pt;
+  gap: 5pt;
   margin: 4pt 0;
 }
 
@@ -1454,10 +1454,10 @@ ul {
 }
 
 .pdf-summary-text {
-  font-size: 9.5pt;
+  font-size: 7.5pt;
   color: #444;
   font-style: italic;
-  padding: 4pt 0;
+  padding: 2pt 0;
 }
 
 /* Body Layout */
@@ -1470,7 +1470,7 @@ ul {
 
 .pdf-section {
   break-inside: avoid;
-  padding-top: 12pt;
+  padding-top: 8pt;
 }
 
 .pdf-section:first-child {

@@ -11,13 +11,14 @@ header:
   title: "Software Engineer"
   email: "this-is-r-gaurav@outlook.com"
   phone: "+91 90179-20586"
-  location: "Ward No 4 Kotlla Mohalla, Near Rajan Kiryana Store, C/O Om Parkash Raheja, Barwala – 125121 , Hisar"
+  location: "Magarpatta, Pune, Hadapsar - 411028"
+  home: "Ward No 4 Kotlla Mohalla, Barwala, Hisar - 125121"
   github: "https://github.com/this-is-r-gaurav"
   linkedin: "https://linkedin.com/in/this-is-r-gaurav"
   website: "tel:+91%2090179-20586"
 
 summary: |
-  Full Stack Software Engineer with a focus on building resilient, scalable systems across UI, Backend, and DevOps. Proven track record in leading cross-functional teams and delivering high-impact solutions in Threat Intelligence Collection. Expert in streamlining data pipelines and modernizing legacy infrastructures.
+  Full Stack Software Engineer with a focus on building resilient, scalable systems across UI, Backend, and DevOps. Proven track record in leading cross-functional teams and delivering high-impact solutions in Threat Intelligence Collection. Actively exploring opportunity in Threat Intelligence domain
 
 experience:
   - company: "Google"
@@ -30,9 +31,6 @@ experience:
       - "Established robust monitoring and alerting strategies for system health, reducing incident response times and ensuring high availability of critical collection services."
       - "Led the design and implementation of next-generation collection systems, managing the seamless migration of legacy targets with zero data loss."
       - "Partnered with research teams to translate complex technical metrics into actionable product insights, driving data-informed improvements for global collection targets."
-      - "Engineered advanced collection capabilities to monitor the evolving threat landscape, enhancing the precision and efficiency of intelligence gathering."
-      - "Orchestrating the strategic planning and architectural documentation for large-scale data pipeline migrations from Apache-based infrastructure to GCP."
-
   - company: "Mandiant, Inc."
     role: "Software Engineer"
     from: "7th Aug. 2022"
@@ -121,14 +119,14 @@ skills_current:
         level: 95
       - name: "JS"
         level: 90
-      - name: "Java"
-        level: 65
       - name: "Bash"
         level: 80
       - name: "Typescript"
         level: 80
       - name: "Docker"
         level: 85
+      - name: "Java"
+        level: 75
       - name: "ElasticSearch"
         level: 70
       - name: "NiFi"
@@ -136,40 +134,40 @@ skills_current:
       - name: "Dataflow"
         level: 65
       - name: "Prompt Engineering"
-        level: 40
+        level: 60
       - name: "Bigquery & Looker"
-        level: 50
+        level: 60
 
 skills_past:
   - items:
       - name: "JQuery"
-        level: 75
+        level: 60
       - name: "Ecmascript"
-        level: 80
+        level: 60
       - name: "React JS"
-        level: 80
+        level: 60
       - name: "Angular"
-        level: 75
+        level: 60
       - name: "Flask"
-        level: 75
-      - name: "Ionic"
-        level: 70
+        level: 60
       - name: "Bootstrap"
-        level: 80
+        level: 60
       - name: "Scrapy"
-        level: 80
+        level: 60
       - name: "Node JS"
-        level: 80
+        level: 60
       - name: "Golang"
-        level: 80
+        level: 60
       - name: "K8S"
-        level: 80
+        level: 60
       - name: "Helm"
-        level: 80
-      - name: "MongoDB"
-        level: 75
+        level: 60
       - name: "Postgres"
-        level: 80
+        level: 60
+      - name: "MongoDB"
+        level: 55
+      - name: "Ionic"
+        level: 50
 
 other_skills: ["GIMP", "Inkscape", "Terraform", "Arduino", "RaspberryPi", "Vim", "Postman", "Android", "NodeMCU", "IBM Watson", "Node Red"]
 

@@ -681,6 +681,7 @@ ul {
   color: var(--text-muted);
   margin-top: 0.5rem;
   line-height: 1.5;
+  max-width: 60ch;
 }
 
 .cert-year {
@@ -1010,7 +1011,7 @@ ul {
 @media print {
   @page {
     size: A4;
-    margin: 0 !important;
+    margin: 10mm;
   }
 
   *,
@@ -1257,22 +1258,21 @@ ul {
 
 @media print {
   @page {
-    size: A4 portrait;
-    margin: 0 !important;
-    padding: 0 !important;
+    size: A4;
+    margin: 4mm 0 4mm 0;
+    /* top margin on pages 2+ */
   }
 
   @page :first {
-    margin: 0 !important;
+    margin: 0 0 4mm 0;
     /* no margin on page 1 for full-bleed header */
   }
 
   /* Reset html and body for print to avoid blank pages */
   html,
   body {
-    width: 210mm !important;
     height: auto !important;
-    overflow: visible !important;
+    overflow: initial !important;
     margin: 0 !important;
     padding: 0 !important;
     background: white !important;
@@ -1321,7 +1321,6 @@ ul {
     background: #fff !important;
     padding: 0 !important;
     margin: 0 !important;
-    width: 210mm !important;
     max-width: none !important;
   }
 

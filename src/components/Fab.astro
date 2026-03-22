@@ -57,11 +57,29 @@
   // Initial icon sync
   syncThemeIcon(document.documentElement.dataset.theme || 'dark');
 
-  // PDF Export — points to the pre-rendered, high-quality, ATS-friendly static PDF
-  btnPdf?.addEventListener('click', () => {
-    const link = document.createElement('a');
-    link.href = '/resume.pdf';
-    link.download = 'Gaurav_Resume.pdf';
-    link.click();
+  // PDF Export — switches between browser print in DEV and static PDF in PROD
+  btnPdf?.addEventListener('click', async () => {
+    // If in development mode, always use browser print for live feedback
+    if (import.meta.env.DEV) {
+      window.print();
+      return;
+    }
+
+    // In production (CI/Docker), try to fetch the pre-rendered PDF
+    try {
+      const response = await fetch('/resume.pdf', { method: 'HEAD' });
+      if (response.ok) {
+        const link = document.createElement('a');
+        link.href = '/resume.pdf';
+        link.download = 'Gaurav_Resume.pdf';
+        link.click();
+      } else {
+        // Fallback to browser print if file is missing (unexpected)
+        window.print();
+      }
+    } catch (e) {
+      // Fallback if network fails
+      window.print();
+    }
   });
 </script>

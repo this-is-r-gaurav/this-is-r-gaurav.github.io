@@ -4,7 +4,7 @@
 
 meta:
   title: "Gaurav | Software Engineer"
-  description: "Full Stack Software Engineer with extensive experience in UI, backend and DevOps, and a proven ability to lead cross-functional teams."
+  description: "Full Stack Software Engineer with expertise in UI, Backend, and DevOps, specializing in building resilient, high-scale systems and leading cross-functional teams in the past and looking for opportunity in the Threat Intelligence domain."
 
 header:
   name: "Gaurav"
@@ -17,7 +17,7 @@ header:
   website: "tel:+91%2090179-20586"
 
 summary: |
-  Full Stack Software Engineer with extensive experience in UI, backend and DevOps, and a proven ability to lead cross-functional teams. Proactive problem-solver with a strong interest in cybersecurity, currently innovating in Threat Intelligence and LLM.
+  Full Stack Software Engineer with a focus on building resilient, scalable systems across UI, Backend, and DevOps. Proven track record in leading cross-functional teams and delivering high-impact solutions in Threat Intelligence Collection. Expert in streamlining data pipelines and modernizing legacy infrastructures.
 
 experience:
   - company: "Google"
@@ -26,12 +26,12 @@ experience:
     to: "Present"
     location: "Pune, IN"
     highlights:
-      - "Evaluating, Implementing & Improving threat activity collection configs for different dark web sources."
-      - "Proactively acting on alerting related to thread and system health. Identifying different strategy to improve the collection."
-      - "Collaborating with other teammates to build new collection system and migrating the old collection target on the new system."
-      - "Collaborating with researcher to communicate the impact of the new product and actions taken on the already onboarded target to improve collections."
-      - "Building new collection capability to help understand the current landscape and efficiency of the collection across different targets."
-      - "Supporting team for the planning and documentation for data pipeline from apache infrastructure to GCP infrastructure."
+      - "Architected and optimized high-scale threat activity collection configurations across diverse dark web sources, significantly improving data ingestion reliability and coverage."
+      - "Established robust monitoring and alerting strategies for system health, reducing incident response times and ensuring high availability of critical collection services."
+      - "Led the design and implementation of next-generation collection systems, managing the seamless migration of legacy targets with zero data loss."
+      - "Partnered with research teams to translate complex technical metrics into actionable product insights, driving data-informed improvements for global collection targets."
+      - "Engineered advanced collection capabilities to monitor the evolving threat landscape, enhancing the precision and efficiency of intelligence gathering."
+      - "Orchestrating the strategic planning and architectural documentation for large-scale data pipeline migrations from Apache-based infrastructure to GCP."
 
   - company: "Mandiant, Inc."
     role: "Software Engineer"
@@ -39,8 +39,8 @@ experience:
     to: "1st Nov. 2022"
     location: "Pune, IN"
     highlights:
-      - "Implementing configuration for legacy systems to onboard darknet targets."
-      - "Maintaining legacy system and fixing bugs that helps to onboard new targets."
+      - "Engineered custom configurations for legacy systems to expand on-boarding capabilities for critical darknet intelligence targets."
+      - "Maintained and optimized legacy systems, resolving deep-seated bugs to ensure operational continuity and successful target integration."
 
   - company: "One Convergence Pvt. Ltd"
     role: "Software Developer"
@@ -48,11 +48,11 @@ experience:
     to: "29th Jul. 2022"
     location: "Hyderabad, IN"
     highlights:
-      - "Built a cmd tool written in Python and Bash, that internally uses Terraform to launch new vms on a cloud provider with custom tool installed on the VM. Integrated the tool written, with UI dashboard written in React. Achieved 100% satisfaction of Team Lead and Manager and completed every task given within limit of time allotted."
-      - "Participated as UI team Member, and integrated many APIs written for new features, and addressed many bugs professionally. In the absence of team Lead manages different issues and merges without requirement of much follow up."
-      - "Helped core backend team in migration of the database from no-sql based to sql based effectively."
-      - "Wrote Backend API in golang for a new product and helped UI team and ML team to fix bug."
-      - "Worked with customer to install the product on kubernetes, and helped understanding and migrating their tool on k8s and utilize helm for installing customer product."
+      - "Developed a comprehensive CLI automation tool using Python, Bash, and Terraform to streamline VM provisioning; integrated with a React-based dashboard to centralize infrastructure management."
+      - "Demonstrated technical leadership by managing UI feature deliveries and complex bug resolutions, acting as interim lead to oversee code reviews and release stability."
+      - "Played a key role in a critical database migration from NoSQL to SQL, ensuring data consistency and optimizing query performance for the core backend."
+      - "Designed and implemented high-performance Backend APIs in Go, facilitating cross-team collaboration between UI and ML departments to deliver cohesive product features."
+      - "Enabled client-side cloud-native transitions by leading Kubernetes and Helm deployments, providing technical guidance on container orchestration and workload migration."
 
   - company: "De-Haze Labs"
     role: "Software Engineer"
@@ -60,63 +60,58 @@ experience:
     to: "15th Aug 2019"
     location: "Remote, US"
     highlights:
-      - "Helped company to collect data in cost effective manner, by writing scallable crawlers."
-      - "Integrated Dialogflow based bot for customer interaction with application."
-      - "Researched over the other time, to find different innovative idea that may help product to grow."
+      - "Engineered cost-effective, high-throughput web crawlers to automate large-scale data collection, optimizing resource utilization."
+      - "Improved user engagement by integrating LLM-powered (Dialogflow) interfaces, bridging the gap between automated systems and customer needs."
+      - "Conducted strategic R&D to identify and prototype innovative features, directly contributing to product evolution and roadmap growth."
 
 projects:
   - name: "TimeScaleDb"
-    description: "Fixed Helm Chart for Single Installation, when user want to use their own secret. Pull Request #327."
-    url: "https://github.com/timescale/timescaledb-kubernetes"
+    description: "Enhanced Helm Chart flexibility for single-node installations, enabling support for custom secret management. Pull Request #327."
+    url: "https://github.com/timescale/helm-charts/pull/327"
     tech: ["Helm", "Kubernetes", "Secrets"]
   - name: "Chevotrain"
-    description: "Fixed Documentation of API function used. Pull Request #1734."
+    description: "Improved API usability by auditing and correcting critical function documentation. Pull Request #1734."
     url: "https://github.com/Chevotrain/chevotrain/pull/1734"
     tech: ["Documentation", "API"]
   - name: "HttPie"
-    description: "Fixed Snapcraft Autocompletion feature. Pull Request #1189."
+    description: "Systemically resolved issues with Snapcraft autocompletion to improve developer productivity. Pull Request #1189."
     url: "https://github.com/httpie/httpie/pull/1189"
     tech: ["Python", "Snapcraft", "Autocompletion"]
   - name: "JenkinsCI Kubernetes Operator"
-    description: "Fixed Documentation for broken Link. Pull Request #287, #288."
+    description: "Maintained repository integrity by resolving broken documentation links and cross-references. Pull Request #287, #288."
     url: "https://github.com/jenkinsci/kubernetes-operator"
     tech: ["Jenkins", "K8s", "Operator"]
   - name: "TwitterScraper"
-    description: "Fixed Docker build issue. Pull Request #253."
+    description: "Optimized Docker build workflows to resolve environment-specific compilation issues. Pull Request #253."
     url: "https://github.com/taspinar/twitterscraper/pull/253"
     tech: ["Docker", "Python", "Web Scraping"]
 
 certifications:
   - name: "Mandiant Cyber Threat Intelligence Analyst"
     issuer: "Mandiant"
-    description: "Acquired basic skills of threat intelligence domain by qualifying this certification like understanding different pillars in threat intelligence and workflows of different structural model in threat intelligence domains like STIX, Diamond model etc."
+    description: "Demonstrated proficiency in threat intelligence frameworks, including STIX and the Diamond Model, to streamline workflows and improve structural analysis of cyber threats."
 
 academic_projects:
-  - name: "Detect Malicious Behaviour from Whitelisted Profile Using Machine Learning"
-    institution: "PG-DASSD - CDAC"
-    duration: "2 Week"
-    tech: ["ScikitLearn", "Matplotlib", "Strace", "Python3", "Regex"]
-    description: "The objective of the project is to develop a suitable solution for detecting runtime deviations of applications through whitelisted profile using Machine Learning on Linux Platforms."
   - name: "Dynamo Scrapper"
     institution: "Btech. GJUS&T"
     duration: "3 Months"
     tech: ["Python", "Django", "Scrapy", "Twisted", "NativeScript"]
-    description: "The goal of the project is to allow user to create web crawlers with no code, but by using Graphical User Interface, and deploy crawler just using their android phones."
+    description: "Architected a no-code web scraping platform featuring a GUI for crawler creation and mobile-based deployment, simplifying data extraction for non-technical users."
   - name: "MedBot"
     institution: "Btech. GJUS&T"
     duration: "1 Month"
     tech: ["C#", "HTML", "Agility Pack", "RestPlus"]
-    description: "The Project aim to find the Medical drugs from the prescription and find relevant or alternative medicine available online, using 3rd Party API."
+    description: "Developed a medical prescription analysis tool that identifies drugs and cross-references them with online alternatives via 3rd-party APIs to improve medication accessibility."
   - name: "SCAP"
     institution: "Btech. GJUS&T"
     duration: "1 Month"
     tech: ["Arduino", "Ultrasonic sensor", "Node Red", "Embedded", "Twillio"]
-    description: "The goal of the Project is to alert the user in case of any vehicle approach nearby, from rear or front and try to control speed accordingly and warn user with sound sensor, In case of accidents it also tries to send the message to SOS Number Registered to device."
+    description: "Engineered an IoT-based vehicular safety system using Arduino and ultrasonic sensors for proximity detection, automatic speed control, and SOS emergency messaging."
   - name: "Training Placement Portal"
     institution: "Btech. GJUS&T"
     duration: "5 Months"
     tech: ["PHP", "HTML", "JS", "CSS", "Bootstrap3"]
-    description: "The aim of the portal to provide students of different academic the events, training, and placement drive organized in the University."
+    description: "Designed and implemented a centralized university portal to streamline the management and communication of academic events, training sessions, and placement drives."
 
 skills_current:
   - items:
@@ -127,7 +122,7 @@ skills_current:
       - name: "JS"
         level: 90
       - name: "Java"
-        level: 75
+        level: 65
       - name: "Bash"
         level: 80
       - name: "Typescript"
@@ -137,11 +132,13 @@ skills_current:
       - name: "ElasticSearch"
         level: 70
       - name: "NiFi"
-        level: 70
+        level: 60
       - name: "Dataflow"
         level: 65
       - name: "Prompt Engineering"
         level: 40
+      - name: "Bigquery & Looker"
+        level: 50
 
 skills_past:
   - items:

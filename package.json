@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "generate-pdf": "node scripts/generate-pdf.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -16,6 +17,8 @@
     "js-yaml": "^4.1.1"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.9"
+    "@types/js-yaml": "^4.0.9",
+    "puppeteer": "^24.40.0",
+    "wait-port": "^1.1.0"
   }
 }

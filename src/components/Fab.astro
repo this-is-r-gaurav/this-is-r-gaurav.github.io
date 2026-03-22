@@ -57,9 +57,11 @@
   // Initial icon sync
   syncThemeIcon(document.documentElement.dataset.theme || 'dark');
 
-  // PDF Export — uses window.print() for ATS-friendly, real-text PDFs
-  // @media print CSS handles hiding web content and showing the PDF template
+  // PDF Export — points to the pre-rendered, high-quality, ATS-friendly static PDF
   btnPdf?.addEventListener('click', () => {
-    window.print();
+    const link = document.createElement('a');
+    link.href = '/resume.pdf';
+    link.download = 'Gaurav_Resume.pdf';
+    link.click();
   });
 </script>

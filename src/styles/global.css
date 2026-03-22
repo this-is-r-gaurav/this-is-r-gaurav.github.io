@@ -681,7 +681,6 @@ ul {
   color: var(--text-muted);
   margin-top: 0.5rem;
   line-height: 1.5;
-  max-width: 60ch;
 }
 
 .cert-year {
@@ -1011,7 +1010,7 @@ ul {
 @media print {
   @page {
     size: A4;
-    margin: 10mm;
+    margin: 0 !important;
   }
 
   *,
@@ -1259,12 +1258,12 @@ ul {
 @media print {
   @page {
     size: A4;
-    margin: 4mm 0 4mm 0;
+    margin: 0 !important;
     /* top margin on pages 2+ */
   }
 
   @page :first {
-    margin: 0 0 4mm 0;
+    margin: 0 !important;
     /* no margin on page 1 for full-bleed header */
   }
 

@@ -1,0 +1,207 @@
+# ============================================================
+#  resume.yaml — THE ONLY FILE YOU NEED TO EDIT
+# ============================================================
+
+meta:
+  title: "Gaurav | Software Engineer"
+  description: "Full Stack Software Engineer with extensive experience in UI, backend and DevOps, and a proven ability to lead cross-functional teams."
+
+header:
+  name: "Gaurav"
+  title: "Software Engineer"
+  email: "this-is-r-gaurav@outlook.com"
+  phone: "+91 90179-20586"
+  location: "Ward No 4 Kotlla Mohalla, Near Rajan Kiryana Store, C/O Om Parkash Raheja, Barwala – 125121 , Hisar"
+  github: "https://github.com/this-is-r-gaurav"
+  linkedin: "https://linkedin.com/in/this-is-r-gaurav"
+  website: "tel:+91%2090179-20586"
+
+summary: |
+  Full Stack Software Engineer with extensive experience in UI, backend and DevOps, and a proven ability to lead cross-functional teams. Proactive problem-solver with a strong interest in cybersecurity, currently innovating in Threat Intelligence and LLM.
+
+experience:
+  - company: "Google"
+    role: "Software Engineer"
+    from: "1st Nov. 2022"
+    to: "Present"
+    location: "Pune, IN"
+    highlights:
+      - "Evaluating, Implementing & Improving threat activity collection configs for different dark web sources."
+      - "Proactively acting on alerting related to thread and system health. Identifying different strategy to improve the collection."
+      - "Collaborating with other teammates to build new collection system and migrating the old collection target on the new system."
+      - "Collaborating with researcher to communicate the impact of the new product and actions taken on the already onboarded target to improve collections."
+      - "Building new collection capability to help understand the current landscape and efficiency of the collection across different targets."
+      - "Supporting team for the planning and documentation for data pipeline from apache infrastructure to GCP infrastructure."
+
+  - company: "Mandiant, Inc."
+    role: "Software Engineer"
+    from: "7th Aug. 2022"
+    to: "1st Nov. 2022"
+    location: "Pune, IN"
+    highlights:
+      - "Implementing configuration for legacy systems to onboard darknet targets."
+      - "Maintaining legacy system and fixing bugs that helps to onboard new targets."
+
+  - company: "One Convergence Pvt. Ltd"
+    role: "Software Developer"
+    from: "17th Feb. 2020"
+    to: "29th Jul. 2022"
+    location: "Hyderabad, IN"
+    highlights:
+      - "Built a cmd tool written in Python and Bash, that internally uses Terraform to launch new vms on a cloud provider with custom tool installed on the VM. Integrated the tool written, with UI dashboard written in React. Achieved 100% satisfaction of Team Lead and Manager and completed every task given within limit of time allotted."
+      - "Participated as UI team Member, and integrated many APIs written for new features, and addressed many bugs professionally. In the absence of team Lead manages different issues and merges without requirement of much follow up."
+      - "Helped core backend team in migration of the database from no-sql based to sql based effectively."
+      - "Wrote Backend API in golang for a new product and helped UI team and ML team to fix bug."
+      - "Worked with customer to install the product on kubernetes, and helped understanding and migrating their tool on k8s and utilize helm for installing customer product."
+
+  - company: "De-Haze Labs"
+    role: "Software Engineer"
+    from: "27th Jul, 2018"
+    to: "15th Aug 2019"
+    location: "Remote, US"
+    highlights:
+      - "Helped company to collect data in cost effective manner, by writing scallable crawlers."
+      - "Integrated Dialogflow based bot for customer interaction with application."
+      - "Researched over the other time, to find different innovative idea that may help product to grow."
+
+projects:
+  - name: "TimeScaleDb"
+    description: "Fixed Helm Chart for Single Installation, when user want to use their own secret. Pull Request #327."
+    url: "https://github.com/timescale/timescaledb-kubernetes"
+    tech: ["Helm", "Kubernetes", "Secrets"]
+  - name: "Chevotrain"
+    description: "Fixed Documentation of API function used. Pull Request #1734."
+    url: "https://github.com/Chevotrain/chevotrain/pull/1734"
+    tech: ["Documentation", "API"]
+  - name: "HttPie"
+    description: "Fixed Snapcraft Autocompletion feature. Pull Request #1189."
+    url: "https://github.com/httpie/httpie/pull/1189"
+    tech: ["Python", "Snapcraft", "Autocompletion"]
+  - name: "JenkinsCI Kubernetes Operator"
+    description: "Fixed Documentation for broken Link. Pull Request #287, #288."
+    url: "https://github.com/jenkinsci/kubernetes-operator"
+    tech: ["Jenkins", "K8s", "Operator"]
+  - name: "TwitterScraper"
+    description: "Fixed Docker build issue. Pull Request #253."
+    url: "https://github.com/taspinar/twitterscraper/pull/253"
+    tech: ["Docker", "Python", "Web Scraping"]
+
+certifications:
+  - name: "Mandiant Cyber Threat Intelligence Analyst"
+    issuer: "Mandiant"
+    description: "Acquired basic skills of threat intelligence domain by qualifying this certification like understanding different pillars in threat intelligence and workflows of different structural model in threat intelligence domains like STIX, Diamond model etc."
+
+academic_projects:
+  - name: "Detect Malicious Behaviour from Whitelisted Profile Using Machine Learning"
+    institution: "PG-DASSD - CDAC"
+    duration: "2 Week"
+    tech: ["ScikitLearn", "Matplotlib", "Strace", "Python3", "Regex"]
+    description: "The objective of the project is to develop a suitable solution for detecting runtime deviations of applications through whitelisted profile using Machine Learning on Linux Platforms."
+  - name: "Dynamo Scrapper"
+    institution: "Btech. GJUS&T"
+    duration: "3 Months"
+    tech: ["Python", "Django", "Scrapy", "Twisted", "NativeScript"]
+    description: "The goal of the project is to allow user to create web crawlers with no code, but by using Graphical User Interface, and deploy crawler just using their android phones."
+  - name: "MedBot"
+    institution: "Btech. GJUS&T"
+    duration: "1 Month"
+    tech: ["C#", "HTML", "Agility Pack", "RestPlus"]
+    description: "The Project aim to find the Medical drugs from the prescription and find relevant or alternative medicine available online, using 3rd Party API."
+  - name: "SCAP"
+    institution: "Btech. GJUS&T"
+    duration: "1 Month"
+    tech: ["Arduino", "Ultrasonic sensor", "Node Red", "Embedded", "Twillio"]
+    description: "The goal of the Project is to alert the user in case of any vehicle approach nearby, from rear or front and try to control speed accordingly and warn user with sound sensor, In case of accidents it also tries to send the message to SOS Number Registered to device."
+  - name: "Training Placement Portal"
+    institution: "Btech. GJUS&T"
+    duration: "5 Months"
+    tech: ["PHP", "HTML", "JS", "CSS", "Bootstrap3"]
+    description: "The aim of the portal to provide students of different academic the events, training, and placement drive organized in the University."
+
+skills_current:
+  - items:
+      - name: "Python3"
+        level: 95
+      - name: "GIT & VCS"
+        level: 95
+      - name: "JS"
+        level: 90
+      - name: "Java"
+        level: 75
+      - name: "Bash"
+        level: 80
+      - name: "Typescript"
+        level: 80
+      - name: "Docker"
+        level: 85
+      - name: "ElasticSearch"
+        level: 70
+      - name: "NiFi"
+        level: 70
+      - name: "Dataflow"
+        level: 65
+      - name: "Prompt Engineering"
+        level: 40
+
+skills_past:
+  - items:
+      - name: "JQuery"
+        level: 75
+      - name: "Ecmascript"
+        level: 80
+      - name: "React JS"
+        level: 80
+      - name: "Angular"
+        level: 75
+      - name: "Flask"
+        level: 75
+      - name: "Ionic"
+        level: 70
+      - name: "Bootstrap"
+        level: 80
+      - name: "Scrapy"
+        level: 80
+      - name: "Node JS"
+        level: 80
+      - name: "Golang"
+        level: 80
+      - name: "K8S"
+        level: 80
+      - name: "Helm"
+        level: 80
+      - name: "MongoDB"
+        level: 75
+      - name: "Postgres"
+        level: 80
+
+other_skills: ["GIMP", "Inkscape", "Terraform", "Arduino", "RaspberryPi", "Vim", "Postman", "Android", "NodeMCU", "IBM Watson", "Node Red"]
+
+education:
+  - institution: "Centre for Development of Advance Computing (CDAC)"
+    degree: "Diploma in Advance Secure Software Development"
+    from: "2019"
+    to: "2020"
+    location: "Plot No. 6 & 7, Hardware Park, Sy No. 1/1, Srisailam Highway, Hyderabad"
+  - institution: "Guru Jambheshwar University of Science & Technology"
+    degree: "Bachelor of Computer Science & Tech."
+    from: "2015"
+    to: "2019"
+    location: "NH-10, Rohtak Hissar Sirsa Road, Hisar"
+  - institution: "Nav Bharat Vidya Mandir Sr. Sec. School"
+    degree: "Higher Secondary School Certification"
+    from: "2012"
+    to: "2014"
+    location: "1st K.M. Stone, Bhambhori Road, Hisar"
+  - institution: "K.L. Arya D.A.V. Public School"
+    degree: "Secondary School Certification"
+    from: "2010"
+    to: "2012"
+    location: "11, Kaimari Rd, Azad Nagar, Hisar"
+
+languages:
+  - name: "Hindi"
+    level: "Intermediate"
+  - name: "English"
+    level: "Intermediate"
+  - name: "Russian"
+    level: "Beginner"

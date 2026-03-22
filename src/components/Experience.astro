@@ -1,0 +1,39 @@
+---
+interface Props {
+  jobs: any[];
+}
+
+const { jobs } = Astro.props;
+---
+
+<div class="timeline stagger">
+  {jobs.map((job, i) => (
+    <div class="timeline-item reveal">
+      <div class="timeline-line">
+        <div class="timeline-dot"></div>
+        {i < jobs.length - 1 && <div class="timeline-connector"></div>}
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-role">{job.role}</div>
+            <div class="timeline-company">{job.company}</div>
+          </div>
+          <div class="timeline-meta">
+            <span class={`timeline-badge ${job.to.toLowerCase() === 'present' ? 'timeline-badge--present' : ''}`}>
+              {job.from} – {job.to}
+            </span>
+            {job.location && <span class="timeline-badge">{job.location}</span>}
+          </div>
+        </div>
+        {job.highlights && (
+          <ul class="timeline-highlights">
+            {job.highlights.map((h: string) => (
+              <li class="timeline-highlight">{h}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  ))}
+</div>

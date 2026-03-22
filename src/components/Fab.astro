@@ -1,0 +1,65 @@
+---
+---
+
+<div class="fab-container" id="fab-container">
+  <button class="fab fab--pdf" id="btn-pdf" title="Download PDF" aria-label="Download PDF">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    <span>PDF</span>
+  </button>
+
+  <button class="fab fab--theme" id="btn-theme" title="Toggle theme" aria-label="Toggle theme">
+    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         style="display:none">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const btnPdf = document.getElementById('btn-pdf');
+  const btnTheme = document.getElementById('btn-theme');
+  const iconSun = document.getElementById('icon-sun');
+  const iconMoon = document.getElementById('icon-moon');
+
+  // Theme logic
+  const syncThemeIcon = (theme: string) => {
+    if (iconSun && iconMoon) {
+      iconSun.style.display = theme === 'dark' ? 'block' : 'none';
+      iconMoon.style.display = theme === 'light' ? 'block' : 'none';
+    }
+  };
+
+  btnTheme?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('resume-theme', next);
+    syncThemeIcon(next);
+  });
+
+  // Initial icon sync
+  syncThemeIcon(document.documentElement.dataset.theme || 'dark');
+
+  // PDF Export — uses window.print() for ATS-friendly, real-text PDFs
+  // @media print CSS handles hiding web content and showing the PDF template
+  btnPdf?.addEventListener('click', () => {
+    window.print();
+  });
+</script>

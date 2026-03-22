@@ -1,0 +1,157 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Experience from '../components/Experience.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import Education from '../components/Education.astro';
+import Certifications from '../components/Certifications.astro';
+import Contact from '../components/Contact.astro';
+import Fab from '../components/Fab.astro';
+import PrintTemplate from '../components/PrintTemplate.astro';
+
+import fs from 'node:fs';
+import yaml from 'js-yaml';
+
+// Load Resume Data
+const fileContents = fs.readFileSync('./src/data/resume.yaml', 'utf8');
+const data = yaml.load(fileContents) as any;
+---
+
+<Layout title={data.meta?.title} description={data.meta?.description}>
+  <Hero header={data.header} />
+  
+  <main class="resume-body">
+    {data.summary && (
+      <Section id="summary" title="About Me">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        <p class="summary-text reveal">{data.summary}</p>
+      </Section>
+    )}
+
+    {data.experience && (
+      <Section id="experience" title="Experience">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 0 0 0-2 2v16"/>
+        </svg>
+        <Experience jobs={data.experience} />
+      </Section>
+    )}
+
+    {(data.skills_current || data.skills_past || data.other_skills) && (
+      <Section id="skills" title="Skills">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+        </svg>
+        <div class="skills-grid">
+          {data.skills_current && (
+            <div class="reveal-scale">
+              <h3 class="skill-category__name">Current Focus</h3>
+              <Skills skills={data.skills_current} />
+            </div>
+          )}
+          {data.skills_past && (
+            <div class="reveal-scale">
+              <h3 class="skill-category__name">Prior Experience</h3>
+              <Skills skills={data.skills_past} />
+            </div>
+          )}
+          {data.other_skills && (
+            <div class="reveal-scale">
+              <h3 class="skill-category__name">Other Tools & Interests</h3>
+              <div class="pdf-badges" style="margin-top: 1rem;">
+                {data.other_skills.map((s: string) => <span class="tech-tag">{s}</span>)}
+              </div>
+            </div>
+          )}
+        </div>
+      </Section>
+    )}
+
+    {data.projects && (
+      <Section id="projects" title="Open Source">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        <Projects projects={data.projects} />
+      </Section>
+    )}
+
+    {data.academic_projects && (
+      <Section id="academic-projects" title="Academic Projects">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+        <div class="projects-grid">
+          {data.academic_projects.map((p: any) => (
+            <div class="project-card reveal">
+              <div class="project-header">
+                <span class="project-name">{p.name}</span>
+                <span class="timeline-badge">{p.duration}</span>
+              </div>
+              <p class="project-desc">{p.description}</p>
+              <div class="project-tech">
+                {p.tech.map((t: string) => <span class="tech-tag">{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+    )}
+
+    {data.education && (
+      <Section id="education" title="Education">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <Education education={data.education} />
+      </Section>
+    )}
+
+    {data.languages && (
+      <Section id="languages" title="Languages">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <div class="skills-grid">
+          {data.languages.map((l: any) => (
+            <div class="skill-item reveal">
+              <div class="skill-label">
+                <span>{l.name}</span>
+                <span class="skill-level">{l.level}</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar__fill" data-level={l.level === 'Proficient' ? '100' : (l.level === 'Intermediate' ? '70' : '40')}></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+    )}
+
+    {data.certifications && (
+      <Section id="certifications" title="Certifications">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <Certifications certifications={data.certifications} />
+      </Section>
+    )}
+
+    {data.contact && (
+      <Section id="contact" title="Get In Touch">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <Contact contact={data.contact} header={data.header} />
+      </Section>
+    )}
+  </main>
+
+  <Fab />
+
+  <PrintTemplate data={data} />
+</Layout>

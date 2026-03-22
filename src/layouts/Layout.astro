@@ -1,0 +1,98 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Global Styles -->
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader" class="loader">
+    <div class="loader__spinner"></div>
+    <p class="loader__text">Loading resume…</p>
+  </div>
+
+  <div id="resume-root" style="opacity:0">
+    <slot />
+  </div>
+
+  <!-- PDF Toast -->
+  <div id="toast" class="toast">Generating PDF…</div>
+
+  <script>
+    // Theme Management
+    const savedTheme = localStorage.getItem('resume-theme') || 'dark';
+    document.documentElement.dataset.theme = savedTheme;
+
+    // Loader Management
+    window.addEventListener('DOMContentLoaded', () => {
+      const loader = document.getElementById('loader');
+      const root = document.getElementById('resume-root');
+      if (loader && root) {
+        loader.classList.add('hidden');
+        root.style.opacity = '1';
+        setTimeout(() => loader.remove(), 600);
+      }
+    });
+
+    // Scroll Reveal
+    const initScrollReveal = () => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(el => obs.observe(el));
+    };
+
+    // Skill Bar Animation
+    const initSkillBars = () => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const fills = e.target.querySelectorAll('.skill-bar__fill');
+            fills.forEach(f => {
+              const level = (f as HTMLElement).dataset.level || '80';
+              requestAnimationFrame(() => { (f as HTMLElement).style.width = level + '%'; });
+            });
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.skill-category__name, .skill-list, #skills').forEach(el => obs.observe(el));
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initScrollReveal();
+      initSkillBars();
+    });
+  </script>
+</body>
+</html>
+<style is:global>
+  @import "../styles/global.css";
+</style>

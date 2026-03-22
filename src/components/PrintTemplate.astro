@@ -1,0 +1,238 @@
+---
+import { icons } from '../utils/pdfIcons';
+
+interface Props {
+  data: any;
+}
+
+const { data } = Astro.props;
+---
+
+<div id="professional-resume-pdf">
+  <!-- 1. HEADER (Black BG) -->
+  <header class="pdf-header">
+    <div class="pdf-header-contact">
+      {data.header.email && (
+        <div class="pdf-contact-row">
+          <span class="pdf-icon-svg"><img src={icons.mail} alt="" /></span>
+          {data.header.email}
+        </div>
+      )}
+      {data.header.phone && (
+        <div class="pdf-contact-row">
+          <span class="pdf-icon-svg"><img src={icons.phone} alt="" /></span>
+          {data.header.phone}
+        </div>
+      )}
+      {data.header.linkedin && (
+        <div class="pdf-contact-row">
+          <span class="pdf-icon-svg"><img src={icons.linkedin} alt="" /></span>
+          {data.header.linkedin.replace('https://', '').replace('www.', '')}
+        </div>
+      )}
+      {data.header.github && (
+        <div class="pdf-contact-row">
+          <span class="pdf-icon-svg"><img src={icons.github} alt="" /></span>
+          {data.header.github.replace('https://', '').replace('www.', '')}
+        </div>
+      )}
+      {data.header.location && (
+        <div class="pdf-contact-row">
+          <span class="pdf-icon-svg"><img src={icons.location} alt="" /></span>
+          {data.header.location}
+        </div>
+      )}
+    </div>
+    <div class="pdf-header-identity">
+      <div class="pdf-name-wrap">
+        <h1 class="pdf-name">{data.header.name}</h1>
+        <p class="pdf-title">{data.header.title.toUpperCase()}</p>
+      </div>
+      <div class="pdf-profile-image">
+        <div class="pdf-profile-initial">
+          <img src={icons.user} style="width: 40pt; height: 40pt; filter: brightness(0) invert(1);" alt="" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. SUMMARY (Centered with separators) -->
+  <div class="pdf-summary-wrap">
+    <div class="pdf-separator top">
+      <span class="pdf-diamond"></span>
+    </div>
+    <p class="pdf-summary-text">{data.summary}</p>
+    <div class="pdf-separator bottom">
+      <span class="pdf-diamond"></span>
+    </div>
+  </div>
+
+  <!-- 3. MAIN CONTENT (Two Columns) -->
+  <div class="pdf-body">
+    <!-- LEFT COLUMN (Experience, OS, Academic) -->
+    <div class="pdf-col-left">
+      <section class="pdf-section">
+        <h2 class="pdf-section-title">
+          <img src={icons.briefcase} alt="" class="pdf-section-icon" />
+          Work Experience
+        </h2>
+        {data.experience.map(job => (
+          <div class="pdf-item">
+            <div class="pdf-item-header">
+              <span class="pdf-item-company">{job.company}</span>
+              <span class="pdf-item-loc">{job.location}</span>
+            </div>
+            <div class="pdf-item-sub">
+              <span class="pdf-item-role">{job.role}</span>
+              <span class="pdf-item-dates">{job.from} – {job.to}</span>
+            </div>
+            <ul class="pdf-item-list">
+              {job.highlights.map(h => <li>{h}</li>)}
+            </ul>
+          </div>
+        ))}
+      </section>
+
+      <section class="pdf-section">
+        <h2 class="pdf-section-title">
+          <img src={icons.star} alt="" class="pdf-section-icon" />
+          Open Source Contributions
+        </h2>
+        {data.projects.map(p => (
+          <div class="pdf-item pdf-os">
+            <div class="pdf-os-name">{p.name}</div>
+            <div class="pdf-os-dates">{p.tech.join(', ')}</div>
+            <ul class="pdf-item-list">
+              <li>{p.description}</li>
+              {p.url && <li class="pdf-os-url">{p.url}</li>}
+            </ul>
+          </div>
+        ))}
+      </section>
+
+      {data.academic_projects && (
+        <section class="pdf-section pdf-academic">
+          <h2 class="pdf-section-title">
+            <img src={icons.award} alt="" class="pdf-section-icon" />
+            Academic Project
+          </h2>
+          {data.academic_projects.map((p: any) => (
+            <div class="pdf-item">
+              <div class="pdf-item-header">
+                <span class="pdf-item-company">{p.name}</span>
+                <span class="pdf-item-dates">{p.duration}</span>
+              </div>
+              <div class="pdf-item-sub">
+                <span class="pdf-item-role">{p.institution}</span>
+              </div>
+              <div class="pdf-project-tech-line" style="font-weight: 600; font-size: 8pt; color: #555;"><b>Tech Stack:</b> {p.tech.join(', ')}</div>
+              <p class="pdf-project-desc-mini" style="margin-top: 3pt; line-height: 1.3;">{p.description}</p>
+            </div>
+          ))}
+        </section>
+      )}
+    </div>
+
+    <!-- RIGHT COLUMN (Skills, Edu, Lang, Certs) -->
+    <div class="pdf-col-right">
+      {data.certifications && (
+        <section class="pdf-section">
+          <h2 class="pdf-section-title">
+            <img src={icons.award} alt="" class="pdf-section-icon" />
+            Certification
+          </h2>
+          {data.certifications.map((c: any) => (
+            <div class="pdf-item">
+              <div class="pdf-item-header">
+                <span class="pdf-item-company" style="font-size: 9.5pt;">{c.name}</span>
+              </div>
+              <p class="pdf-project-desc-mini" style="margin-top: 2pt; font-size: 8pt; line-height: 1.25;">{c.description}</p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {data.skills_current && (
+        <section class="pdf-section">
+          <h2 class="pdf-section-title">
+            <img src={icons.tool} alt="" class="pdf-section-icon" />
+            Skills (Current)
+          </h2>
+          <div class="pdf-skills-table">
+            {data.skills_current[0].items.map((skill: any) => (
+              <div class="pdf-skill-row">
+                <span class="pdf-skill-name">{skill.name}</span>
+                <span class="pdf-skill-level">{skill.level > 85 ? 'Proficient' : 'Intermediate'}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {data.skills_past && (
+        <section class="pdf-section">
+          <h2 class="pdf-section-title">
+            <img src={icons.tool} alt="" class="pdf-section-icon" />
+            Skills (Past Experience)
+          </h2>
+          <div class="pdf-skills-table">
+            {data.skills_past[0].items.map((skill: any) => (
+              <div class="pdf-skill-row">
+                <span class="pdf-skill-name">{skill.name}</span>
+                <span class="pdf-skill-level">{skill.level > 85 ? 'Proficient' : (skill.level > 70 ? 'Intermediate' : 'Worked Long Back')}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {data.other_skills && (
+        <section class="pdf-section">
+          <h2 class="pdf-section-title">
+            <img src={icons.star} alt="" class="pdf-section-icon" />
+            Other Skills
+          </h2>
+          <div class="pdf-badges">
+            {data.other_skills.map((s: string) => <span class="pdf-badge">{s}</span>)}
+          </div>
+        </section>
+      )}
+
+      <section class="pdf-section">
+        <h2 class="pdf-section-title">
+          <img src={icons.book} alt="" class="pdf-section-icon" />
+          Education
+        </h2>
+        {data.education.map(e => (
+          <div class="pdf-item">
+            <div class="pdf-item-header">
+              <span class="pdf-item-company" style="font-size: 9pt;">{e.institution}</span>
+              <span class="pdf-item-dates" style="font-size: 8pt;">{e.from} – {e.to}</span>
+            </div>
+            <div class="pdf-item-sub">
+              <span class="pdf-item-role" style="font-size: 8.5pt;">{e.degree}</span>
+            </div>
+            <div class="pdf-item-loc" style="font-size: 7.5pt; color: #666; margin-top: 1pt;">({e.location})</div>
+          </div>
+        ))}
+      </section>
+
+      {data.languages && (
+        <section class="pdf-section">
+          <h2 class="pdf-section-title">
+            <img src={icons.globe} alt="" class="pdf-section-icon" />
+            Languages
+          </h2>
+          <div class="pdf-skills-table">
+            {data.languages.map((l: any) => (
+              <div class="pdf-skill-row">
+                <span class="pdf-skill-name">{l.name}</span>
+                <span class="pdf-skill-level">{l.level}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+---
+interface Props {
+  certifications: any[];
+}
+
+const { certifications } = Astro.props;
+---
+
+<ul class="cert-list stagger">
+  {certifications.map(c => (
+    <li class="cert-item reveal-left">
+      <div>
+        <div class="cert-name">{c.name}</div>
+        {c.issuer && <div class="cert-issuer">{c.issuer}</div>}
+        {c.description && <p class="cert-desc">{c.description}</p>}
+      </div>
+      {c.year && <span class="cert-year">{c.year}</span>}
+    </li>
+  ))}
+</ul>

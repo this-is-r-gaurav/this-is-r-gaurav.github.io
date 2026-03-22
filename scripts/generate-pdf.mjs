@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import { spawn } from 'child_process';
-import { waitPort } from 'wait-port';
+import waitPort from 'wait-port';
 import path from 'path';
 import { fileURLToPath } from 'url';
 

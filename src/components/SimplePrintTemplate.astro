@@ -1,0 +1,265 @@
+---
+import { icons } from '../utils/pdfIcons';
+
+interface Props {
+  data: any;
+}
+
+const { data } = Astro.props;
+---
+
+<div id="simple-resume-pdf">
+  <!-- HEADER (from Charles Bloomberg style) -->
+  <header class="simple-pdf-header">
+    <h1 class="simple-pdf-name">{data.header.name}</h1>
+    <div class="simple-pdf-contact">
+      {data.header.location && <span>{data.header.location}</span>}
+      {data.header.location && (data.header.email || data.header.phone || data.header.linkedin) && <span>|</span>}
+      {data.header.email && <span>{data.header.email}</span>}
+      {data.header.email && (data.header.phone || data.header.linkedin) && <span>|</span>}
+      {data.header.phone && <span>{data.header.phone}</span>}
+      {data.header.phone && data.header.linkedin && <span>|</span>}
+      {data.header.linkedin && (
+        <span>{data.header.linkedin.replace('https://', '').replace('www.', '')}</span>
+      )}
+    </div>
+  </header>
+
+  <main class="simple-pdf-main">
+    <!-- SUMMARY -->
+    {data.summary && (
+      <section class="simple-pdf-section">
+        <h2 class="simple-pdf-section-title">PROFESSIONAL SUMMARY</h2>
+        <div class="section-line"></div>
+        <p class="simple-pdf-text">{data.summary}</p>
+      </section>
+    )}
+
+    <!-- EXPERIENCE -->
+    <section class="simple-pdf-section">
+      <h2 class="simple-pdf-section-title">PROFESSIONAL EXPERIENCE</h2>
+      <div class="section-line"></div>
+      {data.experience.map(job => (
+        <div class="simple-pdf-item">
+          <div class="simple-pdf-item-header">
+            <span class="simple-pdf-item-role">{job.role}</span>
+            <span class="simple-pdf-item-meta">{job.from} — {job.to}, {job.location}</span>
+          </div>
+          <div class="simple-pdf-item-company">{job.company}</div>
+          <ul class="simple-pdf-list">
+            {job.highlights.map(h => (
+              <li>{h}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <!-- PROJECTS -->
+    {data.projects && (
+      <section class="simple-pdf-section">
+        <h2 class="simple-pdf-section-title">PROJECTS & OPEN SOURCE</h2>
+        <div class="section-line"></div>
+        {data.projects.map(p => (
+          <div class="simple-pdf-item">
+            <div class="simple-pdf-item-header">
+              <span class="simple-pdf-item-role">{p.name}</span>
+              <span class="simple-pdf-item-meta">{p.tech.join(', ')}</span>
+            </div>
+            <ul class="simple-pdf-list">
+              <li>{p.description}</li>
+              {p.url && <li class="url-item">{p.url}</li>}
+            </ul>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {data.academic_projects && (
+      <section class="simple-pdf-section">
+        <h2 class="simple-pdf-section-title">ACADEMIC PROJECTS</h2>
+        <div class="section-line"></div>
+        {data.academic_projects.map((p: any) => (
+          <div class="simple-pdf-item">
+            <div class="simple-pdf-item-header">
+              <span class="simple-pdf-item-role">{p.name}</span>
+              <span class="simple-pdf-item-meta">{p.duration}</span>
+            </div>
+            <div class="simple-pdf-item-company">{p.institution}</div>
+            <ul class="simple-pdf-list">
+               <li><strong>Tech Stack:</strong> {p.tech.join(', ')}</li>
+               <li>{p.description}</li>
+            </ul>
+          </div>
+        ))}
+      </section>
+    )}
+
+    <section class="simple-pdf-section">
+      <h2 class="simple-pdf-section-title">EDUCATION</h2>
+      <div class="section-line"></div>
+      {data.education.map(e => (
+        <div class="simple-pdf-item education-item">
+          <div class="simple-pdf-item-role">{e.degree}</div>
+          <div class="simple-pdf-item-detail">
+            {e.institution} · {e.location} · {e.from} — {e.to}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <!-- SKILLS -->
+    <section class="simple-pdf-section">
+      <h2 class="simple-pdf-section-title">EXPERT-LEVEL SKILLS</h2>
+      <div class="section-line"></div>
+      <div class="simple-pdf-skills">
+        {data.skills_current && (
+          <p><strong>Current:</strong> {data.skills_current[0].items.map((s:any) => s.name).join(', ')}</p>
+        )}
+        {data.other_skills && (
+          <p><strong>Other:</strong> {data.other_skills.join(', ')}</p>
+        )}
+      </div>
+    </section>
+  </main>
+</div>
+
+<style>
+  /* Use fixed padding for print to ensure margins are respected */
+  #simple-resume-pdf {
+    width: 210mm !important;
+    padding: 20mm !important; /* Forces the margin */
+    background: white;
+    color: #1a1a1a;
+    font-family: "EB Garamond", serif;
+    line-height: 1.3;
+    font-size: 10pt;
+    box-sizing: border-box;
+    min-height: 297mm;
+  }
+
+  .simple-pdf-header {
+    text-align: center;
+    margin-bottom: 20pt;
+  }
+
+  .simple-pdf-name {
+    font-size: 28pt;
+    font-weight: 700;
+    margin: 0 0 6pt 0;
+    color: #000;
+    font-family: "EB Garamond", serif;
+  }
+
+  .simple-pdf-contact {
+    font-size: 9pt;
+    color: #444;
+    display: flex;
+    justify-content: center;
+    gap: 12pt;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 4pt;
+  }
+
+  .inline-icon {
+    width: 10pt;
+    height: 10pt;
+    opacity: 0.8;
+  }
+
+  .simple-pdf-section {
+    margin-top: 16pt;
+    break-inside: avoid;
+  }
+
+  .simple-pdf-section-title {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 3pt;
+    letter-spacing: 0.02em;
+  }
+
+  .section-line {
+    height: 1.2pt;
+    background: #000;
+    margin-bottom: 8pt;
+  }
+
+  .simple-pdf-item {
+    margin-bottom: 12pt;
+  }
+
+  .simple-pdf-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .simple-pdf-item-role {
+    font-weight: 700;
+    font-size: 11pt;
+    color: #000;
+  }
+
+  .simple-pdf-item-meta {
+    font-size: 9pt;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .simple-pdf-item-company,
+  .simple-pdf-item-detail {
+    font-weight: 600;
+    font-size: 10pt;
+    color: #444;
+    margin-bottom: 4pt;
+  }
+
+  .simple-pdf-list {
+    margin: 4pt 0 0 0;
+    padding-left: 12pt;
+    list-style-type: disc;
+  }
+
+  .simple-pdf-list li {
+    margin-bottom: 3pt;
+    font-size: 10pt;
+    text-align: left;
+    color: #1a1a1a;
+  }
+
+  .url-item {
+    font-size: 9pt !important;
+    color: #0066cc;
+    text-decoration: underline;
+    list-style-type: none !important;
+    padding-left: 0 !important;
+  }
+
+  .simple-pdf-text {
+    font-size: 10pt;
+    text-align: justify;
+    margin: 0;
+  }
+
+  .simple-pdf-skills p {
+    margin-bottom: 4pt;
+    font-size: 10pt;
+  }
+
+  @media print {
+    #simple-resume-pdf {
+      /* DO NOT set padding to 0 here. Use the main component padding. */
+      width: 210mm !important;
+      margin: 0 !important;
+      background: white !important;
+      -webkit-print-color-adjust: exact !important;
+    }
+  }
+</style>

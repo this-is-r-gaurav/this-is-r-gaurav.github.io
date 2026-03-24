@@ -1,45 +1,271 @@
 ---
 ---
 
-<div class="fab-container" id="fab-container">
-  <button class="fab fab--pdf" id="btn-pdf" title="Download PDF" aria-label="Download PDF">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-      <polyline points="7 10 12 15 17 10"/>
-      <line x1="12" y1="15" x2="12" y2="3"/>
-    </svg>
-    <span>PDF</span>
-  </button>
+<div class="fab-menu" id="fab-menu">
+  <!-- Download Group -->
+  <div class="download-group" id="download-group">
+    <div class="download-options">
+      <!-- 2 Column PDF -->
+      <button class="download-item" id="dl-2col">
+        <span class="item-label">2 Column Layout</span>
+        <div class="item-icon pdf-pro">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 3v18"/>
+          </svg>
+        </div>
+      </button>
 
+      <!-- Executive PDF -->
+      <button class="download-item" id="dl-exec-pdf">
+        <span class="item-label">Executive Format</span>
+        <div class="item-icon pdf-simple">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="15" y1="18" y2="18"/>
+          </svg>
+        </div>
+      </button>
+
+      <!-- Executive DOCX -->
+      <button class="download-item" id="dl-exec-docx">
+        <span class="item-label">Executive DOCX</span>
+        <div class="item-icon docx">DOC</div>
+      </button>
+    </div>
+
+    <!-- Main FAB -->
+    <button class="fab fab--main" id="btn-main" title="Download Resume" aria-label="Download Resume">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-dl" viewBox="0 0 24 24" fill="none" 
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-close" viewBox="0 0 24 24" fill="none" 
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Theme Toggle -->
   <button class="fab fab--theme" id="btn-theme" title="Toggle theme" aria-label="Toggle theme">
-    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+    <svg id="icon-sun" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="5"/>
-      <line x1="12" y1="1" x2="12" y2="3"/>
-      <line x1="12" y1="21" x2="12" y2="23"/>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-      <line x1="1" y1="12" x2="3" y2="12"/>
-      <line x1="21" y1="12" x2="23" y2="12"/>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
     </svg>
-    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-         style="display:none">
+    <svg id="icon-moon" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </svg>
   </button>
 </div>
 
+<style>
+  .fab-menu {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+    z-index: 1000;
+  }
+
+  .fab {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--clr-surface);
+    color: var(--clr-text);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--clr-border);
+  }
+
+  .fab--main {
+    background: var(--clr-accent) !important;
+    color: #fff !important;
+    border: none;
+  }
+
+  /* Fix for light theme visibility */
+  [data-theme="light"] .fab--main {
+    background: #3b5bdb !important; /* Darker blue for better visibility in light theme */
+  }
+
+  .fab:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  }
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  /* Download Group */
+  .download-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .download-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .download-group.open .download-options {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .download-item {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    padding: 0.5rem;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    padding-left: 1.25rem;
+    color: var(--clr-text);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .download-item:hover {
+    background: var(--clr-surface-2);
+    border-color: var(--clr-accent);
+    transform: translateX(-5px);
+  }
+
+  .item-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .item-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .item-icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .pdf-pro { background: #3b5bdb; } /* Solid darker blue */
+  .pdf-simple { background: #444; }
+  .docx { background: #2b579a; }
+
+  @media print {
+    .fab-menu { display: none !important; }
+  }
+</style>
+
 <script>
-  const btnPdf = document.getElementById('btn-pdf');
+  const btnMain = document.getElementById('btn-main');
+  const group = document.getElementById('download-group');
+  const iconDl = btnMain?.querySelector('.icon-dl') as HTMLElement;
+  const iconClose = btnMain?.querySelector('.icon-close') as HTMLElement;
+
+  const dl2Col = document.getElementById('dl-2col');
+  const dlExecPdf = document.getElementById('dl-exec-pdf');
+  const dlExecDocx = document.getElementById('dl-exec-docx');
   const btnTheme = document.getElementById('btn-theme');
   const iconSun = document.getElementById('icon-sun');
   const iconMoon = document.getElementById('icon-moon');
 
-  // Theme logic
+  // Toggle Menu
+  btnMain?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = group?.classList.toggle('open');
+    if (iconDl && iconClose) {
+      iconDl.style.display = isOpen ? 'none' : 'block';
+      iconClose.style.display = isOpen ? 'block' : 'none';
+    }
+  });
+
+  document.addEventListener('click', () => {
+    group?.classList.remove('open');
+    if (iconDl && iconClose) {
+      iconDl.style.display = 'block';
+      iconClose.style.display = 'none';
+    }
+  });
+
+  const handleDownload = async (filename: string, path: string) => {
+    const isProd = window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1');
+
+    if (!isProd) {
+      if (window.location.pathname !== path) {
+        const iframe = document.createElement('iframe');
+        iframe.style.visibility = 'hidden';
+        iframe.style.position = 'fixed';
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.src = path;
+        document.body.appendChild(iframe);
+        iframe.onload = () => {
+          setTimeout(() => {
+            iframe.contentWindow?.focus();
+            iframe.contentWindow?.print();
+            setTimeout(() => document.body.removeChild(iframe), 1000);
+          }, 500);
+        };
+      } else {
+        window.print();
+      }
+      return;
+    }
+
+    try {
+      const response = await fetch(`/${filename}`);
+      if (response.ok) {
+        const link = document.createElement('a');
+        link.href = `/${filename}`;
+        link.download = filename.startsWith('resume-simple') 
+          ? `Gaurav_Resume_Simple.${filename.split('.').pop()}` 
+          : 'Gaurav_Resume_Professional.pdf';
+        link.click();
+      } else {
+        window.location.href = path;
+      }
+    } catch (e) {
+      window.location.href = path;
+    }
+  };
+
+  dl2Col?.addEventListener('click', () => handleDownload('resume.pdf', '/'));
+  dlExecPdf?.addEventListener('click', () => handleDownload('resume-simple.pdf', '/simple'));
+  dlExecDocx?.addEventListener('click', () => window.location.href = '/download-simple-docx');
+
   const syncThemeIcon = (theme: string) => {
     if (iconSun && iconMoon) {
       iconSun.style.display = theme === 'dark' ? 'block' : 'none';
@@ -47,39 +273,13 @@
     }
   };
 
-  btnTheme?.addEventListener('click', () => {
+  btnTheme?.addEventListener('click', (e) => {
+    e.stopPropagation();
     const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     localStorage.setItem('resume-theme', next);
     syncThemeIcon(next);
   });
 
-  // Initial icon sync
   syncThemeIcon(document.documentElement.dataset.theme || 'dark');
-
-  // PDF Export — switches between browser print in DEV and static PDF in PROD
-  btnPdf?.addEventListener('click', async () => {
-    // If in development mode, always use browser print for live feedback
-    if (import.meta.env.DEV) {
-      window.print();
-      return;
-    }
-
-    // In production (CI/Docker), try to fetch the pre-rendered PDF
-    try {
-      const response = await fetch('/resume.pdf', { method: 'HEAD' });
-      if (response.ok) {
-        const link = document.createElement('a');
-        link.href = '/resume.pdf';
-        link.download = 'Gaurav_Resume.pdf';
-        link.click();
-      } else {
-        // Fallback to browser print if file is missing (unexpected)
-        window.print();
-      }
-    } catch (e) {
-      // Fallback if network fails
-      window.print();
-    }
-  });
 </script>

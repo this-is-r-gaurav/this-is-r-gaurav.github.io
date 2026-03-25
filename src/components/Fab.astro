@@ -210,6 +210,9 @@
       iconDl.style.display = isOpen ? 'none' : 'block';
       iconClose.style.display = isOpen ? 'block' : 'none';
     }
+    if (isOpen) {
+      (window as any).posthog?.capture('download_menu_opened');
+    }
   });
 
   document.addEventListener('click', () => {
@@ -220,7 +223,15 @@
     }
   });
 
-  const handleDownload = async (filename: string, path: string) => {
+  const handleDownload = async (filename: string, path: string, formatName: string) => {
+    // Track download event
+    if (typeof window !== 'undefined' && (window as any).posthog) {
+      (window as any).posthog.capture('resume_downloaded', {
+        format: formatName,
+        filename: filename
+      });
+    }
+
     const isProd = window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1');
 
     if (!isProd) {
@@ -262,9 +273,19 @@
     }
   };
 
-  dl2Col?.addEventListener('click', () => handleDownload('resume.pdf', '/'));
-  dlExecPdf?.addEventListener('click', () => handleDownload('resume-simple.pdf', '/simple'));
-  dlExecDocx?.addEventListener('click', () => window.location.href = '/download-simple-docx');
+  dl2Col?.addEventListener('click', () => handleDownload('resume.pdf', '/', 'Professional 2-Column'));
+  dlExecPdf?.addEventListener('click', () => handleDownload('resume-simple.pdf', '/simple', 'Executive PDF'));
+  
+  dlExecDocx?.addEventListener('click', () => {
+    // Track DOCX download event
+    if (typeof window !== 'undefined' && (window as any).posthog) {
+      (window as any).posthog.capture('resume_downloaded', {
+        format: 'Executive DOCX',
+        filename: 'resume-simple.docx'
+      });
+    }
+    window.location.href = '/download-simple-docx';
+  });
 
   const syncThemeIcon = (theme: string) => {
     if (iconSun && iconMoon) {
@@ -279,6 +300,7 @@
     document.documentElement.dataset.theme = next;
     localStorage.setItem('resume-theme', next);
     syncThemeIcon(next);
+    (window as any).posthog?.capture('theme_toggled', { theme: next });
   });
 
   syncThemeIcon(document.documentElement.dataset.theme || 'dark');

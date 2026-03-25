@@ -75,4 +75,13 @@ const firstName = nameParts.join(' ');
       if (i >= text.length) clearInterval(iv);
     }, speed);
   });
+
+  // Track contact link clicks
+  document.querySelectorAll('.hero__links a.hero__link').forEach((link) => {
+    link.addEventListener('click', () => {
+      const href = (link as HTMLAnchorElement).href;
+      const type = href.startsWith('mailto:') ? 'email' : href.startsWith('tel:') ? 'phone' : 'social';
+      (window as any).posthog?.capture('contact_link_clicked', { type, href });
+    });
+  });
 </script>

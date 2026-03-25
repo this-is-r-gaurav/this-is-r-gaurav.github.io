@@ -27,9 +27,16 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          PUBLIC_POSTHOG_KEY: ${{ secrets.PUBLIC_POSTHOG_KEY }}
 
       - name: Generate PDF
         run: npm run generate-pdf
+        env:
+          PUBLIC_POSTHOG_KEY: ${{ secrets.PUBLIC_POSTHOG_KEY }}
+          
+      - name: Generate DOCX
+        run: npm run generate-docx
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

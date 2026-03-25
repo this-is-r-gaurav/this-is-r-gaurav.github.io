@@ -1,10 +1,21 @@
 ---
+import yaml from 'js-yaml';
+import fs from 'node:fs';
+import PostHog from '../components/posthog.astro';
+
 interface Props {
   title: string;
   description?: string;
 }
 
 const { title, description } = Astro.props;
+
+// Load full resume data for JSON-LD and SEO
+const fileContents = fs.readFileSync("./src/data/resume.yaml", "utf8");
+const data = yaml.load(fileContents) as any;
+
+const siteUrl = "https://this-is-r-gaurav.github.io/"; 
+const shareImage = `${siteUrl}og-image.png`; 
 ---
 
 <!DOCTYPE html>
@@ -13,8 +24,48 @@ const { title, description } = Astro.props;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
-  {description && <meta name="description" content={description} />}
+  <meta name="description" content={description || data.meta.description} />
+  <meta name="keywords" content={data.meta.keywords} />
+  <meta name="author" content={data.header.name} />
   
+  <!-- SEO / Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={siteUrl} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description || data.meta.description} />
+  <meta property="og:image" content={shareImage} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={siteUrl} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description || data.meta.description} />
+  <meta property="twitter:image" content={shareImage} />
+
+  <link rel="canonical" href={siteUrl} />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": data.header.name,
+    "jobTitle": data.header.title,
+    "url": siteUrl,
+    "sameAs": [
+      data.header.github,
+      data.header.linkedin
+    ],
+    "description": data.meta.description,
+    "knowsAbout": [
+      "Software Engineering",
+      "Full Stack Development",
+      "Threat Intelligence",
+      "Python",
+      "Go",
+      "Cloud Infrastructure"
+    ]
+  })} />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -22,7 +73,7 @@ const { title, description } = Astro.props;
     rel="stylesheet"
   />
 
-  <!-- Global Styles -->
+  <PostHog />
 </head>
 <body>
   <!-- Loader -->

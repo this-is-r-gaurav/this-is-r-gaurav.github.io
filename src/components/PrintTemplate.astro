@@ -55,9 +55,15 @@ const { data } = Astro.props;
         <p class="pdf-title">{data.header.title.toUpperCase()}</p>
       </div>
       <div class="pdf-profile-image">
-        <div class="pdf-profile-initial">
-          <img src={icons.user} style="width: 40pt; height: 40pt; filter: brightness(0) invert(1);" alt="" />
-        </div>
+        {data.header.image ? (
+          <div class="pdf-profile-initial" style="background: transparent !important; box-shadow: 0 0 10pt rgba(0, 0, 0, 0.3);">
+            <img src={data.header.image} style="width: 50pt; height: 50pt; object-fit: cover; border-radius: 50%; display: block; filter: none !important;" alt="Profile Image" />
+          </div>
+        ) : (
+          <div class="pdf-profile-initial">
+            <img src={icons.user} style="width: 40pt; height: 40pt; filter: brightness(0) invert(1);" alt="" />
+          </div>
+        )}
       </div>
     </div>
   </header>

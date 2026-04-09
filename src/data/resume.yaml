@@ -10,6 +10,7 @@ meta:
 header:
   name: "Gaurav"
   title: "Software Engineer"
+  image: "/profile.jpg"
   email: "this-is-r-gaurav@outlook.com"
   phone: "+91 90179-20586"
   location: "Magarpatta, Pune, Hadapsar - 411028"

@@ -12,7 +12,7 @@ import { resumeData as data } from "../utils/data";
 
 const rawSiteUrl = Astro.site ? Astro.site.href : Astro.url.origin;
 const siteUrl = rawSiteUrl.endsWith("/") ? rawSiteUrl.slice(0, -1) : rawSiteUrl;
-const shareImage = `${siteUrl}/og-image.png`;
+const shareImage = `${siteUrl}/og-image.jpg`;
 ---
 
 <!doctype html>
@@ -41,7 +41,7 @@ const shareImage = `${siteUrl}/og-image.png`;
         data.meta?.description}
     />
     <meta property="og:image" content={shareImage} />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta itemprop="image" content={shareImage} />

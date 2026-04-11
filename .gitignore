@@ -31,4 +31,4 @@ scripts/*
 !scripts/generate-docx.ts
 *.md
 !README.md
-public/og-image.png
+public/og-image.*

@@ -10,8 +10,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 async function main() {
   const PORT = 4322; // separate port so it can run alongside generate-pdf
   const SERVER_URL = `http://localhost:${PORT}`;
-  const DIST_PATH = path.join(__dirname, "../dist/og-image.png");
-  const PUBLIC_PATH = path.join(__dirname, "../public/og-image.png");
+  const DIST_PATH = path.join(__dirname, "../dist/og-image.jpg");
+  const PUBLIC_PATH = path.join(__dirname, "../public/og-image.jpg");
 
   console.log("--- Starting OG Image Generation ---");
 
@@ -36,6 +36,8 @@ async function main() {
 
     await page.screenshot({
       path: DIST_PATH,
+      type: "jpeg",
+      quality: 90,
       clip: { x: 0, y: 0, width: 1200, height: 630 },
     });
     console.log(`--- OG image saved to dist/ ---`);
@@ -43,6 +45,8 @@ async function main() {
     // Also update public/ so future builds pick it up
     await page.screenshot({
       path: PUBLIC_PATH,
+      type: "jpeg",
+      quality: 90,
       clip: { x: 0, y: 0, width: 1200, height: 630 },
     });
     console.log(`--- OG image saved to public/ ---`);

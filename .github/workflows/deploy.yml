@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -19,11 +19,12 @@ jobs:
 
       - name: Use Node.js 22
         uses: actions/setup-node@v4
+        cache: 'npm'
         with:
           node-version: 22
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build
         run: npm run build
@@ -34,7 +35,10 @@ jobs:
         run: npm run generate-pdf
         env:
           PUBLIC_POSTHOG_KEY: ${{ secrets.PUBLIC_POSTHOG_KEY }}
-          
+
+      - name: Generate OG Image
+        run: npm run generate-og
+
       - name: Generate DOCX
         run: npm run generate-docx
 

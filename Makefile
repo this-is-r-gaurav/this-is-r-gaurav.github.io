@@ -14,9 +14,12 @@ install: ## Install local dependencies
 dev: ## Run local development server
 	npm run dev
 
-build: ## Build site and generate static PDF locally
+build: ## Build site and generate static PDF, DOCX, and OG image locally
 	npm run build
 	npm run generate-pdf
+	npm run extract-character
+	npm run generate-og
+	npm run generate-docx
 
 preview: ## Preview the production build locally
 	npm run preview
@@ -28,7 +31,7 @@ docker-run: docker-build ## Build and run the site via Docker on port 8080
 	@echo "Site will be available at http://localhost:$(PORT)"
 	docker run --rm -p $(PORT):80 --name $(CONTAINER_NAME) $(IMAGE_NAME)
 
-docker-pdf: ## Extract documents from Docker
+docker-export: ## Extract documents from Docker
 	@echo "Building builder stage..."
 	docker build --platform linux/amd64 --target builder -t resume-builder-temp .
 	@echo "Extracting documents..."

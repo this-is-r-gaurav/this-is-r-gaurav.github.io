@@ -1,22 +1,30 @@
 ---
+import type { EducationData } from "../utils/schema";
+
 interface Props {
-  education: any[];
+  education: EducationData[];
 }
 
 const { education } = Astro.props;
 ---
 
 <div class="education-list">
-  {education.map(e => (
-    <div class="education-item reveal">
-      <div>
-        <div class="education-institution">{e.institution}</div>
-        <div class="education-degree">{e.degree}</div>
+  {
+    education.map((e) => (
+      <div class="education-item reveal">
+        <div>
+          <div class="education-institution">{e.institution}</div>
+          <div class="education-degree">{e.degree}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          {e.grade && <div class="education-grade">{e.grade}</div>}
+          {e.from && e.to && (
+            <div class="education-years">
+              {e.from} – {e.to}
+            </div>
+          )}
+        </div>
       </div>
-      <div style="text-align:right;flex-shrink:0">
-        {e.grade && <div class="education-grade">{e.grade}</div>}
-        {e.from && e.to && <div class="education-years">{e.from} – {e.to}</div>}
-      </div>
-    </div>
-  ))}
+    ))
+  }
 </div>

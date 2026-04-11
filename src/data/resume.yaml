@@ -1,14 +1,30 @@
 # ============================================================
 #  resume.yaml — THE ONLY FILE YOU NEED TO EDIT
 # ============================================================
+#
+# _section_order controls the sequence of sections in generated
+# documents (DOCX). Add a new key here + data below to include
+# a new section with zero code changes.
+_section_order:
+  - header
+  - summary
+  - experience
+  - skills
+  - education
+  - certifications
+  - open_source_contributions
+  - projects
+  - languages
 
 meta:
   title: "Gaurav | Software Engineer"
   description: "Full Stack Software Engineer with expertise in UI, Backend, and DevOps, specializing in building resilient, high-scale systems and leading cross-functional teams in the past and looking for opportunity in the Threat Intelligence domain."
   keywords: "Software Engineer, Full Stack, Threat Intelligence, Python, Go, Kubernetes, Resume, Gaurav"
+  ogTitle: "Transforming Web Data into Actionable Intel"
 
 header:
   name: "Gaurav"
+  fullName: "Gaurav Raheja"
   title: "Software Engineer"
   image: "/profile.jpg"
   email: "this-is-r-gaurav@outlook.com"
@@ -17,7 +33,7 @@ header:
   home: "Ward No 4 Kotlla Mohalla, Barwala, Hisar - 125121"
   github: "https://github.com/this-is-r-gaurav"
   linkedin: "https://linkedin.com/in/this-is-r-gaurav"
-  website: "tel:+91%2090179-20586"
+  website: "https://gaurav.raheja.dev"
 
 summary: |
   Full Stack Software Engineer with a focus on building resilient, scalable systems across UI, Backend, and DevOps. Proven track record in leading cross-functional teams and delivering high-impact solutions in Threat Intelligence Collection. Actively exploring opportunity in Threat Intelligence domain
@@ -64,7 +80,7 @@ experience:
       - "Improved user engagement by integrating Dialogflow interfaces, bridging the gap between automated systems and customer needs."
       - "Conducted strategic R&D to identify and prototype innovative features, directly contributing to product evolution and roadmap growth."
 
-projects:
+open_source_contributions:
   - name: "TimeScaleDb"
     description: "Enhanced Helm Chart flexibility for single-node installations, enabling support for custom secret management. Pull Request #327."
     url: "https://github.com/timescale/helm-charts/pull/327"
@@ -91,61 +107,59 @@ certifications:
     issuer: "Mandiant"
     description: "Demonstrated proficiency in threat intelligence frameworks, including STIX and the Diamond Model, to streamline workflows and improve structural analysis of cyber threats."
 
-academic_projects:
-  - name: "Dynamo Scrapper"
-    institution: "Btech. GJUS&T"
-    duration: "3 Months"
-    tech: ["Python", "Django", "Scrapy", "Twisted", "NativeScript"]
-    description: "Architected a no-code web scraping platform featuring a GUI for crawler creation and mobile-based deployment, simplifying data extraction for non-technical users."
-  - name: "MedBot"
-    institution: "Btech. GJUS&T"
-    duration: "1 Month"
-    tech: ["C#", "HTML", "Agility Pack", "RestPlus"]
-    description: "Developed a medical prescription analysis tool that identifies drugs and cross-references them with online alternatives via 3rd-party APIs to improve medication accessibility."
-  - name: "SCAP"
-    institution: "Btech. GJUS&T"
-    duration: "1 Month"
-    tech: ["Arduino", "Ultrasonic sensor", "Node Red", "Embedded", "Twillio"]
-    description: "Engineered an IoT-based vehicular safety system using Arduino and ultrasonic sensors for proximity detection, automatic speed control, and SOS emergency messaging."
-  - name: "Training Placement Portal"
-    institution: "Btech. GJUS&T"
-    duration: "5 Months"
-    tech: ["PHP", "HTML", "JS", "CSS", "Bootstrap3"]
-    description: "Designed and implemented a centralized university portal to streamline the management and communication of academic events, training sessions, and placement drives."
+projects:
+  - group: "Academic"
+    items:
+      - name: "Dynamo Scrapper"
+        institution: "Btech. GJUS&T"
+        duration: "3 Months"
+        tech: ["Python", "Django", "Scrapy", "Twisted", "NativeScript"]
+        description: "Architected a no-code web scraping platform featuring a GUI for crawler creation and mobile-based deployment, simplifying data extraction for non-technical users."
+      - name: "MedBot"
+        institution: "Btech. GJUS&T"
+        duration: "1 Month"
+        tech: ["C#", "HTML", "Agility Pack", "RestPlus"]
+        description: "Developed a medical prescription analysis tool that identifies drugs and cross-references them with online alternatives via 3rd-party APIs to improve medication accessibility."
+      - name: "SCAP"
+        institution: "Btech. GJUS&T"
+        duration: "1 Month"
+        tech: ["Arduino", "Ultrasonic sensor", "Node Red", "Embedded", "Twillio"]
+        description: "Engineered an IoT-based vehicular safety system using Arduino and ultrasonic sensors for proximity detection, automatic speed control, and SOS emergency messaging."
+      - name: "Training Placement Portal"
+        institution: "Btech. GJUS&T"
+        duration: "5 Months"
+        tech: ["PHP", "HTML", "JS", "CSS", "Bootstrap3"]
+        description: "Designed and implemented a centralized university portal to streamline the management and communication of academic events, training sessions, and placement drives."
 
-skills_current:
-  - items:
+skills:
+  - group: "Current"
+    items:
       - name: "Python3"
         level: 95
       - name: "GIT & VCS"
         level: 95
       - name: "JS"
         level: 90
+      - name: "Docker"
+        level: 85
       - name: "Bash"
         level: 80
       - name: "Typescript"
         level: 80
-      - name: "Docker"
-        level: 85
       - name: "Java"
         level: 75
       - name: "ElasticSearch"
         level: 70
-      - name: "NiFi"
-        level: 60
       - name: "Dataflow"
         level: 65
+      - name: "NiFi"
+        level: 60
       - name: "Prompt Engineering"
         level: 60
       - name: "Bigquery & Looker"
         level: 60
-
-skills_past:
-  - items:
-      - name: "JQuery"
-        level: 60
-      - name: "Ecmascript"
-        level: 60
+  - group: "Prior Experience"
+    items:
       - name: "React JS"
         level: 60
       - name: "Angular"
@@ -155,8 +169,6 @@ skills_past:
       - name: "Bootstrap"
         level: 60
       - name: "Scrapy"
-        level: 60
-      - name: "Node JS"
         level: 60
       - name: "Golang"
         level: 60
@@ -168,10 +180,13 @@ skills_past:
         level: 60
       - name: "MongoDB"
         level: 55
-      - name: "Ionic"
-        level: 50
-
-other_skills: ["GIMP", "Inkscape", "Terraform", "Arduino", "RaspberryPi", "Vim", "Postman", "Android", "NodeMCU", "IBM Watson", "Node Red"]
+  - group: "Other"
+    items:
+      [
+        "GIMP",
+        "Inkscape",
+        "Terraform",
+      ]
 
 education:
   - institution: "Centre for Development of Advance Computing (CDAC)"

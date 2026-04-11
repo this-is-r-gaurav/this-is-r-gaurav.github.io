@@ -1,21 +1,18 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import SimplePrintTemplate from '../components/SimplePrintTemplate.astro';
-import Fab from '../components/Fab.astro';
+import Layout from "../layouts/Layout.astro";
+import SimpleTemplate from "../templates/pdf/SimpleTemplate.astro";
+import Fab from "../components/Fab.astro";
 
-import fs from 'node:fs';
-import yaml from 'js-yaml';
-
-// Load Resume Data
-const fileContents = fs.readFileSync('./src/data/resume.yaml', 'utf8');
-const data = yaml.load(fileContents) as any;
+import { resumeData as data } from "../utils/data";
 ---
 
-<Layout title={data.meta?.title + " | Simple"} description={data.meta?.description}>
+<Layout
+  title={data.meta?.title + " | Simple"}
+  description={data.meta?.description}
+>
   <div data-current-template="simple" id="main-content-wrapper">
-     <!-- For the simple version, we can show a minimalist web preview or just the PDF layout -->
-     <SimplePrintTemplate data={data} />
-     <Fab />
+    <SimpleTemplate data={data} />
+    <Fab />
   </div>
 
   <style>
@@ -24,13 +21,13 @@ const data = yaml.load(fileContents) as any;
       position: relative !important;
       left: 0 !important;
       margin: 2rem auto !important;
-      box-shadow: 0 0 50px rgba(0,0,0,0.1);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
       display: block !important;
       visibility: visible !important;
       pointer-events: auto !important;
       z-index: 1 !important;
     }
-    
+
     :global(body) {
       background: #f5f5f5 !important;
     }

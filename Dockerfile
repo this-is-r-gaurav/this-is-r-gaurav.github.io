@@ -49,7 +49,7 @@ WORKDIR /app
 # Copy package files and install
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 # Copy the rest of the application
 COPY . .

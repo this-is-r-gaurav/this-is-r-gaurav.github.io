@@ -1,36 +1,44 @@
 ---
+import type { SkillsGroup } from '../utils/schema';
+
 interface Props {
-  skills: any[];
+  skills: SkillsGroup[];
 }
 
 const { skills } = Astro.props;
-
-// Normalise skills to always be an array of categories
-const normalisedSkills = skills[0]?.items 
-  ? skills 
-  : [{ category: '', items: skills }];
 ---
 
 <div class="skills-grid stagger">
-  {normalisedSkills.map(cat => (
-    <div class="reveal-scale">
-      {cat.category && <div class="skill-category__name">{cat.category}</div>}
-      <div class="skill-list" style={!cat.category ? "margin-top: 0" : ""}>
-        {cat.items.map((skill: any) => (
-          <div class="skill-item">
-            <div class="skill-label">
-              <span>{typeof skill === 'string' ? skill : skill.name}</span>
-              <span class="skill-level">{typeof skill === 'string' ? '80%' : `${skill.level}%`}</span>
-            </div>
-            <div class="skill-bar">
-              <div 
-                class="skill-bar__fill" 
-                data-level={typeof skill === 'string' ? '80' : skill.level}
-              ></div>
-            </div>
+  {skills.map(group => {
+    const hasBars = group.items.some((s: any) => typeof s !== 'string' && s.level != null);
+    return (
+      <div class="reveal-scale">
+        {group.group && <div class="skill-category__name">{group.group}</div>}
+        {hasBars ? (
+          <div class="skill-list" style={!group.group ? "margin-top: 0" : ""}>
+            {group.items.map((skill: any) => (
+              <div class="skill-item">
+                <div class="skill-label">
+                  <span>{typeof skill === 'string' ? skill : skill.name}</span>
+                  <span class="skill-level">{typeof skill === 'string' ? '' : `${skill.level}%`}</span>
+                </div>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar__fill"
+                    data-level={typeof skill === 'string' ? '0' : skill.level}
+                  ></div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div class="skill-pills">
+            {group.items.map((skill: any) => (
+              <span class="skill-pill">{typeof skill === 'string' ? skill : skill.name}</span>
+            ))}
+          </div>
+        )}
       </div>
-    </div>
-  ))}
+    );
+  })}
 </div>

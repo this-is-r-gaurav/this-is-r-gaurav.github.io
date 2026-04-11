@@ -5,8 +5,8 @@
 
 /* ── DESIGN TOKENS ─────────────────────────────────────── */
 :root {
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "Fira Code", monospace;
 
   /* Colors — Light Theme */
   --clr-bg: #f0f4ff;
@@ -45,7 +45,13 @@
   --duration: 0.3s;
 
   /* Hero gradient */
-  --hero-grad: linear-gradient(135deg, #1e1b4b 0%, #1e3a5f 40%, #0f4c75 70%, #0d7ea5 100%);
+  --hero-grad: linear-gradient(
+    135deg,
+    #1e1b4b 0%,
+    #1e3a5f 40%,
+    #0f4c75 70%,
+    #0d7ea5 100%
+  );
 }
 
 /* ── DARK THEME ────────────────────────────────────────── */
@@ -85,7 +91,9 @@ body {
   background: var(--clr-bg);
   color: var(--clr-text);
   line-height: 1.65;
-  transition: background var(--duration) var(--ease), color var(--duration) var(--ease);
+  transition:
+    background var(--duration) var(--ease),
+    color var(--duration) var(--ease);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -170,7 +178,8 @@ ul {
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: transform var(--duration) var(--ease),
+  transition:
+    transform var(--duration) var(--ease),
     box-shadow var(--duration) var(--ease),
     opacity var(--duration) var(--ease);
   backdrop-filter: blur(12px) saturate(180%);
@@ -222,7 +231,9 @@ ul {
   opacity: 0;
   pointer-events: none;
   transform: translateY(8px);
-  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.3s var(--ease);
   z-index: 1001;
 }
 
@@ -252,7 +263,7 @@ ul {
 /* Animated gradient spheres */
 .hero::before,
 .hero::after {
-  content: '';
+  content: "";
   position: absolute;
   border-radius: 50%;
   filter: blur(60px);
@@ -356,7 +367,9 @@ ul {
   font-size: 0.8rem;
   font-weight: 500;
   backdrop-filter: blur(8px);
-  transition: background var(--duration), transform var(--duration);
+  transition:
+    background var(--duration),
+    transform var(--duration);
   text-decoration: none;
 }
 
@@ -379,7 +392,8 @@ ul {
   padding: var(--sp-xl);
   margin-bottom: var(--sp-lg);
   box-shadow: var(--shadow-card);
-  transition: box-shadow var(--duration) var(--ease),
+  transition:
+    box-shadow var(--duration) var(--ease),
     transform var(--duration) var(--ease),
     background var(--duration) var(--ease);
 }
@@ -537,7 +551,7 @@ ul {
 }
 
 .timeline-highlight::before {
-  content: '▸';
+  content: "▸";
   color: var(--clr-accent-2);
   flex-shrink: 0;
   margin-top: 1px;
@@ -599,6 +613,22 @@ ul {
   background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent-2));
   border-radius: var(--radius-pill);
   transition: width 1s var(--ease);
+}
+
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-pill {
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--clr-tag-bg);
+  color: var(--clr-tag-text);
+  border: 1px solid var(--clr-border);
 }
 
 /* ── EDUCATION ──────────────────────────────────────────── */
@@ -663,7 +693,9 @@ ul {
   background: var(--clr-surface-2);
   border-radius: var(--radius-sm);
   border: 1px solid var(--clr-border);
-  transition: border-color var(--duration), transform var(--duration);
+  transition:
+    border-color var(--duration),
+    transform var(--duration);
 }
 
 .cert-item:hover {
@@ -706,7 +738,8 @@ ul {
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: var(--sp-lg);
-  transition: transform var(--duration) var(--ease),
+  transition:
+    transform var(--duration) var(--ease),
     box-shadow var(--duration) var(--ease),
     border-color var(--duration);
   display: flex;
@@ -717,7 +750,7 @@ ul {
 }
 
 .project-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -842,7 +875,10 @@ ul {
   color: var(--clr-text);
   font-size: 0.85rem;
   font-weight: 500;
-  transition: background var(--duration), border-color var(--duration), transform var(--duration);
+  transition:
+    background var(--duration),
+    border-color var(--duration),
+    transform var(--duration);
   text-decoration: none;
 }
 
@@ -869,7 +905,9 @@ ul {
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+  transition:
+    opacity 0.65s var(--ease),
+    transform 0.65s var(--ease);
 }
 
 .reveal.visible {
@@ -880,7 +918,9 @@ ul {
 .reveal-left {
   opacity: 0;
   transform: translateX(-28px);
-  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+  transition:
+    opacity 0.65s var(--ease),
+    transform 0.65s var(--ease);
 }
 
 .reveal-left.visible {
@@ -891,7 +931,9 @@ ul {
 .reveal-scale {
   opacity: 0;
   transform: scale(0.94);
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+  transition:
+    opacity 0.55s var(--ease),
+    transform 0.55s var(--ease);
 }
 
 .reveal-scale.visible {
@@ -899,45 +941,9 @@ ul {
   transform: scale(1);
 }
 
-/* Stagger delays for children */
-.stagger>*:nth-child(1) {
-  transition-delay: 0.05s;
-}
-
-.stagger>*:nth-child(2) {
-  transition-delay: 0.12s;
-}
-
-.stagger>*:nth-child(3) {
-  transition-delay: 0.19s;
-}
-
-.stagger>*:nth-child(4) {
-  transition-delay: 0.26s;
-}
-
-.stagger>*:nth-child(5) {
-  transition-delay: 0.33s;
-}
-
-.stagger>*:nth-child(6) {
-  transition-delay: 0.40s;
-}
-
-.stagger>*:nth-child(7) {
-  transition-delay: 0.47s;
-}
-
-.stagger>*:nth-child(8) {
-  transition-delay: 0.54s;
-}
-
-.stagger>*:nth-child(9) {
-  transition-delay: 0.61s;
-}
-
-.stagger>*:nth-child(10) {
-  transition-delay: 0.68s;
+/* Stagger delays for children — set via JS for unlimited children */
+.stagger > * {
+  transition-delay: var(--stagger-delay, 0ms);
 }
 
 /* ── RESPONSIVE ─────────────────────────────────────────── */
@@ -1007,11 +1013,15 @@ ul {
   }
 }
 
-/* ── PRINT / PDF STYLES (Hand-Crafted Look) ─────────────── */
+/* ── PRINT / PDF STYLES ─────────────────────────────────── */
 @media print {
   @page {
     size: A4;
-    margin: 10mm;
+    margin: 4mm 0 4mm 0;
+  }
+
+  @page :first {
+    margin: 0 0 4mm 0;
   }
 
   *,
@@ -1022,6 +1032,8 @@ ul {
     box-shadow: none !important;
     text-shadow: none !important;
     backdrop-filter: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   :root {
@@ -1031,7 +1043,6 @@ ul {
     --clr-text: #000000;
     --clr-text-muted: #334155;
     --clr-accent: #1e1b4b;
-    /* Deep Indigo for print */
     --clr-accent-2: #0f172a;
     --clr-border: #cbd5e1;
     --clr-tag-bg: #f1f5f9;
@@ -1041,255 +1052,37 @@ ul {
 
   html,
   body {
-    background: #fff !important;
-    color: #000 !important;
-    font-size: 10.5pt;
-    line-height: 1.4;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  /* Hide web-only elements */
-  .fab-container,
-  .loader,
-  .toast,
-  #loader,
-  .hero::before,
-  .hero::after,
-  .section-title__bar,
-  .project-card::before {
-    display: none !important;
-  }
-
-  /* Professional Header */
-  .hero {
-    background: #ffffff !important;
-    color: #000000 !important;
-    padding: 0 0 1.5rem 0 !important;
-    margin-bottom: 1.5rem !important;
-    border-bottom: 2pt solid var(--clr-accent) !important;
-    text-align: left !important;
-    border-radius: 0 !important;
-  }
-
-  .hero__name {
-    color: var(--clr-accent) !important;
-    font-size: 26pt !important;
-    margin-bottom: 0.2rem !important;
-  }
-
-  .hero__name span {
-    -webkit-text-fill-color: initial !important;
-    color: var(--clr-accent) !important;
-    background: none !important;
-  }
-
-  .hero__title {
-    color: var(--clr-text) !important;
-    font-size: 14pt !important;
-    font-weight: 700 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .hero__tagline {
-    color: var(--clr-text-muted) !important;
-    font-size: 9pt !important;
-    margin-top: 0.2rem !important;
-  }
-
-  .hero__links {
-    justify-content: flex-start !important;
-    margin-top: 0.8rem !important;
-    gap: 1.5rem !important;
-  }
-
-  .hero__link {
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    color: var(--clr-text) !important;
-    font-size: 9pt !important;
-  }
-
-  .hero__link svg {
-    color: var(--clr-accent) !important;
-  }
-
-  /* Section cards → Clean sections */
-  #resume-root {
-    max-width: 100% !important;
-    padding: 0 !important;
-  }
-
-  .section-card {
-    border: none !important;
-    background: transparent !important;
-    padding: 0 !important;
-    margin-bottom: 1.8rem !important;
-    box-shadow: none !important;
-  }
-
-  .section-title {
-    color: var(--clr-accent) !important;
-    font-size: 12pt !important;
-    border-bottom: 1pt solid var(--clr-accent) !important;
-    margin-bottom: 0.8rem !important;
-    padding-bottom: 0.2rem !important;
-  }
-
-  .section-title svg {
-    display: none !important;
-  }
-
-  /* Experience / Timeline */
-  .timeline-item {
-    grid-template-columns: 0 1fr !important;
-    break-inside: avoid;
-    padding-bottom: 1.2rem !important;
-  }
-
-  .timeline-dot,
-  .timeline-connector {
-    display: none !important;
-  }
-
-  .timeline-role {
-    font-size: 11pt !important;
-  }
-
-  .timeline-company {
-    font-size: 10pt !important;
-    font-weight: 700 !important;
-  }
-
-  .timeline-badge {
-    background: transparent !important;
-    padding: 0 !important;
-    font-weight: 700 !important;
-    color: var(--clr-text-muted) !important;
-  }
-
-  .timeline-highlight {
-    font-size: 9.5pt !important;
-    margin-top: 0.1rem !important;
-  }
-
-  /* Skills */
-  .skills-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 1.5rem !important;
-  }
-
-  .skill-bar {
-    height: 1.5pt !important;
-    background: #e2e8f0 !important;
-  }
-
-  .skill-bar__fill {
-    background: var(--clr-accent) !important;
-  }
-
-  /* Projects */
-  .projects-grid {
-    grid-template-columns: 1fr !important;
-    gap: 0.8rem !important;
-  }
-
-  .project-card {
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    break-inside: avoid;
-  }
-
-  .project-name {
-    font-size: 10.5pt !important;
-    color: var(--clr-accent) !important;
-  }
-
-  .project-desc {
-    font-size: 9.5pt !important;
-    margin: 0.2rem 0 !important;
-  }
-
-  .tech-tag {
-    background: transparent !important;
-    border: 0.5pt solid var(--clr-border) !important;
-    color: var(--clr-text-muted) !important;
-    font-size: 8pt !important;
-  }
-
-  /* Reveal visibility */
-  .reveal,
-  .reveal-left,
-  .reveal-scale {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  /* Links */
-  a {
-    text-decoration: none !important;
-    color: var(--clr-accent) !important;
-  }
-}
-
-/* ── PROFESSIONAL PDF TEMPLATE (Reference Replication) ──── */
-#professional-resume-pdf,
-#simple-resume-pdf {
-  position: absolute;
-  top: 0;
-  left: -9999px;
-  display: block;
-  z-index: -1000;
-  pointer-events: none;
-  background: #ffffff !important;
-  color: #000000 !important;
-  width: 210mm;
-  min-height: 297mm;
-  height: auto;
-  font-family: 'Times New Roman', serif;
-  margin: 0;
-  padding: 0;
-  line-height: 1.2;
-}
-
-@media print {
-  @page {
-    size: A4;
-    margin: 4mm 0 4mm 0;
-    /* top margin on pages 2+ */
-  }
-
-  @page :first {
-    margin: 0 0 4mm 0;
-    /* no margin on page 1 for full-bleed header */
-  }
-
-  /* Reset html and body for print to avoid blank pages */
-  html,
-  body {
     height: auto !important;
     overflow: initial !important;
     margin: 0 !important;
     padding: 0 !important;
-    background: white !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+    line-height: 1.4;
   }
 
-  /* Hide everything except the PDF template */
+  #resume-root {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide web-only elements */
   .fab-container,
   .fab,
+  .loader,
+  .toast,
+  #loader,
   nav,
   header:not(.pdf-header):not(.simple-pdf-header),
-  nav,
   footer,
   aside,
-  .fab-container,
-  #theme-toggle {
+  #theme-toggle,
+  .hero::before,
+  .hero::after,
+  .section-title__bar,
+  .project-card::before {
     display: none !important;
   }
 
@@ -1328,9 +1121,30 @@ ul {
   }
 
   /* Hide the web version components when printing */
-  #main-content-wrapper > *:not(#professional-resume-pdf):not(#simple-resume-pdf) {
+  #main-content-wrapper
+    > *:not(#professional-resume-pdf):not(#simple-resume-pdf) {
     display: none !important;
   }
+}
+
+/* ── PROFESSIONAL PDF TEMPLATE (Reference Replication) ──── */
+#professional-resume-pdf,
+#simple-resume-pdf {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  display: block;
+  z-index: -1000;
+  pointer-events: none;
+  background: #ffffff !important;
+  color: #000000 !important;
+  width: 210mm;
+  min-height: 297mm;
+  height: auto;
+  font-family: "Times New Roman", serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
 }
 
 /* Header */
@@ -1392,7 +1206,7 @@ ul {
   font-weight: 800;
   margin: 0;
   color: #ffffff !important;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   white-space: nowrap;
   line-height: 1;
 }
@@ -1444,7 +1258,7 @@ ul {
 
 .pdf-separator::before,
 .pdf-separator::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 1pt;
   background: #76b041;
@@ -1489,7 +1303,7 @@ ul {
   border-bottom: 2pt solid #eeeeee;
   margin-bottom: 12pt;
   padding-bottom: 4pt;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   display: flex;
   align-items: center;
   gap: 10pt;
@@ -1544,7 +1358,7 @@ ul {
 }
 
 .pdf-item-list li::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 6pt;
   height: 6pt;
@@ -1635,14 +1449,6 @@ ul {
   line-height: 1.25;
 }
 
-/* Global Print Force */
-@media print {
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-}
-
 /* Bullet Consistency */
 .pdf-item-list {
   padding-left: 14pt;
@@ -1685,16 +1491,20 @@ ul {
 
 /* Font Unification */
 #professional-resume-pdf {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif !important;
   color: #1a1a1a !important;
 }
 
 .pdf-name {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 800;
 }
 
 .pdf-section-title {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   letter-spacing: 0.02em;
 }

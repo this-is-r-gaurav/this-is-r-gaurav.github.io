@@ -43,6 +43,7 @@ Click the **PDF** button in the bottom-right corner to download a clean A4 PDF o
 ---
 
 ## 🎨 Features
+
 - **Zero-JS by default** (except for theme toggle and PDF export).
 - **Astro Components**: Clean, modular architecture.
 - **Fast Refresh**: Instant feedback when editing `resume.yaml`.

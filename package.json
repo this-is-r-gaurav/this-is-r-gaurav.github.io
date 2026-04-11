@@ -1,5 +1,5 @@
 {
-  "name": "starry-ephemera",
+  "name": "Gaurav Raheja | Resume",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -10,17 +10,24 @@
     "build": "astro build",
     "preview": "astro preview",
     "generate-pdf": "node scripts/generate-pdf.mjs",
-    "generate-docx": "node scripts/generate-docx.mjs",
+    "generate-docx": "tsx scripts/generate-docx.ts",
+    "generate-og": "node scripts/generate-og.mjs",
+    "format": "prettier --write .",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.0.8",
+    "astro": "^6.1.5",
     "docx": "^9.6.1",
-    "js-yaml": "^4.1.1"
+    "js-yaml": "^4.1.1",
+    "prettier": "^3.8.2",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
+    "onnxruntime-node": "^1.24.3",
     "puppeteer": "^24.40.0",
+    "replicate": "^1.4.0",
+    "tsx": "^4.21.0",
     "wait-port": "^1.1.0"
   }
 }

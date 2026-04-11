@@ -1,7 +1,5 @@
 ---
-import yaml from 'js-yaml';
-import fs from 'node:fs';
-import PostHog from '../components/posthog.astro';
+import PostHog from "../components/posthog.astro";
 
 interface Props {
   title: string;
@@ -10,139 +8,179 @@ interface Props {
 
 const { title, description } = Astro.props;
 
-// Load full resume data for JSON-LD and SEO
-const fileContents = fs.readFileSync("./src/data/resume.yaml", "utf8");
-const data = yaml.load(fileContents) as any;
+import { resumeData as data } from "../utils/data";
 
-const siteUrl = "https://this-is-r-gaurav.github.io/"; 
-const shareImage = `${siteUrl}og-image.png`; 
+const rawSiteUrl = Astro.site ? Astro.site.href : Astro.url.origin;
+const siteUrl = rawSiteUrl.endsWith("/") ? rawSiteUrl.slice(0, -1) : rawSiteUrl;
+const shareImage = `${siteUrl}/og-image.png`;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
-  <meta name="description" content={description || data.meta.description} />
-  <meta name="keywords" content={data.meta.keywords} />
-  <meta name="author" content={data.header.name} />
-  
-  <!-- SEO / Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={siteUrl} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description || data.meta.description} />
-  <meta property="og:image" content={shareImage} />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description || data.meta?.description} />
+    <meta name="keywords" content={data.meta?.keywords} />
+    <meta name="author" content={data.header.name} />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={siteUrl} />
-  <meta property="twitter:title" content={title} />
-  <meta property="twitter:description" content={description || data.meta.description} />
-  <meta property="twitter:image" content={shareImage} />
+    <!-- SEO / Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={data.meta?.ogTitle ?? title} />
+    <meta
+      property="og:description"
+      content={description ||
+        data.meta?.ogDescription ||
+        data.meta?.description}
+    />
+    <meta property="og:image" content={shareImage} />
 
-  <link rel="canonical" href={siteUrl} />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={siteUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta
+      property="twitter:description"
+      content={description || data.meta?.description}
+    />
+    <meta property="twitter:image" content={shareImage} />
 
-  <!-- JSON-LD -->
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org/",
-    "@type": "Person",
-    "name": data.header.name,
-    "jobTitle": data.header.title,
-    "url": siteUrl,
-    "sameAs": [
-      data.header.github,
-      data.header.linkedin
-    ],
-    "description": data.meta.description,
-    "knowsAbout": [
-      "Software Engineering",
-      "Full Stack Development",
-      "Threat Intelligence",
-      "Python",
-      "Go",
-      "Cloud Infrastructure"
-    ]
-  })} />
+    <link rel="canonical" href={siteUrl} />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&family=EB+Garamond:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+    <!-- JSON-LD -->
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        "@context": "https://schema.org/",
+        "@type": "Person",
+        name: data.header.name,
+        jobTitle: data.header.title,
+        url: siteUrl,
+        sameAs: [data.header.github, data.header.linkedin],
+        description: data.meta?.description,
+        knowsAbout: [
+          "Software Engineering",
+          "Full Stack Development",
+          "Threat Intelligence",
+          "Python",
+          "Go",
+          "Cloud Infrastructure",
+        ],
+      })}
+    />
 
-  <PostHog />
-</head>
-<body>
-  <!-- Loader -->
-  <div id="loader" class="loader">
-    <div class="loader__spinner"></div>
-    <p class="loader__text">Loading resume…</p>
-  </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&family=EB+Garamond:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&family=EB+Garamond:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
-  <div id="resume-root" style="opacity:0">
-    <slot />
-  </div>
+    <PostHog />
+  </head>
+  <body>
+    <!-- Loader -->
+    <div id="loader" class="loader">
+      <div class="loader__spinner"></div>
+      <p class="loader__text">Loading resume…</p>
+    </div>
 
-  <!-- PDF Toast -->
-  <div id="toast" class="toast">Generating PDF…</div>
+    <div id="resume-root" style="opacity:0">
+      <slot />
+    </div>
 
-  <script>
-    // Theme Management
-    const savedTheme = localStorage.getItem('resume-theme') || 'dark';
-    document.documentElement.dataset.theme = savedTheme;
+    <!-- PDF Toast -->
+    <div id="toast" class="toast">Generating PDF…</div>
 
-    // Loader Management
-    window.addEventListener('DOMContentLoaded', () => {
-      const loader = document.getElementById('loader');
-      const root = document.getElementById('resume-root');
-      if (loader && root) {
-        loader.classList.add('hidden');
-        root.style.opacity = '1';
-        setTimeout(() => loader.remove(), 600);
-      }
-    });
+    <script>
+      // Theme Management
+      const savedTheme = localStorage.getItem("resume-theme") || "dark";
+      document.documentElement.dataset.theme = savedTheme;
 
-    // Scroll Reveal
-    const initScrollReveal = () => {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
+      // Loader Management
+      window.addEventListener("DOMContentLoaded", () => {
+        const loader = document.getElementById("loader");
+        const root = document.getElementById("resume-root");
+        if (loader && root) {
+          loader.classList.add("hidden");
+          root.style.opacity = "1";
+          setTimeout(() => loader.remove(), 600);
+        }
+      });
+
+      // Stagger delays — computed per child so any number of items animate correctly
+      document.querySelectorAll(".stagger").forEach((container) => {
+        Array.from(container.children).forEach((child, i) => {
+          (child as HTMLElement).style.setProperty(
+            "--stagger-delay",
+            `${0.05 + i * 0.07}s`,
+          );
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      });
 
-      document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(el => obs.observe(el));
-    };
-
-    // Skill Bar Animation
-    const initSkillBars = () => {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const fills = e.target.querySelectorAll('.skill-bar__fill');
-            fills.forEach(f => {
-              const level = (f as HTMLElement).dataset.level || '80';
-              requestAnimationFrame(() => { (f as HTMLElement).style.width = level + '%'; });
+      // Scroll Reveal
+      const initScrollReveal = () => {
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                obs.unobserve(e.target);
+              }
             });
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.2 });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+        );
 
-      document.querySelectorAll('.skill-category__name, .skill-list, #skills').forEach(el => obs.observe(el));
-    };
+        document
+          .querySelectorAll(".reveal, .reveal-left, .reveal-scale")
+          .forEach((el) => obs.observe(el));
+      };
 
-    window.addEventListener('DOMContentLoaded', () => {
-      initScrollReveal();
-      initSkillBars();
-    });
-  </script>
-</body>
+      // Skill Bar Animation
+      const initSkillBars = () => {
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                const fills = e.target.querySelectorAll(".skill-bar__fill");
+                fills.forEach((f) => {
+                  const level = (f as HTMLElement).dataset.level || "80";
+                  requestAnimationFrame(() => {
+                    (f as HTMLElement).style.width = level + "%";
+                  });
+                });
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.2 },
+        );
+
+        document
+          .querySelectorAll(
+            ".skill-category__name, .skill-list, #skills, #languages",
+          )
+          .forEach((el) => obs.observe(el));
+      };
+
+      window.addEventListener("DOMContentLoaded", () => {
+        initScrollReveal();
+        initSkillBars();
+      });
+    </script>
+  </body>
 </html>
 <style is:global>
   @import "../styles/global.css";

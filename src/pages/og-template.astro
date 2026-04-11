@@ -1,0 +1,308 @@
+---
+// Standalone page — no layout. Puppeteer screenshots this at 1200×630.
+//
+// Character source priority:
+//   1. public/og-character.svg  — user-supplied vector (best quality)
+//   2. public/og-character.png  — extracted by scripts/extract-character.mjs
+//                                 or user-supplied raster
+//   3. public/profile.jpg       — fallback: real photo with blue-tint CSS treatment
+
+import fs from "node:fs";
+import { resumeData as data } from "../utils/data";
+const { header, summary, meta } = data;
+
+const tagline =
+  meta?.ogTitle ??
+  header.tagline ??
+  (summary ? summary.split(".")[0].trim() : "");
+const website = header.website?.replace(/^https?:\/\//, "") ?? "";
+const nameWords = (header.fullName ?? header.name).trim().split(/\s+/);
+
+// Resolve which character asset to use
+const hasSvg = fs.existsSync("./public/og-character.svg");
+const hasPng = fs.existsSync("./public/og-character.png");
+
+type CharacterMode = "svg" | "png" | "photo";
+const characterMode: CharacterMode = hasSvg ? "svg" : hasPng ? "png" : "photo";
+const characterSrc =
+  characterMode === "svg"
+    ? "/og-character.svg"
+    : characterMode === "png"
+      ? "/og-character.png"
+      : "/profile.jpg";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap");
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        font-family: "Inter", system-ui, sans-serif;
+        background: #111418;
+        display: flex;
+        align-items: stretch;
+      }
+
+      /* ── Avatar side ───────────────────────────────── */
+      .avatar-side {
+        position: relative;
+        width: 480px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Radial glow */
+      .avatar-side::before {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 191, 255, 0.15) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      /* ── SVG / extracted-PNG character (transparent bg) ── */
+      .character-free {
+        position: relative;
+        width: 420px;
+        height: 560px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .character-free img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        object-position: bottom center;
+      }
+
+      /* ── Photo fallback (circle crop + tint) ── */
+      .avatar-wrap {
+        position: relative;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid rgba(0, 191, 255, 0.5);
+        box-shadow:
+          0 0 0 6px rgba(0, 191, 255, 0.08),
+          0 0 40px rgba(0, 191, 255, 0.35),
+          0 0 80px rgba(0, 191, 255, 0.15);
+      }
+
+      .avatar-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        /*filter: contrast(1.08) saturate(1.2);*/
+      }
+
+      /* Blue tint overlay for photo mode */
+      .avatar-wrap::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          160deg,
+          rgba(0, 120, 200, 0.22) 0%,
+          rgba(0, 60, 120, 0.1) 60%,
+          transparent 100%
+        );
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+
+      /* Decorative dashed ring */
+      .avatar-arc {
+        position: absolute;
+        width: 346px;
+        height: 346px;
+        border-radius: 50%;
+        border: 1px dashed rgba(0, 191, 255, 0.2);
+      }
+
+      /* ── Vertical Divider ───────────────────────────── */
+      .divider {
+        width: 2px;
+        flex-shrink: 0;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(0, 191, 255, 0.4) 30%,
+          rgba(0, 191, 255, 0.4) 70%,
+          transparent
+        );
+        align-self: stretch;
+        margin: 40px 0;
+      }
+
+      /* ── Horizontal Divider ─────────────────────────── */
+      .divider-horizontal {
+        height: 2px;
+        background: linear-gradient(
+          to right,
+          #00bfff 0%,
+          rgba(0, 191, 255, 0.5) 60%,
+          transparent 100%
+        );
+        margin: 16px 0;
+        width: 100%;
+        max-width: 580px;
+        border-radius: 2px;
+        box-shadow: 0 0 8px rgba(0, 191, 255, 0.4);
+      }
+
+      /* ── Text side ─────────────────────────────────── */
+      .text-side {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 60px 0 56px;
+        gap: 8px;
+      }
+
+      .name {
+        font-size: 100px;
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -2px;
+        text-transform: uppercase;
+        color: #2bb3ed;
+        text-shadow: none;
+      }
+
+      .name.compact {
+        font-size: 80px;
+      }
+
+      .title {
+        font-size: 52px;
+        font-weight: 500;
+        color: #9dafb8;
+        letter-spacing: -0.5px;
+        margin-top: 8px;
+      }
+
+      .tagline {
+        font-size: 26px;
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1.3;
+        margin-top: 10px;
+        max-width: 580px;
+      }
+
+      .website-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        padding: 14px 44px;
+        border: 2px solid rgba(0, 191, 255, 0.8);
+        border-radius: 999px;
+        color: #ffffff;
+        font-size: 26px;
+        font-weight: 700;
+        width: fit-content;
+        background: transparent;
+        box-shadow:
+          0 0 25px rgba(0, 191, 255, 0.35),
+          inset 0 0 15px rgba(0, 191, 255, 0.2);
+        letter-spacing: 0.5px;
+      }
+
+      .website-badge svg {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        color: #00bfff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Character -->
+    <div class="avatar-side">
+      {characterMode === "photo" && <div class="avatar-arc" />}
+
+      {
+        characterMode === "photo" ? (
+          <div class="avatar-wrap">
+            <img src={characterSrc} alt={header.name} />
+          </div>
+        ) : (
+          <div class="character-free">
+            <img src={characterSrc} alt={header.name} />
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Text -->
+    <div class="text-side">
+      <h1
+        class={`name${nameWords.length === 1 && header.name.length > 8 ? " compact" : ""}`}
+      >
+        {
+          nameWords.map((word: string) => (
+            <span style="display:block">{word}</span>
+          ))
+        }
+      </h1>
+      <p class="title">{header.title}</p>
+      {tagline && <p class="tagline">{tagline}</p>}
+      
+      <div class="divider-horizontal"></div>
+
+      {
+        website && (
+          <div class="website-badge">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path
+                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10
+                     15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+              />
+            </svg>
+            {website}
+          </div>
+        )
+      }
+    </div>
+  </body>
+</html>

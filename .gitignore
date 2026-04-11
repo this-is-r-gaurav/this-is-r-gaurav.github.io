@@ -22,3 +22,13 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+**/*.pdf
+**/*.docx
+scripts/*
+!scripts/generate-pdf.mjs
+!scripts/generate-og.mjs
+!scripts/generate-docx.ts
+*.md
+!README.md
+public/og-image.png

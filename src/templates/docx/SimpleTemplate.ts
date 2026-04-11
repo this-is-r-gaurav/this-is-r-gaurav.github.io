@@ -1,10 +1,4 @@
-import {
-  Paragraph,
-  TextRun,
-  Tab,
-  AlignmentType,
-  BorderStyle,
-} from "docx";
+import { Paragraph, TextRun, Tab, AlignmentType, BorderStyle } from "docx";
 import type { ResumeData } from "../../utils/schema";
 
 export class SimpleTemplate {
@@ -49,12 +43,17 @@ export class SimpleTemplate {
     if (typeof value === "string") return this.renderText(title, value);
     if (!Array.isArray(value) || value.length === 0) return [];
     const first = value[0];
-    if (typeof first === "string") return this.renderList(title, value as string[]);
+    if (typeof first === "string")
+      return this.renderList(title, value as string[]);
     if ("highlights" in first) return this.renderExperience(title, value);
     if ("degree" in first) return this.renderEducation(title, value);
     if ("group" in first) {
       const firstItem = first.items?.[0];
-      if (firstItem && typeof firstItem === "object" && "description" in firstItem)
+      if (
+        firstItem &&
+        typeof firstItem === "object" &&
+        "description" in firstItem
+      )
         return this.renderGroupedProjects(title, value);
       return this.renderSkillGroups(title, value);
     }
@@ -80,7 +79,12 @@ export class SimpleTemplate {
       new Paragraph({
         alignment: AlignmentType.CENTER,
         children: [
-          new TextRun({ text: header.name, bold: true, size: size.nameHeading, font }),
+          new TextRun({
+            text: header.name,
+            bold: true,
+            size: size.nameHeading,
+            font,
+          }),
         ],
       }),
       new Paragraph({
@@ -129,17 +133,40 @@ export class SimpleTemplate {
           spacing: spacing.expHeader,
           tabStops: [tabStop],
           children: [
-            new TextRun({ text: exp.role, bold: true, size: size.subHeading, font }),
+            new TextRun({
+              text: exp.role,
+              bold: true,
+              size: size.subHeading,
+              font,
+            }),
             new Tab(),
-            new TextRun({ text: `${exp.from} — ${exp.to}`, bold: true, size: size.body, font }),
+            new TextRun({
+              text: `${exp.from} — ${exp.to}`,
+              bold: true,
+              size: size.body,
+              font,
+            }),
           ],
         }),
         new Paragraph({
           spacing: spacing.expSub,
           children: [
-            new TextRun({ text: exp.company, bold: true, italics: true, size: size.body, font }),
+            new TextRun({
+              text: exp.company,
+              bold: true,
+              italics: true,
+              size: size.body,
+              font,
+            }),
             ...(exp.location
-              ? [new TextRun({ text: ` (${exp.location})`, italics: true, size: size.contactLine, font })]
+              ? [
+                  new TextRun({
+                    text: ` (${exp.location})`,
+                    italics: true,
+                    size: size.contactLine,
+                    font,
+                  }),
+                ]
               : []),
           ],
         }),
@@ -164,14 +191,21 @@ export class SimpleTemplate {
         new Paragraph({
           spacing: spacing.sectionBody,
           children: [
-            new TextRun({ text: e.degree, bold: true, size: size.subHeading, font }),
+            new TextRun({
+              text: e.degree,
+              bold: true,
+              size: size.subHeading,
+              font,
+            }),
           ],
         }),
         new Paragraph({
           spacing: spacing.expSub,
           children: [
             new TextRun({
-              text: [e.institution, e.location, `${e.from} — ${e.to}`].filter(Boolean).join(" · "),
+              text: [e.institution, e.location, `${e.from} — ${e.to}`]
+                .filter(Boolean)
+                .join(" · "),
               size: size.body,
               font,
             }),
@@ -193,7 +227,12 @@ export class SimpleTemplate {
           new Paragraph({
             spacing: spacing.sectionBody,
             children: [
-              new TextRun({ text: `${g.group}: `, bold: true, size: size.body, font }),
+              new TextRun({
+                text: `${g.group}: `,
+                bold: true,
+                size: size.body,
+                font,
+              }),
               new TextRun({ text: names, size: size.body, font }),
             ],
           }),
@@ -227,7 +266,12 @@ export class SimpleTemplate {
         new Paragraph({
           spacing: spacing.expHeader,
           children: [
-            new TextRun({ text: g.group, bold: true, size: size.subHeading, font }),
+            new TextRun({
+              text: g.group,
+              bold: true,
+              size: size.subHeading,
+              font,
+            }),
           ],
         }),
         ...this.renderNameDescriptionItems(g.items),
@@ -236,7 +280,10 @@ export class SimpleTemplate {
   }
 
   private renderNameDescription(title: string, entries: any[]): Paragraph[] {
-    return [...this.sectionTitle(title), ...this.renderNameDescriptionItems(entries)];
+    return [
+      ...this.sectionTitle(title),
+      ...this.renderNameDescriptionItems(entries),
+    ];
   }
 
   private renderNameDescriptionItems(entries: any[]): Paragraph[] {
@@ -245,25 +292,50 @@ export class SimpleTemplate {
       new Paragraph({
         spacing: spacing.sectionBody,
         children: [
-          new TextRun({ text: item.name, bold: true, size: size.subHeading, font }),
+          new TextRun({
+            text: item.name,
+            bold: true,
+            size: size.subHeading,
+            font,
+          }),
           ...(item.issuer
-            ? [new TextRun({ text: ` · ${item.issuer}`, italics: true, size: size.body, font })]
+            ? [
+                new TextRun({
+                  text: ` · ${item.issuer}`,
+                  italics: true,
+                  size: size.body,
+                  font,
+                }),
+              ]
             : []),
           ...(item.tech
-            ? [new TextRun({ text: `  ${item.tech.join(", ")}`, italics: true, size: size.contactLine, font })]
+            ? [
+                new TextRun({
+                  text: `  ${item.tech.join(", ")}`,
+                  italics: true,
+                  size: size.contactLine,
+                  font,
+                }),
+              ]
             : []),
         ],
       }),
       new Paragraph({
         spacing: spacing.expSub,
         alignment: AlignmentType.JUSTIFIED,
-        children: [new TextRun({ text: item.description, size: size.body, font })],
+        children: [
+          new TextRun({ text: item.description, size: size.body, font }),
+        ],
       }),
       ...(item.url
-        ? [new Paragraph({
-            spacing: spacing.expSub,
-            children: [new TextRun({ text: item.url, size: size.contactLine, font })],
-          })]
+        ? [
+            new Paragraph({
+              spacing: spacing.expSub,
+              children: [
+                new TextRun({ text: item.url, size: size.contactLine, font }),
+              ],
+            }),
+          ]
         : []),
     ]);
   }
@@ -284,7 +356,12 @@ export class SimpleTemplate {
           },
         },
         children: [
-          new TextRun({ text: title.toUpperCase(), bold: true, size: size.sectionTitle, font }),
+          new TextRun({
+            text: title.toUpperCase(),
+            bold: true,
+            size: size.sectionTitle,
+            font,
+          }),
         ],
       }),
     ];

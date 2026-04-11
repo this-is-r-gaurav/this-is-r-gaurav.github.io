@@ -123,7 +123,8 @@ projects:
       - name: "SCAP"
         institution: "Btech. GJUS&T"
         duration: "1 Month"
-        tech: ["Arduino", "Ultrasonic sensor", "Node Red", "Embedded", "Twillio"]
+        tech:
+          ["Arduino", "Ultrasonic sensor", "Node Red", "Embedded", "Twillio"]
         description: "Engineered an IoT-based vehicular safety system using Arduino and ultrasonic sensors for proximity detection, automatic speed control, and SOS emergency messaging."
       - name: "Training Placement Portal"
         institution: "Btech. GJUS&T"
@@ -181,12 +182,7 @@ skills:
       - name: "MongoDB"
         level: 55
   - group: "Other"
-    items:
-      [
-        "GIMP",
-        "Inkscape",
-        "Terraform",
-      ]
+    items: ["GIMP", "Inkscape", "Terraform"]
 
 education:
   - institution: "Centre for Development of Advance Computing (CDAC)"

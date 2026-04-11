@@ -15,10 +15,14 @@ async function main() {
 
   // 1. Start Astro preview server in background
   console.log("--- Launching Preview Server ---");
-  const server = spawn("npm", ["run", "preview", "--", "--port", PORT.toString()], {
-    stdio: "inherit",
-    shell: true,
-  });
+  const server = spawn(
+    "npm",
+    ["run", "preview", "--", "--port", PORT.toString()],
+    {
+      stdio: "inherit",
+      shell: true,
+    },
+  );
 
   try {
     // 2. Wait for server to be ready
@@ -68,7 +72,7 @@ async function main() {
 
         console.log(`--- PDF successfully generated: ${template.filename} ---`);
         await page.close();
-      })
+      }),
     );
 
     await browser.close();

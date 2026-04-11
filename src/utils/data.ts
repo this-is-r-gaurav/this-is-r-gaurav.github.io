@@ -5,4 +5,6 @@ import { resumeSchema, type ResumeData } from "./schema";
 
 const dataFilePath = path.join(process.cwd(), "src", "data", "resume.yaml");
 const fileContents = fs.readFileSync(dataFilePath, "utf8");
-export const resumeData: ResumeData = resumeSchema.parse(yaml.load(fileContents));
+export const resumeData: ResumeData = resumeSchema.parse(
+  yaml.load(fileContents),
+);

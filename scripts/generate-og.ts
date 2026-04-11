@@ -15,10 +15,14 @@ async function main() {
 
   console.log("--- Starting OG Image Generation ---");
 
-  const server = spawn("npm", ["run", "preview", "--", "--port", PORT.toString()], {
-    stdio: "inherit",
-    shell: true,
-  });
+  const server = spawn(
+    "npm",
+    ["run", "preview", "--", "--port", PORT.toString()],
+    {
+      stdio: "inherit",
+      shell: true,
+    },
+  );
 
   try {
     console.log(`--- Waiting for server on ${PORT}... ---`);
@@ -57,7 +61,7 @@ async function main() {
     process.exit(1);
   } finally {
     server.kill();
-    
+
     // Clean up the og-template from the build output so it's not publicly accessible
     const distTemplateDir = path.join(__dirname, "../dist/og-template");
     const distTemplateHtml = path.join(__dirname, "../dist/og-template.html");

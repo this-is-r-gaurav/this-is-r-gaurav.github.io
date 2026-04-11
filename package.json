@@ -13,6 +13,7 @@
     "generate-docx": "tsx scripts/generate-docx.ts",
     "generate-og": "tsx scripts/generate-og.ts",
     "generate-favicon": "tsx scripts/generate-favicon.ts",
+    "patch-meta": "tsx scripts/patch-meta.ts",
     "format": "prettier --write .",
     "astro": "astro"
   },

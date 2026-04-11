@@ -42,7 +42,9 @@ export class DocxBuilder {
           properties: {},
           children: [...order, ...extraKeys]
             .filter((key) => Boolean(raw[key as keyof ResumeData]))
-            .flatMap((key) => this.template.render(key, raw[key as keyof ResumeData])),
+            .flatMap((key) =>
+              this.template.render(key, raw[key as keyof ResumeData]),
+            ),
         },
       ],
     });

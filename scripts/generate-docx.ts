@@ -8,7 +8,6 @@ import { DocxBuilder } from "../src/utils/docxBuilder.ts";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function main() {
-
   const OUTPUT_PATH = path.join(__dirname, "../public/resume-simple.docx");
   const DIST_PATH = path.join(__dirname, "../dist/resume-simple.docx");
 

@@ -6,7 +6,7 @@ export const metaSchema = z.object({
   description: z.string(),
   keywords: z.string().optional(),
   ogTitle: z.string().optional(),
-  ogDescription: z.string().optional()
+  ogDescription: z.string().optional(),
 });
 
 export const headerSchema = z.object({
@@ -38,7 +38,7 @@ export const projectSchema = z.object({
   description: z.string(),
   url: z.string().optional().transform(urlFixer),
   tech: z.array(z.string()),
-  stars: z.number().min(0).optional()
+  stars: z.number().min(0).optional(),
 });
 
 export const certificationSchema = z.object({

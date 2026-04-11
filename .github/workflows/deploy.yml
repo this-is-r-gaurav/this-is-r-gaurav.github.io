@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: "npm"
 
       - name: Cache puppeteer browsers
         uses: actions/cache@v4
@@ -52,6 +52,9 @@ jobs:
 
       - name: Generate DOCX
         run: npm run generate-docx
+
+      - name: Patch missing meta tags
+        run: npm run patch-meta
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

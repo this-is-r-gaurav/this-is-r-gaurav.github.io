@@ -13,12 +13,14 @@ import path from "node:path";
 import { resumeData as data } from "../utils/data";
 
 const rootDir = process.cwd();
-const hasFaviconIco = fs.existsSync(path.join(rootDir, "public/favicon.ico"));
-const hasFaviconPng = fs.existsSync(path.join(rootDir, "public/favicon.png"));
-const hasAppleIcon = fs.existsSync(
+const isCI = import.meta.env.CI || process.env.GITHUB_ACTIONS === "true";
+
+const hasFaviconIco = isCI || fs.existsSync(path.join(rootDir, "public/favicon.ico"));
+const hasFaviconPng = isCI || fs.existsSync(path.join(rootDir, "public/favicon.png"));
+const hasAppleIcon = isCI || fs.existsSync(
   path.join(rootDir, "public/apple-touch-icon.png"),
 );
-const hasOgImage = fs.existsSync(path.join(rootDir, "public/og-image.jpg"));
+const hasOgImage = isCI || fs.existsSync(path.join(rootDir, "public/og-image.jpg"));
 
 const rawSiteUrl = Astro.site ? Astro.site.href : Astro.url.origin;
 const siteUrl = rawSiteUrl.endsWith("/") ? rawSiteUrl.slice(0, -1) : rawSiteUrl;

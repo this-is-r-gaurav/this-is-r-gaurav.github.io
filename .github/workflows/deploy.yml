@@ -47,6 +47,9 @@ jobs:
       - name: Generate OG Image
         run: npm run generate-og
 
+      - name: Generate OG Favicon
+        run: npm run generate-favicon
+
       - name: Generate DOCX
         run: npm run generate-docx
 

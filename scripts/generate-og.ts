@@ -15,7 +15,7 @@ async function main() {
 
   console.log("--- Starting OG Image Generation ---");
 
-  const server = spawn("npm", ["run", "preview", "--", "--port", PORT], {
+  const server = spawn("npm", ["run", "preview", "--", "--port", PORT.toString()], {
     stdio: "inherit",
     shell: true,
   });
@@ -26,7 +26,7 @@ async function main() {
     console.log("--- Server is ready! ---");
 
     const browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
@@ -68,8 +68,6 @@ async function main() {
       fs.rmSync(distTemplateHtml, { force: true });
     }
     console.log("--- Cleaned up og-template route from production build ---");
-    
-    console.log("--- Done ---");
   }
 }
 

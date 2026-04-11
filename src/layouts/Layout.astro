@@ -8,7 +8,17 @@ interface Props {
 
 const { title, description } = Astro.props;
 
+import fs from "node:fs";
+import path from "node:path";
 import { resumeData as data } from "../utils/data";
+
+const rootDir = process.cwd();
+const hasFaviconIco = fs.existsSync(path.join(rootDir, "public/favicon.ico"));
+const hasFaviconPng = fs.existsSync(path.join(rootDir, "public/favicon.png"));
+const hasAppleIcon = fs.existsSync(
+  path.join(rootDir, "public/apple-touch-icon.png"),
+);
+const hasOgImage = fs.existsSync(path.join(rootDir, "public/og-image.jpg"));
 
 const rawSiteUrl = Astro.site ? Astro.site.href : Astro.url.origin;
 const siteUrl = rawSiteUrl.endsWith("/") ? rawSiteUrl.slice(0, -1) : rawSiteUrl;
@@ -26,25 +36,38 @@ const shareImage = `${siteUrl}/og-image.jpg`;
     <meta name="author" content={data.header.name} />
 
     <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {hasFaviconIco && <link rel="icon" href="/favicon.ico" sizes="32x32" />}
+    {hasFaviconPng && <link rel="icon" href="/favicon.png" type="image/png" />}
+    {
+      hasAppleIcon && (
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      )
+    }
 
     <!-- SEO / Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={siteUrl} />
-    <meta property="og:title" content={data.meta?.ogTitle ?? title} />
+    <meta
+      property="og:title"
+      content={data.header.name + " | " + (data.meta?.ogTitle ?? title)}
+    />
     <meta
       property="og:description"
       content={description ||
         data.meta?.ogDescription ||
         data.meta?.description}
     />
-    <meta property="og:image" content={shareImage} />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta itemprop="image" content={shareImage} />
+    {
+      hasOgImage && (
+        <>
+          <meta property="og:image" content={shareImage} />
+          <meta property="og:image:type" content="image/jpeg" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta itemprop="image" content={shareImage} />
+        </>
+      )
+    }
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -54,7 +77,7 @@ const shareImage = `${siteUrl}/og-image.jpg`;
       property="twitter:description"
       content={description || data.meta?.description}
     />
-    <meta property="twitter:image" content={shareImage} />
+    {hasOgImage && <meta property="twitter:image" content={shareImage} />}
 
     <link rel="canonical" href={siteUrl} />
 

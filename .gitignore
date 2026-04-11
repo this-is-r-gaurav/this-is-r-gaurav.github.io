@@ -25,10 +25,7 @@ pnpm-debug.log*
 
 **/*.pdf
 **/*.docx
-scripts/*
-!scripts/generate-pdf.mjs
-!scripts/generate-og.mjs
-!scripts/generate-docx.ts
+**/.temp
 *.md
 !README.md
 public/og-image.*

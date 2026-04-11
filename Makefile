@@ -20,6 +20,7 @@ build: ## Build site and generate static PDF, DOCX, and OG image locally
 	npm run extract-character
 	npm run generate-og
 	npm run generate-docx
+	npm run generate-favicon
 
 preview: ## Preview the production build locally
 	npm run preview

@@ -15,7 +15,7 @@ async function main() {
 
   // 1. Start Astro preview server in background
   console.log("--- Launching Preview Server ---");
-  const server = spawn("npm", ["run", "preview", "--", "--port", PORT], {
+  const server = spawn("npm", ["run", "preview", "--", "--port", PORT.toString()], {
     stdio: "inherit",
     shell: true,
   });
@@ -29,7 +29,7 @@ async function main() {
     // 3. Launch browser
     console.log("--- Launching Browser ---");
     const browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 

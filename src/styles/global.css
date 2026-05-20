@@ -369,7 +369,7 @@ ul {
 
 .hero__tagline {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: #93c5fd;
   margin-top: var(--sp-sm);
   letter-spacing: 0.04em;
 }

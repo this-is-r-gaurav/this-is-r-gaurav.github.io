@@ -241,37 +241,41 @@ const { data } = Astro.props;
       }
 
       {
-        data.skills &&
-          data.skills.map((group: any) => (
-            <section class="pdf-section">
-              <h2 class="pdf-section-title">
-                <img src={icons.tool} alt="" class="pdf-section-icon" />
-                {group.group}
-              </h2>
-              {group.items[0] && typeof group.items[0] === "object" ? (
-                <div class="pdf-skills-table">
-                  {group.items.map((skill: any) => (
-                    <div class="pdf-skill-row">
-                      <span class="pdf-skill-name">{skill.name}</span>
-                      <span class="pdf-skill-level">
-                        {skill.level > 85
-                          ? "Proficient"
-                          : skill.level > 70
-                            ? "Intermediate"
-                            : "Familiar"}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div class="pdf-badges">
-                  {group.items.map((s: string) => (
-                    <span class="pdf-badge">{s}</span>
-                  ))}
-                </div>
-              )}
-            </section>
-          ))
+        data.skills && (
+          <section class="pdf-section">
+            <h2 class="pdf-section-title">
+              <img src={icons.tool} alt="" class="pdf-section-icon" />
+              Skills
+            </h2>
+            {data.skills.map((group: any) => (
+              <div class="pdf-skill-group">
+                <div class="pdf-skill-group-label">{group.group}</div>
+                {group.items[0] && typeof group.items[0] === "object" ? (
+                  <div class="pdf-skills-table">
+                    {group.items.map((skill: any) => (
+                      <div class="pdf-skill-row">
+                        <span class="pdf-skill-name">{skill.name}</span>
+                        <span class="pdf-skill-level">
+                          {skill.level > 85
+                            ? "Proficient"
+                            : skill.level > 70
+                              ? "Intermediate"
+                              : "Familiar"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div class="pdf-badges">
+                    {group.items.map((s: string) => (
+                      <span class="pdf-badge">{s}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </section>
+        )
       }
 
       <section class="pdf-section">

@@ -1,0 +1,72 @@
+---
+interface Props {
+  competencies: string[];
+}
+
+const { competencies } = Astro.props;
+---
+
+<div class="competencies-strip">
+  <span class="competencies-label">Core Expertise</span>
+  <div class="competencies-list">
+    {competencies.map((c) => (
+      <span class="competency-chip">{c}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .competencies-strip {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0.9rem var(--sp-xl);
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--sp-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .competencies-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--clr-accent);
+    white-space: nowrap;
+    padding-top: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  .competencies-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .competency-chip {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--clr-text);
+    background: var(--clr-surface-2);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-pill);
+    padding: 0.25rem 0.85rem;
+    transition: border-color var(--duration), color var(--duration);
+  }
+
+  .competency-chip:hover {
+    border-color: var(--clr-accent);
+    color: var(--clr-accent);
+  }
+
+  @media (max-width: 600px) {
+    .competencies-strip {
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.9rem var(--sp-lg);
+    }
+  }
+</style>

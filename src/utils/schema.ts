@@ -27,6 +27,7 @@ export const headerSchema = z.object({
 export const experienceSchema = z.object({
   company: z.string(),
   role: z.string(),
+  note: z.string().optional(),
   from: z.string(),
   to: z.string(),
   location: z.string().optional(),
@@ -111,6 +112,7 @@ export const resumeSchema = z
     open_source_contributions: z.array(projectSchema).optional(),
     projects: z.array(projectGroupSchema).optional(),
     certifications: z.array(certificationSchema).optional(),
+    competencies: z.array(z.string()).optional(),
     skills: z.array(skillsGroupSchema).optional(),
     education: z.array(educationSchema).optional(),
     languages: z.array(languageSchema).optional(),

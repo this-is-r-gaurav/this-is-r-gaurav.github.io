@@ -1,0 +1,63 @@
+---
+const sections = [
+  { id: "summary", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "open-source", label: "Open Source" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "certifications", label: "Certifications" },
+  { id: "education", label: "Education" },
+];
+---
+
+<nav class="section-nav" id="section-nav" aria-label="Section navigation">
+  <div class="section-nav__inner">
+    {sections.map((s) => (
+      <a href={`#${s.id}`} class="section-nav__link" data-section={s.id}>
+        {s.label}
+      </a>
+    ))}
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById("section-nav");
+  const hero = document.querySelector(".hero");
+
+  // Show nav when hero scrolls out of view
+  if (nav && hero) {
+    const heroObs = new IntersectionObserver(
+      ([entry]) => nav.classList.toggle("visible", !entry.isIntersecting),
+      { threshold: 0 },
+    );
+    heroObs.observe(hero);
+  }
+
+  // Active section — scroll-based. On desktop the sidebar sections share
+  // vertical space with main column sections so we only highlight main col
+  // sections. On mobile everything is stacked so all sections are trackable,
+  // but this simpler approach works well enough for both layouts.
+  const links = nav?.querySelectorAll(".section-nav__link");
+  if (links?.length && nav) {
+    const mainColIds = ["summary", "experience", "open-source", "projects", "skills", "certifications", "education"];
+    const mainSections = mainColIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    const NAV_OFFSET = nav.getBoundingClientRect().height + 24;
+
+    function updateActive() {
+      const scrollY = window.scrollY + NAV_OFFSET;
+      let current = "";
+      for (const section of mainSections) {
+        if (section.offsetTop <= scrollY) current = section.id;
+      }
+      links.forEach((l) => {
+        l.classList.toggle("active", l.getAttribute("data-section") === current);
+      });
+    }
+
+    window.addEventListener("scroll", updateActive, { passive: true });
+    updateActive();
+  }
+</script>

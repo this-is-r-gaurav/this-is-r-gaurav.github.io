@@ -95,9 +95,8 @@
     border: none;
   }
 
-  /* Fix for light theme visibility */
   [data-theme="light"] .fab--main {
-    background: #3b5bdb !important; /* Darker blue for better visibility in light theme */
+    background: #1d4ed8 !important;
   }
 
   .fab:hover {
@@ -149,6 +148,7 @@
     padding-left: 1.25rem;
     color: var(--clr-text);
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: calc(100vw - 5rem);
   }
 
   .download-item:hover {
@@ -180,9 +180,9 @@
     height: 1.2rem;
   }
 
-  .pdf-pro { background: #3b5bdb; } /* Solid darker blue */
-  .pdf-simple { background: #444; }
-  .docx { background: #2b579a; }
+  .pdf-pro { background: #1d4ed8; }
+  .pdf-simple { background: #374151; }
+  .docx { background: #1e40af; }
 
   @media print {
     .fab-menu { display: none !important; }

@@ -16,69 +16,73 @@ _section_order:
   - projects
   - languages
 
+competencies:
+  - "Threat Intelligence Systems"
+  - "Distributed Systems Design"
+  - "Data Pipeline Engineering"
+  - "Cloud Infrastructure · GCP"
+  - "Monitoring & Agentic Debugging"
+  - "Container Orchestration"
+  - "Full-Stack Development"
+  - "Web Scraping & Crawling"
+
 meta:
-  title: "Gaurav | Software Engineer"
-  description: "Full Stack Software Engineer with expertise in UI, Backend, and DevOps, specializing in building resilient, high-scale systems and leading cross-functional teams in the past and looking for opportunity in the Threat Intelligence domain."
-  keywords: "Software Engineer, Full Stack, Threat Intelligence, Python, Go, Kubernetes, Resume, Gaurav"
-  ogTitle: "Transforming Web Data into Actionable Intel"
+  title: "Gaurav Raheja | Software Engineer"
+  description: "Software Engineer with 7+ years building high-scale systems in threat intelligence, cloud infrastructure, and data pipelines. Currently at Google, focused on darknet intelligence collection architecture and reliability."
+  keywords: "Software Engineer, Full Stack, Threat Intelligence, Python, Go, Kubernetes, Google, Mandiant, Resume, Gaurav Raheja"
+  ogTitle: "Gaurav Raheja — Software Engineer at Google"
 
 header:
   name: "Gaurav"
   fullName: "Gaurav Raheja"
-  title: "Software Engineer"
+  title: ""
+  tagline: "Software Engineer · Threat Intelligence · Systems at Scale"
   image: "/profile.jpeg"
   email: "this-is-r-gaurav@outlook.com"
   phone: "+91 90179-20586"
-  location: "Magarpatta, Pune, Hadapsar - 411028"
-  home: "Ward No 4 Kotlla Mohalla, Barwala, Hisar - 125121"
+  location: "Pune, India"
   github: "https://github.com/this-is-r-gaurav"
   linkedin: "https://linkedin.com/in/this-is-r-gaurav"
   website: "https://gaurav.raheja.dev"
 
 summary: |
-  Full Stack Software Engineer with a focus on building resilient, scalable systems across UI, Backend, and DevOps. Proven track record in leading cross-functional teams and delivering high-impact solutions in Threat Intelligence Collection. Actively exploring opportunity in Threat Intelligence domain
+  Software Engineer with 7+ years specialising in threat intelligence, data pipelines, and cloud-native systems. At Google, I've contributed to darknet intelligence collection from the ground up — building core systems, growing target coverage, and progressively automating high-friction engineering workflows using LLM agents. Most recently, I built an agentic observability system using Looker and BigQuery agents that brings structured debugging to collection pipelines. I work best when there's ambiguity to resolve and cross-functional coordination to drive.
 
 experience:
   - company: "Google"
     role: "Software Engineer"
-    from: "1st Nov. 2022"
+    note: "Joined via Mandiant acquisition, Nov. 2022"
+    from: "Aug. 2022"
     to: "Present"
     location: "Pune, IN"
     highlights:
-      - "Architected and optimized high-scale threat activity collection configurations across diverse dark web sources, significantly improving data ingestion reliability and coverage."
-      - "Established robust monitoring and alerting strategies for system health, reducing incident response times and ensuring high availability of critical collection services."
-      - "Led the design and implementation of next-generation collection systems, managing the seamless migration of legacy targets with zero data loss."
-      - "Partnered with research teams to translate complex technical metrics into actionable product insights, driving data-informed improvements for global collection targets."
-  - company: "Mandiant, Inc."
-    role: "Software Engineer"
-    from: "7th Aug. 2022"
-    to: "1st Nov. 2022"
-    location: "Pune, IN"
-    highlights:
-      - "Engineered custom configurations for legacy systems to expand on-boarding capabilities for critical darknet intelligence targets."
-      - "Maintained and optimized legacy systems, resolving deep-seated bugs to ensure operational continuity and successful target integration."
+      - "Contributed to the threat intelligence collection platform from its early phases at Mandiant — integrating new sources, improving system reliability, and ensuring operational continuity through the Google acquisition."
+      - "Designed and shipped an LLM-agent-driven code generation system that eliminated a high-friction manual engineering workflow, significantly reducing onboarding lead time for new intelligence sources."
+      - "Designed an agentic observability workflow using Looker and BigQuery agents to proactively detect and triage operational issues in real time, improving engineering response time across collection pipelines."
+      - "Improved pipeline reliability and data consistency across a broad portfolio of intelligence sources through systematic engineering and infrastructure improvements."
+      - "Partnered with research teams to surface actionable signals from operational data, informing coverage strategy and roadmap prioritisation."
 
   - company: "One Convergence Pvt. Ltd"
     role: "Software Developer"
-    from: "17th Feb. 2020"
-    to: "29th Jul. 2022"
+    from: "Feb. 2020"
+    to: "Jul. 2022"
     location: "Hyderabad, IN"
     highlights:
-      - "Developed a comprehensive CLI automation tool using Python, Bash, and Terraform to streamline VM provisioning; integrated with a React-based dashboard to centralize infrastructure management."
-      - "Demonstrated technical leadership by managing UI feature deliveries and complex bug resolutions, acting as interim lead to oversee code reviews and release stability."
-      - "Played a key role in a critical database migration from NoSQL to SQL, ensuring data consistency and optimizing query performance for the core backend."
-      - "Designed and implemented high-performance Backend APIs in Go, facilitating cross-team collaboration between UI and ML departments to deliver cohesive product features."
-      - "Enabled client-side cloud-native transitions by leading Kubernetes and Helm deployments, providing technical guidance on container orchestration and workload migration."
+      - "Built a CLI automation tool in Python, Bash, and Terraform to streamline VM provisioning across multi-cloud environments, integrated with a React dashboard for centralized infrastructure management."
+      - "Stepped up as interim engineering lead — owned code reviews, coordinated releases, and unblocked UI feature deliveries during a critical project phase."
+      - "Led a zero-downtime migration from NoSQL to SQL for the core product database, improving query performance and data consistency for production workloads."
+      - "Designed and shipped high-performance Go APIs enabling cross-team collaboration between UI and ML departments, reducing integration lag across teams."
+      - "Guided multiple clients through Kubernetes and Helm-based cloud-native migrations, providing hands-on technical leadership on container orchestration and workload transition."
 
   - company: "De-Haze Labs"
     role: "Software Engineer"
-    from: "27th Jul, 2018"
-    to: "15th Aug 2019"
+    from: "Jul. 2018"
+    to: "Aug. 2019"
     location: "Remote, US"
     highlights:
-      - "Engineered cost-effective, high-throughput web crawlers to automate large-scale data collection, optimizing resource utilization."
-      - "Improved user engagement by integrating Dialogflow interfaces, bridging the gap between automated systems and customer needs."
-      - "Conducted strategic R&D to identify and prototype innovative features, directly contributing to product evolution and roadmap growth."
+      - "Engineered high-throughput web crawlers in Python/Scrapy to automate large-scale data collection with optimized resource utilization."
+      - "Integrated Dialogflow-based conversational interfaces to bridge automated data pipelines with customer-facing workflows."
+      - "Drove R&D efforts to prototype new product features, several of which were adopted into the product roadmap."
 
 open_source_contributions:
   - name: "TimeScaleDb"
@@ -105,6 +109,7 @@ open_source_contributions:
 certifications:
   - name: "Mandiant Cyber Threat Intelligence Analyst"
     issuer: "Mandiant"
+    year: 2024
     description: "Demonstrated proficiency in threat intelligence frameworks, including STIX and the Diamond Model, to streamline workflows and improve structural analysis of cyber threats."
 
 projects:
@@ -133,78 +138,40 @@ projects:
         description: "Designed and implemented a centralized university portal to streamline the management and communication of academic events, training sessions, and placement drives."
 
 skills:
-  - group: "Current"
-    items:
-      - name: "Python3"
-        level: 95
-      - name: "GIT & VCS"
-        level: 95
-      - name: "JS"
-        level: 90
-      - name: "Docker"
-        level: 85
-      - name: "Bash"
-        level: 80
-      - name: "Typescript"
-        level: 80
-      - name: "Java"
-        level: 75
-      - name: "ElasticSearch"
-        level: 70
-      - name: "Dataflow"
-        level: 65
-      - name: "NiFi"
-        level: 60
-      - name: "Prompt Engineering"
-        level: 60
-      - name: "Bigquery & Looker"
-        level: 60
-  - group: "Prior Experience"
-    items:
-      - name: "React JS"
-        level: 60
-      - name: "Angular"
-        level: 60
-      - name: "Flask"
-        level: 60
-      - name: "Bootstrap"
-        level: 60
-      - name: "Scrapy"
-        level: 60
-      - name: "Golang"
-        level: 60
-      - name: "K8S"
-        level: 60
-      - name: "Helm"
-        level: 60
-      - name: "Postgres"
-        level: 60
-      - name: "MongoDB"
-        level: 55
-  - group: "Other"
-    items: ["GIMP", "Inkscape", "Terraform"]
+  - group: "Languages"
+    items: ["Python", "Go", "TypeScript", "JavaScript", "Bash"]
+  - group: "Backend & Data"
+    items: ["Flask", "FastAPI", "Scrapy", "ElasticSearch", "BigQuery", "Apache Dataflow", "Apache NiFi"]
+  - group: "Cloud & Infrastructure"
+    items: ["GCP", "Docker", "Kubernetes", "Helm", "Terraform", "GitHub Actions"]
+  - group: "Databases"
+    items: ["PostgreSQL", "MongoDB"]
+  - group: "Frontend"
+    items: ["React", "Astro"]
+  - group: "AI & LLM"
+    items: ["LiteLLM", "Prompt Engineering", "Looker"]
 
 education:
   - institution: "Centre for Development of Advance Computing (CDAC)"
     degree: "Diploma in Advance Secure Software Development"
     from: "2019"
     to: "2020"
-    location: "Plot No. 6 & 7, Hardware Park, Sy No. 1/1, Srisailam Highway, Hyderabad"
+    location: "Hyderabad, IN"
   - institution: "Guru Jambheshwar University of Science & Technology"
     degree: "Bachelor of Computer Science & Tech."
     from: "2015"
     to: "2019"
-    location: "NH-10, Rohtak Hissar Sirsa Road, Hisar"
+    location: "Hisar, IN"
   - institution: "Nav Bharat Vidya Mandir Sr. Sec. School"
     degree: "Higher Secondary School Certification"
     from: "2012"
     to: "2014"
-    location: "1st K.M. Stone, Bhambhori Road, Hisar"
+    location: "Hisar, IN"
   - institution: "K.L. Arya D.A.V. Public School"
     degree: "Secondary School Certification"
     from: "2010"
     to: "2012"
-    location: "11, Kaimari Rd, Azad Nagar, Hisar"
+    location: "Hisar, IN"
 
 languages:
   - name: "Hindi"

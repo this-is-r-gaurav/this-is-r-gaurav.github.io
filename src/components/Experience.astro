@@ -20,6 +20,7 @@ const { jobs } = Astro.props;
           <div>
             <div class="timeline-role">{job.role}</div>
             <div class="timeline-company">{job.company}</div>
+            {job.note && <div class="timeline-note">{job.note}</div>}
           </div>
           <div class="timeline-meta">
             <span class={`timeline-badge ${job.to.toLowerCase() === 'present' ? 'timeline-badge--present' : ''}`}>

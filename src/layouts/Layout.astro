@@ -32,11 +32,19 @@ const shareImage = `${siteUrl}/og-image.jpg`;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <!-- Theme: run synchronously before first paint to prevent flash -->
+    <script is:inline>
+      (function () {
+        var saved = localStorage.getItem("resume-theme");
+        var preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = saved || preferred;
+      })();
+    </script>
     <meta name="description" content={description || data.meta?.description} />
     <meta name="keywords" content={data.meta?.keywords} />
     <meta name="author" content={data.header.name} />
@@ -95,7 +103,7 @@ const shareImage = `${siteUrl}/og-image.jpg`;
         "@context": "https://schema.org/",
         "@type": "Person",
         name: data.header.name,
-        jobTitle: data.header.title,
+        jobTitle: data.header.title || "Software Engineer",
         url: siteUrl,
         sameAs: [data.header.github, data.header.linkedin],
         description: data.meta?.description,
@@ -127,13 +135,8 @@ const shareImage = `${siteUrl}/og-image.jpg`;
 
     <PostHog />
   </head>
+  <noscript><style>#resume-root { opacity: 1 !important; }</style></noscript>
   <body>
-    <!-- Loader -->
-    <div id="loader" class="loader">
-      <div class="loader__spinner"></div>
-      <p class="loader__text">Loading resume…</p>
-    </div>
-
     <div id="resume-root" style="opacity:0">
       <slot />
     </div>
@@ -142,19 +145,10 @@ const shareImage = `${siteUrl}/og-image.jpg`;
     <div id="toast" class="toast">Generating PDF…</div>
 
     <script>
-      // Theme Management
-      const savedTheme = localStorage.getItem("resume-theme") || "dark";
-      document.documentElement.dataset.theme = savedTheme;
-
-      // Loader Management
+      // Fade in page — no loader, just a clean opacity transition
       window.addEventListener("DOMContentLoaded", () => {
-        const loader = document.getElementById("loader");
         const root = document.getElementById("resume-root");
-        if (loader && root) {
-          loader.classList.add("hidden");
-          root.style.opacity = "1";
-          setTimeout(() => loader.remove(), 600);
-        }
+        if (root) root.style.opacity = "1";
       });
 
       // Stagger delays — computed per child so any number of items animate correctly
@@ -207,9 +201,7 @@ const shareImage = `${siteUrl}/og-image.jpg`;
         );
 
         document
-          .querySelectorAll(
-            ".skill-category__name, .skill-list, #skills, #languages",
-          )
+          .querySelectorAll(".skill-category__name, .skill-list, #skills")
           .forEach((el) => obs.observe(el));
       };
 

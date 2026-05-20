@@ -41,7 +41,10 @@ const shareImage = `${siteUrl}/og-image.jpg`;
     <script is:inline>
       (function () {
         var saved = localStorage.getItem("resume-theme");
-        var preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        var preferred = window.matchMedia("(prefers-color-scheme: dark)")
+          .matches
+          ? "dark"
+          : "light";
         document.documentElement.dataset.theme = saved || preferred;
       })();
     </script>
@@ -61,10 +64,7 @@ const shareImage = `${siteUrl}/og-image.jpg`;
     <!-- SEO / Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={siteUrl} />
-    <meta
-      property="og:title"
-      content={data.header.name + " | " + (data.meta?.ogTitle ?? title)}
-    />
+    <meta property="og:title" content={data.meta?.ogTitle ?? title} />
     <meta
       property="og:description"
       content={description ||
@@ -135,7 +135,13 @@ const shareImage = `${siteUrl}/og-image.jpg`;
 
     <PostHog />
   </head>
-  <noscript><style>#resume-root { opacity: 1 !important; }</style></noscript>
+  <noscript
+    ><style>
+      #resume-root {
+        opacity: 1 !important;
+      }
+    </style></noscript
+  >
   <body>
     <div id="resume-root" style="opacity:0">
       <slot />

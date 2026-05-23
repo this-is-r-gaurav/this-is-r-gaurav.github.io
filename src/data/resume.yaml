@@ -56,11 +56,11 @@ experience:
     to: "Present"
     location: "Pune, IN"
     highlights:
-      - "Contributed to the threat intelligence collection platform from its early phases at Mandiant — integrating new sources, improving system reliability, and ensuring operational continuity through the Google acquisition."
-      - "Designed and shipped an LLM-agent-driven code generation system that eliminated a high-friction manual engineering workflow, significantly reducing onboarding lead time for new intelligence sources."
-      - "Designed an agentic observability workflow using Looker and BigQuery agents to proactively detect and triage operational issues in real time, improving engineering response time across collection pipelines."
-      - "Improved pipeline reliability and data consistency across a broad portfolio of intelligence sources through systematic engineering and infrastructure improvements."
-      - "Partnered with research teams to surface actionable signals from operational data, informing coverage strategy and roadmap prioritisation."
+      - "Ensured zero-downtime operational continuity during the Mandiant-Google acquisition by scaling the threat intelligence collection platform with new data sources and targeted reliability improvements."
+      - "Eliminated a high-friction manual workflow by architecting and deploying an LLM-agent-driven code generation system, reducing related engineering efforts by 70%."
+      - "Reduced code duplication by nearly 30% across the system by designing and implementing a centralized, custom library."
+      - "Achieved real-time issue detection and triage across collection pipelines by architecting a proactive observability system powered by Looker and BigQuery agents."
+      - "Slashed manual monitoring and debugging overhead by 75% by designing and implementing an autonomous agentic pipeline."
 
   - company: "One Convergence Pvt. Ltd"
     role: "Software Developer"

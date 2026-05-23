@@ -10,6 +10,7 @@ const sections = [
 ];
 ---
 
+<!-- Desktop: sticky top bar -->
 <nav class="section-nav" id="section-nav" aria-label="Section navigation">
   <div class="section-nav__inner">
     {sections.map((s) => (
@@ -20,11 +21,27 @@ const sections = [
   </div>
 </nav>
 
+<!-- Mobile: floating button (fixed, independent) -->
+<button class="nav-fab__btn" id="nav-fab-btn" aria-label="Open navigation menu" aria-expanded="false">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- Mobile: panel (fixed, independent — avoids iOS hit-area clipping bug) -->
+<div class="nav-fab__panel" id="nav-fab-panel" aria-hidden="true">
+  {sections.map((s) => (
+    <a class="nav-fab__link" data-section={s.id} href={`#${s.id}`}>
+      {s.label}
+    </a>
+  ))}
+</div>
+
 <script>
+  // ── Desktop top bar ──────────────────────────────────────
   const nav = document.getElementById("section-nav");
   const hero = document.querySelector(".hero");
 
-  // Show nav when hero scrolls out of view
   if (nav && hero) {
     const heroObs = new IntersectionObserver(
       ([entry]) => nav.classList.toggle("visible", !entry.isIntersecting),
@@ -33,31 +50,211 @@ const sections = [
     heroObs.observe(hero);
   }
 
-  // Active section — scroll-based. On desktop the sidebar sections share
-  // vertical space with main column sections so we only highlight main col
-  // sections. On mobile everything is stacked so all sections are trackable,
-  // but this simpler approach works well enough for both layouts.
-  const links = nav?.querySelectorAll(".section-nav__link");
-  if (links?.length && nav) {
-    const mainColIds = ["summary", "experience", "open-source", "projects", "skills", "certifications", "education"];
-    const mainSections = mainColIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[];
+  const desktopLinks = nav?.querySelectorAll<HTMLElement>(".section-nav__link");
+  if (desktopLinks?.length && nav) {
+    const sectionIds = ["summary","experience","open-source","projects","skills","certifications","education"];
+    const allSections = (sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[])
+      .sort((a, b) => a.offsetTop - b.offsetTop);
+    const NAV_H = nav.getBoundingClientRect().height + 24;
 
-    const NAV_OFFSET = nav.getBoundingClientRect().height + 24;
+    let scrollLocked = false;
+    let lockTimer: ReturnType<typeof setTimeout>;
 
-    function updateActive() {
-      const scrollY = window.scrollY + NAV_OFFSET;
-      let current = "";
-      for (const section of mainSections) {
-        if (section.offsetTop <= scrollY) current = section.id;
-      }
-      links.forEach((l) => {
-        l.classList.toggle("active", l.getAttribute("data-section") === current);
-      });
+    function setActive(id: string) {
+      desktopLinks!.forEach((l) => l.classList.toggle("active", l.dataset.section === id));
     }
 
-    window.addEventListener("scroll", updateActive, { passive: true });
-    updateActive();
+    function updateDesktopActive() {
+      if (scrollLocked) return;
+      const y = window.scrollY + NAV_H;
+      let cur = "";
+      for (const s of allSections) if (s.offsetTop <= y) cur = s.id;
+      setActive(cur);
+    }
+
+    desktopLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        setActive(link.dataset.section!);
+        scrollLocked = true;
+        clearTimeout(lockTimer);
+        lockTimer = setTimeout(() => { scrollLocked = false; }, 800);
+      });
+    });
+
+    window.addEventListener("scroll", updateDesktopActive, { passive: true });
+    updateDesktopActive();
+  }
+
+  // ── Mobile floating hamburger ────────────────────────────
+  const fabBtn  = document.getElementById("nav-fab-btn");
+  const fabPanel = document.getElementById("nav-fab-panel");
+
+  // Show button only after hero scrolls away
+  if (fabBtn && hero) {
+    const fabObs = new IntersectionObserver(
+      ([entry]) => fabBtn.classList.toggle("visible", !entry.isIntersecting),
+      { threshold: 0 },
+    );
+    fabObs.observe(hero);
+  }
+
+  function openMenu()  {
+    fabPanel?.classList.add("open");
+    fabBtn?.classList.add("open");
+    fabBtn?.setAttribute("aria-expanded", "true");
+    fabPanel?.setAttribute("aria-hidden", "false");
+  }
+
+  function closeMenu() {
+    fabPanel?.classList.remove("open");
+    fabBtn?.classList.remove("open");
+    fabBtn?.setAttribute("aria-expanded", "false");
+    fabPanel?.setAttribute("aria-hidden", "true");
+  }
+
+  fabBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    fabPanel?.classList.contains("open") ? closeMenu() : openMenu();
+  });
+
+  fabPanel?.addEventListener("click", (e) => {
+    const link = (e.target as Element).closest<HTMLElement>(".nav-fab__link");
+    if (!link) return;
+    closeMenu();
+  });
+
+  // Close on outside tap
+  document.addEventListener("click", (e) => {
+    const t = e.target as Node;
+    if (!fabBtn?.contains(t) && !fabPanel?.contains(t)) closeMenu();
+  });
+
+  // Active section highlight in mobile panel
+  const mobileLinks = fabPanel?.querySelectorAll<HTMLElement>(".nav-fab__link");
+  if (mobileLinks?.length) {
+    const sectionIds = ["summary","experience","open-source","projects","skills","certifications","education"];
+    const allSections = (sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[])
+      .sort((a, b) => a.offsetTop - b.offsetTop);
+
+    function updateMobileActive() {
+      const y = window.scrollY + 80;
+      let cur = "";
+      for (const s of allSections) if (s.offsetTop <= y) cur = s.id;
+      mobileLinks!.forEach((l) => l.classList.toggle("active", l.dataset.section === cur));
+    }
+    window.addEventListener("scroll", updateMobileActive, { passive: true });
+    updateMobileActive();
   }
 </script>
+
+<style>
+  /* ── Mobile fab button ── */
+  .nav-fab__btn {
+    display: none;
+  }
+
+  /* ── Mobile panel ── */
+  .nav-fab__panel {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    /* Button: own fixed element, top-right */
+    .nav-fab__btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1100;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      border: 1px solid var(--clr-border);
+      background: var(--clr-surface);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      padding: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, box-shadow 0.2s;
+    }
+
+    .nav-fab__btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-fab__btn span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--clr-text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .nav-fab__btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-fab__btn.open span:nth-child(2) { opacity: 0; }
+    .nav-fab__btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Panel: own fixed element positioned below the button */
+    .nav-fab__panel {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 4.5rem;   /* 1rem gap + 3rem button + 0.5rem spacing */
+      right: 1rem;
+      z-index: 1099;
+      min-width: 180px;
+      max-height: calc(100dvh - 6rem);
+      overflow-y: auto;
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.92) translateY(-8px);
+      transform-origin: top right;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .nav-fab__panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+    }
+
+    .nav-fab__link {
+      display: block;
+      padding: 0.85rem 1.25rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--clr-text-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-left: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+    }
+
+    .nav-fab__link + .nav-fab__link {
+      border-top: 1px solid var(--clr-border);
+    }
+
+    .nav-fab__link:hover,
+    .nav-fab__link.active {
+      color: var(--clr-accent);
+      border-left-color: var(--clr-accent);
+      background: var(--clr-tag-bg);
+      text-decoration: none;
+    }
+  }
+</style>

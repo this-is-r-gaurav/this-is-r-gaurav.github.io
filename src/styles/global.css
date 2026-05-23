@@ -1170,6 +1170,13 @@ ul {
   text-decoration: none;
 }
 
+/* Mobile floating nav handled in SectionNav.astro component styles */
+@media (max-width: 768px) {
+  .section-nav {
+    display: none;
+  }
+}
+
 /* ── PRINT / PDF STYLES ─────────────────────────────────── */
 @media print {
   @page {

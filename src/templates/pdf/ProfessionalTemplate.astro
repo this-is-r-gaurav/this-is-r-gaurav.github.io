@@ -54,6 +54,16 @@ const { data } = Astro.props;
         )
       }
       {
+        data.header.credly && (
+          <div class="pdf-contact-row">
+            <span class="pdf-icon-svg">
+              <img src={icons.award} alt="" />
+            </span>
+            {data.header.credly.replace("https://", "").replace("www.", "")}
+          </div>
+        )
+      }
+      {
         data.header.location && (
           <div class="pdf-contact-row">
             <span class="pdf-icon-svg">
@@ -227,13 +237,26 @@ const { data } = Astro.props;
                   <span class="pdf-item-company" style="font-size: 9.5pt;">
                     {c.name}
                   </span>
+                  {c.year && <span class="pdf-item-dates">{c.year}</span>}
                 </div>
-                <p
-                  class="pdf-project-desc-mini"
-                  style="margin-top: 2pt; font-size: 8pt; line-height: 1.25;"
-                >
-                  {c.description}
-                </p>
+                {c.issuer && (
+                  <div class="pdf-item-sub">
+                    <span class="pdf-item-role">{c.issuer}</span>
+                  </div>
+                )}
+                {c.description && (
+                  <p
+                    class="pdf-project-desc-mini"
+                    style="margin-top: 2pt; font-size: 8pt; line-height: 1.25;"
+                  >
+                    {c.description}
+                  </p>
+                )}
+                {c.url && (
+                  <div style="font-size: 7.5pt; color: #1d4ed8; margin-top: 1pt;">
+                    {c.url.replace(/^https?:\/\/(www\.)?/, "")}
+                  </div>
+                )}
               </div>
             ))}
           </section>

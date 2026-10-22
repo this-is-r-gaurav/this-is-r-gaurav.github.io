@@ -1,0 +1,87 @@
+{
+  "_lastUpdated": "2026-10-22T18:18:57.515Z",
+  "prs": {
+    "timescale/helm-charts#327": {
+      "owner": "timescale",
+      "repo": "helm-charts",
+      "number": 327,
+      "state": "closed",
+      "merged": true,
+      "mergedAt": "2022-01-12T11:42:24Z",
+      "title": "Fixed Yaml Parse error when secretname is provided for certificate",
+      "author": "this-is-r-gaurav"
+    },
+    "httpie/httpie#1189": {
+      "owner": "httpie",
+      "repo": "httpie",
+      "number": 1189,
+      "state": "closed",
+      "merged": true,
+      "mergedAt": "2021-10-25T14:36:34Z",
+      "title": "Fix Snap autocompletion",
+      "author": "this-is-r-gaurav"
+    },
+    "jenkinsci/kubernetes-operator#287": {
+      "owner": "jenkinsci",
+      "repo": "kubernetes-operator",
+      "number": 287,
+      "state": "closed",
+      "merged": true,
+      "mergedAt": "2020-03-16T12:06:40Z",
+      "title": "SSH URL Update in The Repository Url",
+      "author": "this-is-r-gaurav"
+    },
+    "jenkinsci/kubernetes-operator#288": {
+      "owner": "jenkinsci",
+      "repo": "kubernetes-operator",
+      "number": 288,
+      "state": "closed",
+      "merged": true,
+      "mergedAt": "2020-03-16T12:05:24Z",
+      "title": "Broken Link Fixes",
+      "author": "this-is-r-gaurav"
+    },
+    "taspinar/twitterscraper#253": {
+      "owner": "taspinar",
+      "repo": "twitterscraper",
+      "number": 253,
+      "state": "closed",
+      "merged": true,
+      "mergedAt": "2020-07-22T10:31:48Z",
+      "title": "Docker Build Failing Issue",
+      "author": "this-is-r-gaurav"
+    },
+    "Chevrotain/chevrotain#1734": {
+      "owner": "Chevrotain",
+      "repo": "chevrotain",
+      "number": 1734,
+      "state": "closed",
+      "merged": true,
+      "mergedAt": "2022-01-06T16:19:51Z",
+      "title": "Fix documentation Broken Link of APIs",
+      "author": "this-is-r-gaurav"
+    }
+  },
+  "projects": {
+    "TimeScaleDb": {
+      "badge": "Merged PR #327",
+      "prStatus": "merged"
+    },
+    "HttPie": {
+      "badge": "Merged PR #1189",
+      "prStatus": "merged"
+    },
+    "JenkinsCI Kubernetes Operator": {
+      "badge": "Merged PR #287, #288",
+      "prStatus": "merged"
+    },
+    "TwitterScraper": {
+      "badge": "Merged PR #253",
+      "prStatus": "merged"
+    },
+    "Chevrotain": {
+      "badge": "Merged PR #1734",
+      "prStatus": "merged"
+    }
+  }
+}

@@ -28,7 +28,7 @@ competencies:
 
 meta:
   title: "Gaurav Raheja | Software Engineer"
-  description: "Software Engineer with 7+ years building high-scale systems in threat intelligence, cloud infrastructure, and data pipelines. Currently at Google, focused on darknet intelligence collection architecture and reliability."
+  description: "Google Cloud Certified Professional Cloud Architect and Software Engineer with {{years}}+ years building high-scale distributed systems, cloud infrastructure, and production agentic workflows. Currently at Google."
   keywords: "Software Engineer, Full Stack, Threat Intelligence, Python, Go, Kubernetes, Google, Mandiant, Resume, Gaurav Raheja"
   ogTitle: "Gaurav Raheja — Software Engineer at Google"
 
@@ -44,23 +44,23 @@ header:
   github: "https://github.com/this-is-r-gaurav"
   linkedin: "https://linkedin.com/in/this-is-r-gaurav"
   website: "https://gaurav.raheja.dev"
+  credly: "https://www.credly.com/users/this-is-r-gaurav"
 
 summary: |
-  Software Engineer with 7+ years specialising in threat intelligence, data pipelines, and cloud-native systems. At Google, I've contributed to darknet intelligence collection from the ground up — building core systems, growing target coverage, and progressively automating high-friction engineering workflows using LLM agents. Most recently, I built an agentic observability system using Looker and BigQuery agents that brings structured debugging to collection pipelines. I work best when there's ambiguity to resolve and cross-functional coordination to drive.
+  Software Engineer and Google Cloud Certified Professional Cloud Architect with {{years}}+ years architecting distributed systems, cloud infrastructure, and production agentic workflows. At Google, my work centers on enterprise cloud architecture and agentic AI systems (ADK, Gemini Enterprise), built on a strong foundation of engineering high-throughput darknet intelligence collection platforms. Proven track record in designing resilient GCP infrastructure, building autonomous agent workflows, and eliminating operational bottlenecks.
 
 experience:
   - company: "Google"
     role: "Software Engineer"
-    note: "Joined via Mandiant acquisition, Nov. 2022"
     from: "Aug. 2022"
     to: "Present"
     location: "Pune, IN"
     highlights:
-      - "Ensured zero-downtime operational continuity during the Mandiant-Google acquisition by scaling the threat intelligence collection platform with new data sources and targeted reliability improvements."
-      - "Eliminated a high-friction manual workflow by architecting and deploying an LLM-agent-driven code generation system, reducing related engineering efforts by 70%."
-      - "Reduced code duplication by nearly 30% across the system by designing and implementing a centralized, custom library."
-      - "Achieved real-time issue detection and triage across collection pipelines by architecting a proactive observability system powered by Looker and BigQuery agents."
-      - "Slashed manual monitoring and debugging overhead by 75% by designing and implementing an autonomous agentic pipeline."
+      - "Architect enterprise cloud solutions and production agentic workflows on Google Cloud, leveraging the Agent Development Kit (ADK) and Gemini Enterprise to build secure, autonomous systems."
+      - "Architected and scaled distributed darknet intelligence collection platforms on GCP, expanding data ingestion capacity across complex sources with zero-downtime reliability."
+      - "Eliminated a high-friction manual engineering workflow by deploying an LLM-agent-driven code generation pipeline, reducing operational effort by 70%."
+      - "Built a proactive observability and triage engine powered by Looker and BigQuery agents, establishing real-time pipeline monitoring and reducing manual debugging overhead by 75%."
+      - "Engineered a centralized custom library adopted across backend systems, reducing codebase duplication by 30% while standardizing reliability and security guardrails."
 
   - company: "One Convergence Pvt. Ltd"
     role: "Software Developer"
@@ -86,30 +86,125 @@ experience:
 
 open_source_contributions:
   - name: "TimeScaleDb"
+    badge: "Merged PR #327"
     description: "Enhanced Helm Chart flexibility for single-node installations, enabling support for custom secret management. Pull Request #327."
     url: "https://github.com/timescale/helm-charts/pull/327"
     tech: ["Helm", "Kubernetes", "Secrets"]
-  - name: "Chevotrain"
+  - name: "Chevrotain"
+    badge: "Merged PR #1734"
     description: "Improved API usability by auditing and correcting critical function documentation. Pull Request #1734."
-    url: "https://github.com/Chevotrain/chevotrain/pull/1734"
+    url: "https://github.com/Chevrotain/chevrotain/pull/1734"
     tech: ["Documentation", "API"]
   - name: "HttPie"
+    badge: "Merged PR #1189"
     description: "Systemically resolved issues with Snapcraft autocompletion to improve developer productivity. Pull Request #1189."
     url: "https://github.com/httpie/httpie/pull/1189"
     tech: ["Python", "Snapcraft", "Autocompletion"]
   - name: "JenkinsCI Kubernetes Operator"
+    badge: "PR #287, #288"
     description: "Maintained repository integrity by resolving broken documentation links and cross-references. Pull Request #287, #288."
     url: "https://github.com/jenkinsci/kubernetes-operator"
+    prs: [287, 288]
     tech: ["Jenkins", "K8s", "Operator"]
   - name: "TwitterScraper"
+    badge: "Merged PR #253"
     description: "Optimized Docker build workflows to resolve environment-specific compilation issues. Pull Request #253."
     url: "https://github.com/taspinar/twitterscraper/pull/253"
     tech: ["Docker", "Python", "Web Scraping"]
 
 certifications:
+  - name: "Professional Cloud Architect Certification"
+    issuer: "Google Cloud"
+    year: 2026
+    url: "https://www.credly.com/badges/14a8b9c4-2e0c-46b9-bce4-ee8a39ec5e8a/public_url"
+    credentialId: "14a8b9c4-2e0c-46b9-bce4-ee8a39ec5e8a"
+    image: "https://images.credly.com/images/71c579e0-51fd-4247-b493-d2fa8167157a/image.png"
+    skills:
+      - "Cloud Architecture"
+      - "GCP"
+      - "GKE"
+      - "Cloud Security"
+      - "Scalability"
+    description: "Proficiency in designing, developing, and managing robust, secure, scalable, and highly available architecture on Google Cloud to drive business objectives."
+
+  - name: "Accelerate Development with Antigravity"
+    issuer: "Google Cloud"
+    year: 2026
+    url: "https://www.credly.com/badges/172dee01-9181-4cb6-9a3d-61b522dfa9f5/public_url"
+    credentialId: "172dee01-9181-4cb6-9a3d-61b522dfa9f5"
+    image: "https://images.credly.com/images/9a9bd5ca-b41b-41ed-82ad-43968d960f62/blob"
+    skills:
+      - "Agent Development"
+      - "MCP"
+      - "Software Development"
+    description: "Demonstrated proficiency in configuring MCP servers, authoring custom agent skills and rules, and deploying agentic workflows to Google Cloud Agent Runtime."
+
+  - name: "Deploy an Agent with Agent Development Kit (ADK)"
+    issuer: "Google Cloud"
+    year: 2026
+    url: "https://www.credly.com/badges/39ddb6e0-10a5-46e3-853e-ae84acef7113/public_url"
+    credentialId: "39ddb6e0-10a5-46e3-853e-ae84acef7113"
+    image: "https://images.credly.com/images/e9c45e2a-a48e-4686-99df-7de0ccd6dae7/blob"
+    skills:
+      - "AI Agents"
+      - "Agent Development Kit"
+      - "Agent Engine"
+    description: "Demonstrated ability to author agents using Agent Development Kit (ADK), deploy to Agent Engine, and integrate hosted agents into web applications."
+
+  - name: "Add Agents to Gemini Enterprise"
+    issuer: "Google Cloud"
+    year: 2026
+    url: "https://www.credly.com/badges/39fd693c-e225-4fe1-b69c-bcdb84d98836/public_url"
+    credentialId: "39fd693c-e225-4fe1-b69c-bcdb84d98836"
+    image: "https://images.credly.com/images/c386f11b-05fd-4755-b091-611d9bb96113/blob"
+    skills:
+      - "AI Agents"
+      - "ADK"
+      - "Gemini"
+    description: "Demonstrated ability to build agents using Agent Designer and ADK, deploy to Agent Engine, and integrate into Gemini Enterprise apps."
+
+  - name: "Govern Agent Access with Gemini Enterprise Agent Platform"
+    issuer: "Google Cloud"
+    year: 2026
+    url: "https://www.credly.com/badges/74b86e2e-cebe-4931-932e-fa42a0a63f26/public_url"
+    credentialId: "74b86e2e-cebe-4931-932e-fa42a0a63f26"
+    image: "https://images.credly.com/images/39c0ab96-e088-4d83-baaf-395633aa1810/blob"
+    skills:
+      - "Agent Gateway"
+      - "Agent Governance"
+      - "Gemini Enterprise"
+    description: "Demonstrated capability in deploying BigQuery agents to Agent Runtime, provisioning SPIFFE Agent Identities, and managing granular IAM access controls."
+
+  - name: "Evaluate and Improve Agent Development Kit Agents"
+    issuer: "Google Cloud"
+    year: 2026
+    url: "https://www.credly.com/badges/70a48537-2ccd-40fc-95c0-bdd7626b6e59/public_url"
+    credentialId: "70a48537-2ccd-40fc-95c0-bdd7626b6e59"
+    image: "https://images.credly.com/images/b1800059-b7de-4065-851d-678287ea0720/blob"
+    skills:
+      - "Agent Evaluation"
+      - "Evaluation Strategy"
+    description: "Demonstrated ability to use ADK evaluation tools to benchmark, hill climb, and apply optimization techniques for agent reliability and accuracy."
+
+  - name: "Deploy Gemini Enterprise with Workspace Data Sources and Model Armor"
+    issuer: "Google Cloud"
+    year: 2026
+    url: "https://www.credly.com/badges/a74dfd00-4afd-4fd5-9bf8-49dc0df66b6f/public_url"
+    credentialId: "a74dfd00-4afd-4fd5-9bf8-49dc0df66b6f"
+    image: "https://images.credly.com/images/d82b7124-5d8a-4bb9-a3c0-7220e172f948/blob"
+    skills:
+      - "Google Workspace"
+      - "Secure Environments"
+      - "System Deployment"
+    description: "Demonstrated proficiency in deploying secure Gemini Enterprise environments with Model Armor safeguards grounded in Google Workspace and search data."
+
   - name: "Mandiant Cyber Threat Intelligence Analyst"
     issuer: "Mandiant"
     year: 2024
+    skills:
+      - "Threat Intelligence"
+      - "STIX / TAXII"
+      - "Diamond Model"
     description: "Demonstrated proficiency in threat intelligence frameworks, including STIX and the Diamond Model, to streamline workflows and improve structural analysis of cyber threats."
 
 projects:
@@ -138,18 +233,42 @@ projects:
         description: "Designed and implemented a centralized university portal to streamline the management and communication of academic events, training sessions, and placement drives."
 
 skills:
+  - group: "AI & Agentic Systems"
+    items:
+      - "AI Agents"
+      - "Agent Development Kit (ADK)"
+      - "Gemini Enterprise"
+      - "Agent Engine"
+      - "MCP"
+      - "Agent Evaluation"
+      - "Prompt Engineering"
+      - "Looker"
+  - group: "Cloud & Infrastructure"
+    items:
+      - "Cloud Architecture"
+      - "GCP"
+      - "GKE"
+      - "Cloud Security"
+      - "Docker"
+      - "Kubernetes"
+      - "Helm"
+      - "Terraform"
+      - "GitHub Actions"
+  - group: "Threat Intelligence & Security"
+    items:
+      - "Threat Intelligence"
+      - "STIX / TAXII"
+      - "Diamond Model"
+      - "Agent Governance"
+      - "Secure Environments"
   - group: "Languages"
     items: ["Python", "Go", "TypeScript", "JavaScript", "Bash"]
   - group: "Backend & Data"
     items: ["Flask", "FastAPI", "Scrapy", "ElasticSearch", "BigQuery", "Apache Dataflow", "Apache NiFi"]
-  - group: "Cloud & Infrastructure"
-    items: ["GCP", "Docker", "Kubernetes", "Helm", "Terraform", "GitHub Actions"]
   - group: "Databases"
     items: ["PostgreSQL", "MongoDB"]
   - group: "Frontend"
     items: ["React", "Astro"]
-  - group: "AI & LLM"
-    items: ["LiteLLM", "Prompt Engineering", "Looker"]
 
 education:
   - institution: "Centre for Development of Advance Computing (CDAC)"

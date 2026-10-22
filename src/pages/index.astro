@@ -13,6 +13,13 @@ import Fab from "../components/Fab.astro";
 import ProfessionalTemplate from "../templates/pdf/ProfessionalTemplate.astro";
 
 import { resumeData as data } from "../utils/data";
+
+const verifiedSkills = new Set(
+  (data.certifications || [])
+    .filter((c: any) => Boolean(c.url && c.url.includes("credly.com")))
+    .flatMap((c: any) => c.skills || [])
+    .map((s: string) => s.toLowerCase().trim())
+);
 ---
 
 <Layout
@@ -21,9 +28,22 @@ import { resumeData as data } from "../utils/data";
 >
   <SectionNav />
   <div data-current-template="professional" id="main-content-wrapper">
-    <Hero header={data.header} languages={data.languages} currentJob={data.experience?.[0]} />
+    <Hero
+      header={data.header}
+      languages={data.languages}
+      currentJob={data.experience?.[0]}
+      yearsOfExperience={data.yearsOfExperience}
+    />
 
     {data.competencies && <Competencies competencies={data.competencies} />}
+
+    <div id="filter-bar" class="filter-status-bar" style="display: none;">
+      <div class="filter-status-text">
+        <span>Filtering by:</span>
+        <span class="filter-status-pill" id="filter-tag-label"></span>
+      </div>
+      <button class="filter-clear-btn" id="filter-clear-btn" type="button">✕ Clear Filter</button>
+    </div>
 
     <main class="resume-body">
 
@@ -99,7 +119,7 @@ import { resumeData as data } from "../utils/data";
               <polyline points="16 18 22 12 16 6" />
               <polyline points="8 6 2 12 8 18" />
             </svg>
-            <Skills skills={data.skills} />
+            <Skills skills={data.skills} verifiedSkills={verifiedSkills} />
           </Section>
         )}
 
@@ -129,4 +149,107 @@ import { resumeData as data } from "../utils/data";
 
     <ProfessionalTemplate data={data} />
   </div>
+
+  <script>
+    let currentFilter: string | null = null;
+    const filterBar = document.getElementById("filter-bar");
+    const filterTagLabel = document.getElementById("filter-tag-label");
+    const filterClearBtn = document.getElementById("filter-clear-btn");
+    const mainContent = document.getElementById("main-content-wrapper");
+
+    function setSkillFilter(skill: string | null) {
+      currentFilter = skill ? skill.trim().toLowerCase() : null;
+
+      // Toggle active visual state on chips & pills
+      document.querySelectorAll("[data-skill-filter]").forEach((el) => {
+        const val = (el as HTMLElement).dataset.skillFilter?.trim().toLowerCase();
+        el.classList.toggle("active-filter", Boolean(currentFilter && val === currentFilter));
+      });
+
+      if (!currentFilter) {
+        mainContent?.classList.remove("filter-engaged");
+        if (filterBar) filterBar.style.display = "none";
+        document.querySelectorAll(".timeline-item, .project-card, .cert-item").forEach((el) => {
+          el.classList.remove("dimmed", "highlighted");
+        });
+        document.querySelectorAll(".timeline-highlight").forEach((el) => {
+          el.classList.remove("highlight-text");
+        });
+        return;
+      }
+
+      mainContent?.classList.add("filter-engaged");
+      if (filterBar && filterTagLabel) {
+        filterTagLabel.textContent = skill!;
+        filterBar.style.display = "flex";
+      }
+
+      // Keyword matching
+      const tokens = currentFilter
+        .split(/[\s·,/-]+/)
+        .map((t) => t.trim().toLowerCase())
+        .filter((t) => t.length > 1 && !["and", "the", "for", "with", "systems"].includes(t));
+
+      // Filter experience items & highlights
+      document.querySelectorAll(".timeline-item").forEach((item) => {
+        const text = item.textContent?.toLowerCase() || "";
+        const matches = tokens.some((t) => text.includes(t));
+        item.classList.toggle("highlighted", matches);
+        item.classList.toggle("dimmed", !matches);
+
+        item.querySelectorAll(".timeline-highlight").forEach((h) => {
+          const hText = h.textContent?.toLowerCase() || "";
+          const hMatches = tokens.some((t) => hText.includes(t));
+          h.classList.toggle("highlight-text", hMatches);
+        });
+      });
+
+      // Filter project cards
+      document.querySelectorAll(".project-card").forEach((card) => {
+        const text = card.textContent?.toLowerCase() || "";
+        const matches = tokens.some((t) => text.includes(t));
+        card.classList.toggle("highlighted", matches);
+        card.classList.toggle("dimmed", !matches);
+      });
+
+      // Filter certifications
+      document.querySelectorAll(".cert-item").forEach((cert) => {
+        const text = cert.textContent?.toLowerCase() || "";
+        const matches = tokens.some((t) => text.includes(t));
+        cert.classList.toggle("highlighted", matches);
+        cert.classList.toggle("dimmed", !matches);
+      });
+
+      (window as any).posthog?.capture("skill_filtered", { skill });
+    }
+
+    // Click on filterable chips/pills
+    document.addEventListener("click", (e) => {
+      const target = (e.target as Element)?.closest<HTMLElement>("[data-skill-filter]");
+      if (target) {
+        e.preventDefault();
+        const skill = target.dataset.skillFilter;
+        if (currentFilter && skill?.trim().toLowerCase() === currentFilter) {
+          setSkillFilter(null);
+        } else if (skill) {
+          setSkillFilter(skill);
+        }
+      }
+    });
+
+    // Keyboard navigation (Enter / Space)
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        const target = (e.target as Element)?.closest<HTMLElement>("[data-skill-filter]");
+        if (target) {
+          e.preventDefault();
+          target.click();
+        }
+      }
+    });
+
+    filterClearBtn?.addEventListener("click", () => {
+      setSkillFilter(null);
+    });
+  </script>
 </Layout>

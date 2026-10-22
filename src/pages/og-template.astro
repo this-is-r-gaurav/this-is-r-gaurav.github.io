@@ -3,9 +3,8 @@
 //
 // Character source priority:
 //   1. public/og-character.svg  — user-supplied vector (best quality)
-//   2. public/og-character.png  — extracted by scripts/extract-character.mjs
-//                                 or user-supplied raster
-//   3. public/profile.jpg       — fallback: real photo with blue-tint CSS treatment
+//   2. public/og-character.png  — user-supplied raster (sketch or cutout)
+//   3. public/profile.jpeg      — fallback: real photo with blue-tint CSS treatment
 
 import fs from "node:fs";
 import { resumeData as data } from "../utils/data";
@@ -23,13 +22,18 @@ const hasSvg = fs.existsSync("./public/og-character.svg");
 const hasPng = fs.existsSync("./public/og-character.png");
 
 type CharacterMode = "svg" | "png" | "photo";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/900.css";
+
 const characterMode: CharacterMode = hasSvg ? "svg" : hasPng ? "png" : "photo";
 const characterSrc =
   characterMode === "svg"
     ? "/og-character.svg"
     : characterMode === "png"
       ? "/og-character.png"
-      : "/profile.jpg";
+      : "/profile.jpeg";
 ---
 
 <!doctype html>
@@ -38,8 +42,6 @@ const characterSrc =
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1200" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap");
-
       *,
       *::before,
       *::after {

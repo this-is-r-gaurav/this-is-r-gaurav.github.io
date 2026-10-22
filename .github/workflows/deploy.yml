@@ -38,6 +38,7 @@ jobs:
         run: npm run build
         env:
           PUBLIC_POSTHOG_KEY: ${{ secrets.PUBLIC_POSTHOG_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate PDF
         run: npm run generate-pdf

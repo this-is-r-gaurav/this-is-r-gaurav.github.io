@@ -5,9 +5,10 @@ interface Props {
   header: HeaderData;
   languages?: LanguageData[];
   currentJob?: ExperienceData;
+  yearsOfExperience?: number;
 }
 
-const { header, languages, currentJob } = Astro.props;
+const { header, languages, currentJob, yearsOfExperience } = Astro.props;
 const displayName = header.fullName || header.name || "Your Name";
 const nameParts = displayName.split(" ");
 const lastName = nameParts.pop();
@@ -37,7 +38,7 @@ const websiteDisplay = header.website
       {
         header.tagline && (
           <p class="hero__tagline">
-            <span class="hero__typewriter" data-text={header.tagline} />
+            <span class="hero__typewriter" data-text={header.tagline}>{header.tagline}</span>
           </p>
         )
       }
@@ -45,13 +46,21 @@ const websiteDisplay = header.website
       <div class="hero__links">
         {
           header.email && (
-            <a href={`mailto:${header.email}`} class="hero__link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-              {header.email}
-            </a>
+            <div class="hero__link-wrapper">
+              <a href={`mailto:${header.email}`} class="hero__link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                {header.email}
+              </a>
+              <button class="copy-btn" data-copy={header.email} title="Copy email address" aria-label="Copy email address">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              </button>
+            </div>
           )
         }
         {
@@ -88,9 +97,31 @@ const websiteDisplay = header.website
             </a>
           )
         }
+        {
+          header.credly && (
+            <a href={header.credly} class="hero__link" target="_blank" rel="noopener noreferrer" title="View Verified Badges on Credly">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="6" />
+                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+              </svg>
+              Credly
+            </a>
+          )
+        }
       </div>
 
       <div class="hero__meta">
+        {
+          yearsOfExperience && (
+            <span class="hero__meta-item" title="Years of professional experience">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              {yearsOfExperience}+ Years Experience
+            </span>
+          )
+        }
         {
           header.location && (
             <span class="hero__meta-item">
@@ -114,12 +145,28 @@ const websiteDisplay = header.website
   </div>
 </header>
 
+<style>
+  .hero__link-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+</style>
+
 <script>
-  // Typewriter effect
+  // Typewriter effect (skips when user prefers reduced motion)
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const twEls = document.querySelectorAll(".hero__typewriter");
+
   twEls.forEach((el: any) => {
     const text = el.dataset.text;
     if (!text) return;
+    if (prefersReduced) {
+      el.textContent = text;
+      el.style.borderColor = "transparent";
+      return;
+    }
+    el.textContent = "";
     let i = 0;
     const speed = 40;
     const iv = setInterval(() => {
@@ -129,6 +176,23 @@ const websiteDisplay = header.website
         setTimeout(() => { el.style.borderColor = "transparent"; }, 1200);
       }
     }, speed);
+  });
+
+  // Copy to clipboard handler
+  document.querySelectorAll(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const val = (btn as HTMLElement).dataset.copy;
+      if (!val) return;
+      try {
+        await navigator.clipboard.writeText(val);
+        (window as any).showToast?.(`Copied to clipboard: ${val}`);
+        (window as any).posthog?.capture("contact_copied", { value: val });
+      } catch (err) {
+        console.error("Copy failed", err);
+      }
+    });
   });
 
   // Track contact link clicks

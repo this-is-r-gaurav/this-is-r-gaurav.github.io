@@ -17,10 +17,10 @@ dev: ## Run local development server
 build: ## Build site and generate static PDF, DOCX, and OG image locally
 	npm run build
 	npm run generate-pdf
-	npm run extract-character
 	npm run generate-og
 	npm run generate-docx
 	npm run generate-favicon
+	npm run patch-meta
 
 preview: ## Preview the production build locally
 	npm run preview

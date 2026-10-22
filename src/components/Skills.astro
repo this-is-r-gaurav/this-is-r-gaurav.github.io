@@ -3,9 +3,30 @@ import type { SkillsGroup } from '../utils/schema';
 
 interface Props {
   skills: SkillsGroup[];
+  verifiedSkills?: Set<string>;
 }
 
-const { skills } = Astro.props;
+const { skills, verifiedSkills = new Set<string>() } = Astro.props;
+const verifiedList = Array.from(verifiedSkills);
+
+function checkVerified(skillName: string): boolean {
+  const normalized = skillName.toLowerCase().trim();
+  if (verifiedSkills.has(normalized)) return true;
+
+  return verifiedList.some((v) => {
+    if (normalized.length <= 3) {
+      const tokens = v.split(/[\s,()/-]+/).filter(Boolean);
+      return tokens.includes(normalized);
+    }
+    const wordsV = v.split(/[\s,()/-]+/).filter(Boolean);
+    const wordsN = normalized.split(/[\s,()/-]+/).filter(Boolean);
+    return (
+      v.includes(normalized) ||
+      normalized.includes(v) ||
+      wordsV.some((w) => wordsN.includes(w) && w.length > 3)
+    );
+  });
+}
 ---
 
 <div class="skills-grid stagger">
@@ -33,9 +54,30 @@ const { skills } = Astro.props;
           </div>
         ) : (
           <div class="skill-pills">
-            {group.items.map((skill: any) => (
-              <span class="skill-pill">{typeof skill === 'string' ? skill : skill.name}</span>
-            ))}
+            {group.items.map((skill: any) => {
+              const skillName = typeof skill === 'string' ? skill : skill.name;
+              const isVerified = checkVerified(skillName);
+              return (
+                <span
+                  class={`skill-pill ${isVerified ? 'skill-pill--verified' : ''}`}
+                  data-skill-filter={skillName}
+                  role="button"
+                  tabindex="0"
+                  title={
+                    isVerified
+                      ? `Verified credential on Credly · Filter by ${skillName}`
+                      : `Filter experience & projects by ${skillName}`
+                  }
+                >
+                  {isVerified && (
+                    <svg viewBox="0 0 24 24" class="skill-verified-icon" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z" />
+                    </svg>
+                  )}
+                  {skillName}
+                </span>
+              );
+            })}
           </div>
         )}
       </div>

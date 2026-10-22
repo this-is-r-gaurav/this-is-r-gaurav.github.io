@@ -10,7 +10,15 @@ const { competencies } = Astro.props;
   <span class="competencies-label">Core Expertise</span>
   <div class="competencies-list">
     {competencies.map((c) => (
-      <span class="competency-chip">{c}</span>
+      <span
+        class="competency-chip"
+        data-skill-filter={c}
+        role="button"
+        tabindex="0"
+        title={`Filter experience & projects by ${c}`}
+      >
+        {c}
+      </span>
     ))}
   </div>
 </div>

@@ -9,14 +9,91 @@ const { certifications } = Astro.props;
 ---
 
 <ul class="cert-list stagger">
-  {certifications.map(c => (
-    <li class="cert-item reveal-left">
-      <div>
-        <div class="cert-name">{c.name}</div>
-        {c.issuer && <div class="cert-issuer">{c.issuer}</div>}
-        {c.description && <p class="cert-desc">{c.description}</p>}
-      </div>
-      {c.year && <span class="cert-year">{c.year}</span>}
-    </li>
-  ))}
+  {certifications.map(c => {
+    const isCredly = Boolean(c.url && c.url.includes('credly.com'));
+    return (
+      <li class="cert-item reveal-left">
+        {c.image && (
+          <div class="cert-badge-wrap">
+            {c.url ? (
+              <a
+                href={c.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Verify ${c.name} on ${isCredly ? 'Credly' : 'Issuer'}`}
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <img
+                  src={c.image}
+                  alt={`${c.name} credential badge`}
+                  class="cert-badge-img"
+                  loading="lazy"
+                  width="48"
+                  height="48"
+                />
+              </a>
+            ) : (
+              <img
+                src={c.image}
+                alt={`${c.name} credential badge`}
+                class="cert-badge-img"
+                loading="lazy"
+                width="48"
+                height="48"
+              />
+            )}
+          </div>
+        )}
+        <div class="cert-body">
+          <div class="cert-header">
+            <div class="cert-name">{c.name}</div>
+            {c.year && <span class="cert-year">{c.year}</span>}
+          </div>
+
+          <div class="cert-meta-row">
+            {c.issuer && <div class="cert-issuer">{c.issuer}</div>}
+            {c.url && (
+              <a
+                href={c.url}
+                class="cert-verify-badge"
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Verify ${c.name} on ${isCredly ? 'Credly' : 'Issuer Site'}`}
+                aria-label={`Verify ${c.name} on ${isCredly ? 'Credly' : 'Issuer Site'}`}
+              >
+                <svg viewBox="0 0 24 24" class="cert-verify-icon" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z" />
+                </svg>
+                <span>{isCredly ? 'Verified on Credly' : 'Verify Credential'}</span>
+                <svg viewBox="0 0 24 24" class="cert-arrow-icon" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+            )}
+          </div>
+
+          {c.description && <p class="cert-desc">{c.description}</p>}
+
+          {c.skills && c.skills.length > 0 && (
+            <div class="cert-skills">
+              {c.skills.map((s: string) => (
+                <span
+                  class="cert-skill-tag"
+                  data-skill-filter={s}
+                  role="button"
+                  tabindex="0"
+                  title={`Filter by ${s}`}
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </li>
+    );
+  })}
 </ul>

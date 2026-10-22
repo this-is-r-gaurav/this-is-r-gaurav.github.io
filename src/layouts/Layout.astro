@@ -1,5 +1,18 @@
 ---
 import PostHog from "../components/posthog.astro";
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/fira-code/400.css";
+import "@fontsource/fira-code/500.css";
+import "@fontsource/eb-garamond/400.css";
+import "@fontsource/eb-garamond/500.css";
+import "@fontsource/eb-garamond/600.css";
+import "@fontsource/eb-garamond/700.css";
+import "@fontsource/eb-garamond/800.css";
 
 interface Props {
   title: string;
@@ -96,42 +109,41 @@ const shareImage = `${siteUrl}/og-image.jpg`;
     <link rel="canonical" href={siteUrl} />
 
     <!-- JSON-LD -->
-    <script
-      type="application/ld+json"
-      is:inline
-      set:html={JSON.stringify({
+    {(() => {
+      const knowsAbout = Array.from(
+        new Set([
+          ...(data.competencies || []),
+          ...(data.skills?.flatMap((g) =>
+            g.items.map((i: any) => (typeof i === "string" ? i : i.name)),
+          ) || []),
+        ]),
+      );
+      const schemaData = {
         "@context": "https://schema.org/",
         "@type": "Person",
         name: data.header.name,
-        jobTitle: data.header.title || "Software Engineer",
+        jobTitle: data.header.title || (data.experience?.[0]?.role ?? "Software Engineer"),
         url: siteUrl,
-        sameAs: [data.header.github, data.header.linkedin],
+        sameAs: [data.header.github, data.header.linkedin].filter(Boolean),
         description: data.meta?.description,
-        knowsAbout: [
-          "Software Engineering",
-          "Full Stack Development",
-          "Threat Intelligence",
-          "Python",
-          "Go",
-          "Cloud Infrastructure",
-        ],
-      })}
-    />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&family=EB+Garamond:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&family=EB+Garamond:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
+        ...(data.experience?.[0]
+          ? {
+              worksFor: {
+                "@type": "Organization",
+                name: data.experience[0].company,
+              },
+            }
+          : {}),
+        knowsAbout,
+      };
+      return (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(schemaData)}
+        />
+      );
+    })()}
 
     <PostHog />
   </head>
@@ -147,10 +159,22 @@ const shareImage = `${siteUrl}/og-image.jpg`;
       <slot />
     </div>
 
-    <!-- PDF Toast -->
+    <!-- Toast Notification -->
     <div id="toast" class="toast">Generating PDF…</div>
 
     <script>
+      // Global toast notification helper
+      (window as any).showToast = (msg: string, duration = 2500) => {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout((toast as any)._timer);
+        (toast as any)._timer = setTimeout(() => {
+          toast.classList.remove("show");
+        }, duration);
+      };
+
       // Fade in page — no loader, just a clean opacity transition
       window.addEventListener("DOMContentLoaded", () => {
         const root = document.getElementById("resume-root");

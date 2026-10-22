@@ -22,6 +22,7 @@ export const headerSchema = z.object({
   github: z.string().optional().transform(urlFixer),
   linkedin: z.string().optional().transform(urlFixer),
   website: z.string().optional().transform(urlFixer),
+  credly: z.string().optional().transform(urlFixer),
 });
 
 export const experienceSchema = z.object({
@@ -40,13 +41,20 @@ export const projectSchema = z.object({
   url: z.string().optional().transform(urlFixer),
   tech: z.array(z.string()),
   stars: z.number().min(0).optional(),
+  badge: z.string().optional(),
+  prs: z.array(z.union([z.number(), z.string()])).optional(),
+  prStatus: z.enum(["merged", "open", "closed"]).optional(),
 });
 
 export const certificationSchema = z.object({
   name: z.string(),
   issuer: z.string().optional(),
-  description: z.string(),
-  year: z.coerce.number().min(2000).max(new Date().getFullYear()).optional(),
+  description: z.string().optional(),
+  year: z.coerce.number().min(2000).max(new Date().getFullYear() + 1).optional(),
+  url: z.string().optional().transform(urlFixer),
+  credentialId: z.string().optional(),
+  image: z.string().optional(),
+  skills: z.array(z.string()).optional(),
 });
 
 export const academicProjectSchema = z.object({
@@ -116,6 +124,7 @@ export const resumeSchema = z
     skills: z.array(skillsGroupSchema).optional(),
     education: z.array(educationSchema).optional(),
     languages: z.array(languageSchema).optional(),
+    yearsOfExperience: z.number().optional(),
   })
   .passthrough(); // allows unknown keys to pass through for new dynamic sections
 

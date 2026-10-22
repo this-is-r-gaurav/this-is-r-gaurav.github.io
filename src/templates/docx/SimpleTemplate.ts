@@ -1,4 +1,11 @@
-import { Paragraph, TextRun, Tab, AlignmentType, BorderStyle } from "docx";
+import {
+  Paragraph,
+  TextRun,
+  Tab,
+  AlignmentType,
+  BorderStyle,
+  ExternalHyperlink,
+} from "docx";
 import type { ResumeData } from "../../utils/schema";
 
 export class SimpleTemplate {
@@ -72,10 +79,61 @@ export class SimpleTemplate {
 
   private renderHeader(header: any): Paragraph[] {
     const { font, size, spacing } = this.styles;
-    const contactLine = [header.location, header.email, header.phone]
+    const contactLine1 = [header.location, header.phone, header.email]
       .filter(Boolean)
       .join(" | ");
-    return [
+
+    const linkRuns: (TextRun | ExternalHyperlink)[] = [];
+    const links = [
+      header.linkedin
+        ? {
+            label: header.linkedin.replace(/^https?:\/\/(www\.)?/, ""),
+            url: header.linkedin,
+          }
+        : null,
+      header.github
+        ? {
+            label: header.github.replace(/^https?:\/\/(www\.)?/, ""),
+            url: header.github,
+          }
+        : null,
+      header.website
+        ? {
+            label: header.website.replace(/^https?:\/\/(www\.)?/, ""),
+            url: header.website,
+          }
+        : null,
+      header.credly
+        ? {
+            label: header.credly.replace(/^https?:\/\/(www\.)?/, ""),
+            url: header.credly,
+          }
+        : null,
+    ].filter(Boolean) as { label: string; url: string }[];
+
+    links.forEach((l, idx) => {
+      if (idx > 0) {
+        linkRuns.push(
+          new TextRun({ text: " | ", size: size.contactLine, font }),
+        );
+      }
+      linkRuns.push(
+        new ExternalHyperlink({
+          children: [
+            new TextRun({
+              text: l.label,
+              size: size.contactLine,
+              font,
+              color: "0000EE",
+              underline: {},
+            }),
+          ],
+          link: l.url,
+        }),
+      );
+    });
+
+    const paragraphs: Paragraph[] = [
       new Paragraph({
         alignment: AlignmentType.CENTER,
         children: [
@@ -87,14 +145,31 @@ export class SimpleTemplate {
           }),
         ],
       }),
-      new Paragraph({
-        alignment: AlignmentType.CENTER,
-        spacing: spacing.sectionBody,
-        children: [
-          new TextRun({ text: contactLine, size: size.contactLine, font }),
-        ],
-      }),
     ];
+
+    if (contactLine1) {
+      paragraphs.push(
+        new Paragraph({
+          alignment: AlignmentType.CENTER,
+          spacing: spacing.sectionBody,
+          children: [
+            new TextRun({ text: contactLine1, size: size.contactLine, font }),
+          ],
+        }),
+      );
+    }
+
+    if (linkRuns.length > 0) {
+      paragraphs.push(
+        new Paragraph({
+          alignment: AlignmentType.CENTER,
+          spacing: { before: 40 },
+          children: linkRuns,
+        }),
+      );
+    }
+
+    return paragraphs;
   }
 
   private renderText(title: string, value: string): Paragraph[] {
@@ -320,19 +395,34 @@ export class SimpleTemplate {
             : []),
         ],
       }),
-      new Paragraph({
-        spacing: spacing.expSub,
-        alignment: AlignmentType.JUSTIFIED,
-        children: [
-          new TextRun({ text: item.description, size: size.body, font }),
-        ],
-      }),
+      ...(item.description
+        ? [
+            new Paragraph({
+              spacing: spacing.expSub,
+              alignment: AlignmentType.JUSTIFIED,
+              children: [
+                new TextRun({ text: item.description, size: size.body, font }),
+              ],
+            }),
+          ]
+        : []),
       ...(item.url
         ? [
             new Paragraph({
               spacing: spacing.expSub,
               children: [
-                new TextRun({ text: item.url, size: size.contactLine, font }),
+                new ExternalHyperlink({
+                  children: [
+                    new TextRun({
+                      text: item.url,
+                      size: size.contactLine,
+                      font,
+                      color: "0000EE",
+                      underline: {},
+                    }),
+                  ],
+                  link: item.url,
+                }),
               ],
             }),
           ]

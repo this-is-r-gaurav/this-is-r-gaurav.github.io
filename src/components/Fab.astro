@@ -237,6 +237,16 @@
     const isProd = window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1');
 
     if (!isProd) {
+      if (filename.endsWith('.docx')) {
+        const link = document.createElement('a');
+        link.href = path;
+        link.download = 'Gaurav_Resume_Simple.docx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return;
+      }
+
       if (window.location.pathname !== path) {
         const iframe = document.createElement('iframe');
         iframe.style.visibility = 'hidden';
@@ -277,17 +287,7 @@
 
   dl2Col?.addEventListener('click', () => handleDownload('resume.pdf', '/', 'Professional 2-Column'));
   dlExecPdf?.addEventListener('click', () => handleDownload('resume-simple.pdf', '/simple', 'Executive PDF'));
-  
-  dlExecDocx?.addEventListener('click', () => {
-    // Track DOCX download event
-    if (typeof window !== 'undefined' && (window as any).posthog) {
-      (window as any).posthog.capture('resume_downloaded', {
-        format: 'Executive DOCX',
-        filename: 'resume-simple.docx'
-      });
-    }
-    window.location.href = '/download-simple-docx';
-  });
+  dlExecDocx?.addEventListener('click', () => handleDownload('resume-simple.docx', '/download-simple-docx', 'Executive DOCX'));
 
   const syncThemeIcon = (theme: string) => {
     if (iconSun && iconMoon) {

@@ -87,7 +87,7 @@ const { data } = Astro.props;
     <div class="pdf-header-identity">
       <div class="pdf-name-wrap">
         <h1 class="pdf-name">{data.header.name}</h1>
-        <p class="pdf-title">{data.header.title.toUpperCase()}</p>
+        <p class="pdf-title">{(data.header.title || data.experience?.[0]?.role || "Software Engineer").toUpperCase()}</p>
       </div>
       <div class="pdf-profile-image">
         {
@@ -167,9 +167,10 @@ const { data } = Astro.props;
               Open Source Contributions
             </h2>
             {data.open_source_contributions.map((p: any) => (
-              <div class="pdf-item pdf-os">
-                <div class="pdf-os-name">{p.name}</div>
-                <div class="pdf-os-dates">{p.tech.join(", ")}</div>
+              <div class="pdf-item pdf-os" style="margin-bottom: 5pt;">
+                <div class="pdf-os-name" style="font-size: 9pt;">
+                  {p.name} <span class="pdf-os-dates" style="font-weight: 500; font-size: 7.5pt; margin-left: 4pt;">· {p.tech.join(", ")}</span>
+                </div>
                 <ul class="pdf-item-list">
                   <li>{p.description}</li>
                   {p.url && <li class="pdf-os-url">{p.url}</li>}
@@ -189,27 +190,24 @@ const { data } = Astro.props;
             </h2>
             {data.projects.map((group: any) => (
               <div>
-                <div class="pdf-item-sub" style="margin-bottom: 3pt;">
-                  <span class="pdf-item-role">{group.group}</span>
+                <div class="pdf-item-sub" style="margin-bottom: 2pt;">
+                  <span class="pdf-item-role" style="font-size: 8pt; font-weight: 600;">{group.group}</span>
                 </div>
                 {group.items.map((p: any) => (
-                  <div class="pdf-item">
+                  <div class="pdf-item" style="margin-bottom: 5pt;">
                     <div class="pdf-item-header">
-                      <span class="pdf-item-company">{p.name}</span>
-                      <span class="pdf-item-dates">{p.duration}</span>
-                    </div>
-                    <div class="pdf-item-sub">
-                      <span class="pdf-item-role">{p.institution}</span>
+                      <span class="pdf-item-company" style="font-size: 9pt;">{p.name} <small style="font-weight: normal; color: #666;">({p.institution})</small></span>
+                      <span class="pdf-item-dates" style="font-size: 7.5pt;">{p.duration}</span>
                     </div>
                     <div
                       class="pdf-project-tech-line"
-                      style="font-weight: 600; font-size: 8pt; color: #555;"
+                      style="font-weight: 600; font-size: 7.5pt; color: #555; margin-top: 1pt;"
                     >
                       <b>Tech Stack:</b> {p.tech.join(", ")}
                     </div>
                     <p
                       class="pdf-project-desc-mini"
-                      style="margin-top: 3pt; line-height: 1.3;"
+                      style="margin-top: 1.5pt; font-size: 7.5pt; line-height: 1.25;"
                     >
                       {p.description}
                     </p>
@@ -232,28 +230,28 @@ const { data } = Astro.props;
               Certification
             </h2>
             {data.certifications.map((c: any) => (
-              <div class="pdf-item">
+              <div class="pdf-item" style="margin-bottom: 4.5pt;">
                 <div class="pdf-item-header">
-                  <span class="pdf-item-company" style="font-size: 9.5pt;">
+                  <span class="pdf-item-company" style="font-size: 8.5pt;">
                     {c.name}
                   </span>
-                  {c.year && <span class="pdf-item-dates">{c.year}</span>}
+                  {c.year && <span class="pdf-item-dates" style="font-size: 7.5pt;">{c.year}</span>}
                 </div>
                 {c.issuer && (
-                  <div class="pdf-item-sub">
-                    <span class="pdf-item-role">{c.issuer}</span>
+                  <div class="pdf-item-sub" style="margin-bottom: 1pt;">
+                    <span class="pdf-item-role" style="font-size: 7.5pt;">{c.issuer}</span>
                   </div>
                 )}
                 {c.description && (
                   <p
                     class="pdf-project-desc-mini"
-                    style="margin-top: 2pt; font-size: 8pt; line-height: 1.25;"
+                    style="margin-top: 1pt; font-size: 7.2pt; line-height: 1.2;"
                   >
                     {c.description}
                   </p>
                 )}
                 {c.url && (
-                  <div style="font-size: 7.5pt; color: #1d4ed8; margin-top: 1pt;">
+                  <div style="font-size: 7pt; color: #1d4ed8; margin-top: 1pt;">
                     {c.url.replace(/^https?:\/\/(www\.)?/, "")}
                   </div>
                 )}
@@ -308,25 +306,19 @@ const { data } = Astro.props;
         </h2>
         {
           data.education?.map((e) => (
-            <div class="pdf-item">
+            <div class="pdf-item" style="margin-bottom: 4pt;">
               <div class="pdf-item-header">
-                <span class="pdf-item-company" style="font-size: 9pt;">
+                <span class="pdf-item-company" style="font-size: 8.5pt;">
                   {e.institution}
                 </span>
-                <span class="pdf-item-dates" style="font-size: 8pt;">
+                <span class="pdf-item-dates" style="font-size: 7.5pt;">
                   {e.from} – {e.to}
                 </span>
               </div>
-              <div class="pdf-item-sub">
-                <span class="pdf-item-role" style="font-size: 8.5pt;">
-                  {e.degree}
+              <div class="pdf-item-sub" style="margin-bottom: 0;">
+                <span class="pdf-item-role" style="font-size: 8pt;">
+                  {e.degree} · {e.location}
                 </span>
-              </div>
-              <div
-                class="pdf-item-loc"
-                style="font-size: 7.5pt; color: #666; margin-top: 1pt;"
-              >
-                ({e.location})
               </div>
             </div>
           ))

@@ -21,6 +21,7 @@ build: ## Build site and generate static PDF, DOCX, and OG image locally
 	npm run generate-docx
 	npm run generate-favicon
 	npm run patch-meta
+	npm run validate-docs
 
 preview: ## Preview the production build locally
 	npm run preview

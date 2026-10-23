@@ -59,7 +59,11 @@ function parseGithubRepo(url?: string): { owner: string; repo: string } | null {
   return { owner: match[1], repo: match[2].replace(/\.git$/, "") };
 }
 
-function parsePRNumbers(url?: string, explicitPrs?: (number | string)[], desc?: string): number[] {
+function parsePRNumbers(
+  url?: string,
+  explicitPrs?: (number | string)[],
+  desc?: string,
+): number[] {
   if (explicitPrs && explicitPrs.length > 0) {
     return explicitPrs.map((n) => Number(n)).filter((n) => !isNaN(n));
   }
@@ -82,7 +86,7 @@ async function fetchPR(
   owner: string,
   repo: string,
   prNumber: number,
-  token?: string
+  token?: string,
 ): Promise<CachedPR | null> {
   const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`;
   const headers: Record<string, string> = {
@@ -114,7 +118,9 @@ async function fetchPR(
     }
 
     if (res.status === 404) {
-      console.warn(`[github-prs] PR ${owner}/${repo}#${prNumber} not found (HTTP 404).`);
+      console.warn(
+        `[github-prs] PR ${owner}/${repo}#${prNumber} not found (HTTP 404).`,
+      );
       return {
         owner,
         repo,
@@ -127,16 +133,22 @@ async function fetchPR(
       const rateLimitReset = res.headers.get("x-ratelimit-reset");
       console.warn(
         `[github-prs] Rate limit reached (HTTP 403). Reset: ${
-          rateLimitReset ? new Date(parseInt(rateLimitReset, 10) * 1000).toLocaleTimeString() : "unknown"
-        }`
+          rateLimitReset
+            ? new Date(parseInt(rateLimitReset, 10) * 1000).toLocaleTimeString()
+            : "unknown"
+        }`,
       );
       return null;
     }
 
-    console.warn(`[github-prs] Unexpected status ${res.status} for ${owner}/${repo}#${prNumber}`);
+    console.warn(
+      `[github-prs] Unexpected status ${res.status} for ${owner}/${repo}#${prNumber}`,
+    );
     return null;
   } catch (err: any) {
-    console.warn(`[github-prs] Network error fetching ${owner}/${repo}#${prNumber}: ${err.message}`);
+    console.warn(
+      `[github-prs] Network error fetching ${owner}/${repo}#${prNumber}: ${err.message}`,
+    );
     return null;
   }
 }
@@ -187,7 +199,12 @@ async function main() {
       }
 
       console.log(`[github-prs] Querying GitHub API for ${cacheKey}...`);
-      const fetched = await fetchPR(repoInfo.owner, repoInfo.repo, prNum, token);
+      const fetched = await fetchPR(
+        repoInfo.owner,
+        repoInfo.repo,
+        prNum,
+        token,
+      );
 
       if (fetched) {
         cache.prs[cacheKey] = fetched;
@@ -201,7 +218,9 @@ async function main() {
     // Determine aggregate badge and status for this project
     const allMerged =
       prResults.length > 0 &&
-      prResults.every((p) => p.merged || (p.notFound && item.badge?.includes("Merged")));
+      prResults.every(
+        (p) => p.merged || (p.notFound && item.badge?.includes("Merged")),
+      );
 
     const anyOpen = prResults.some((p) => p.state === "open");
 
@@ -214,7 +233,10 @@ async function main() {
     } else if (anyOpen) {
       status = "open";
       badgeText = `Open PR #${prNumbers.join(", #")}`;
-    } else if (prResults.length > 0 && prResults.every((p) => p.state === "closed" && !p.merged)) {
+    } else if (
+      prResults.length > 0 &&
+      prResults.every((p) => p.state === "closed" && !p.merged)
+    ) {
       status = "closed";
       badgeText = `Closed PR #${prNumbers.join(", #")}`;
     }
@@ -226,7 +248,9 @@ async function main() {
   }
 
   saveCache(cache);
-  console.log(`--- GitHub PRs successfully verified & cached in ${path.relative(ROOT_DIR, CACHE_PATH)} ---`);
+  console.log(
+    `--- GitHub PRs successfully verified & cached in ${path.relative(ROOT_DIR, CACHE_PATH)} ---`,
+  );
 }
 
 main().catch((err) => {

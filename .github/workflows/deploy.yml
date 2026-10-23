@@ -57,6 +57,9 @@ jobs:
       - name: Patch missing meta tags
         run: npm run patch-meta
 
+      - name: Validate generated documents
+        run: npm run validate-docs
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

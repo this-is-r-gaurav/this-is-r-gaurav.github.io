@@ -8,6 +8,7 @@
 _section_order:
   - header
   - summary
+  - competencies
   - experience
   - skills
   - education
@@ -35,7 +36,7 @@ meta:
 header:
   name: "Gaurav"
   fullName: "Gaurav Raheja"
-  title: ""
+  title: "Software Engineer · Cloud Architect"
   tagline: "Software Engineer · Google · Threat Intelligence · Agentic Systems"
   image: "/profile.jpeg"
   email: "hire.gaurav@raheja.dev"
@@ -264,7 +265,16 @@ skills:
   - group: "Languages"
     items: ["Python", "Go", "TypeScript", "JavaScript", "Bash"]
   - group: "Backend & Data"
-    items: ["Flask", "FastAPI", "Scrapy", "ElasticSearch", "BigQuery", "Apache Dataflow", "Apache NiFi"]
+    items:
+      [
+        "Flask",
+        "FastAPI",
+        "Scrapy",
+        "ElasticSearch",
+        "BigQuery",
+        "Apache Dataflow",
+        "Apache NiFi",
+      ]
   - group: "Databases"
     items: ["PostgreSQL", "MongoDB"]
   - group: "Frontend"

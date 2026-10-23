@@ -9,7 +9,9 @@ let fileContents = fs.readFileSync(dataFilePath, "utf8");
 
 // Initial parse to calculate years from experience entries
 const initialDoc = yaml.load(fileContents) as any;
-export const calculatedYears = calculateYearsOfExperience(initialDoc?.experience);
+export const calculatedYears = calculateYearsOfExperience(
+  initialDoc?.experience,
+);
 
 // Replace {{years}} placeholders and fallback references dynamically
 fileContents = fileContents
@@ -21,7 +23,12 @@ if (parsedDoc && typeof parsedDoc === "object") {
   parsedDoc.yearsOfExperience = calculatedYears;
 
   // Merge live GitHub PR cache if present
-  const cacheFilePath = path.join(process.cwd(), "src", "data", "github-prs-cache.json");
+  const cacheFilePath = path.join(
+    process.cwd(),
+    "src",
+    "data",
+    "github-prs-cache.json",
+  );
   if (fs.existsSync(cacheFilePath)) {
     try {
       const cacheData = JSON.parse(fs.readFileSync(cacheFilePath, "utf8"));
@@ -40,4 +47,3 @@ if (parsedDoc && typeof parsedDoc === "object") {
 }
 
 export const resumeData: ResumeData = resumeSchema.parse(parsedDoc);
-

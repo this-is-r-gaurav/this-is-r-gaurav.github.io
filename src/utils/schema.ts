@@ -50,7 +50,11 @@ export const certificationSchema = z.object({
   name: z.string(),
   issuer: z.string().optional(),
   description: z.string().optional(),
-  year: z.coerce.number().min(2000).max(new Date().getFullYear() + 1).optional(),
+  year: z.coerce
+    .number()
+    .min(2000)
+    .max(new Date().getFullYear() + 1)
+    .optional(),
   url: z.string().optional().transform(urlFixer),
   credentialId: z.string().optional(),
   image: z.string().optional(),

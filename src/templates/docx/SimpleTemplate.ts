@@ -49,6 +49,8 @@ export class SimpleTemplate {
     const title = this.getSectionTitle(key);
     if (typeof value === "string") return this.renderText(title, value);
     if (!Array.isArray(value) || value.length === 0) return [];
+    if (key === "competencies")
+      return this.renderCompetencies(title, value as string[]);
     const first = value[0];
     if (typeof first === "string")
       return this.renderList(title, value as string[]);
@@ -180,6 +182,24 @@ export class SimpleTemplate {
         spacing: spacing.sectionBody,
         alignment: AlignmentType.JUSTIFIED,
         children: [new TextRun({ text: value, size: size.body, font })],
+      }),
+    ];
+  }
+
+  private renderCompetencies(title: string, items: string[]): Paragraph[] {
+    const { font, size, spacing } = this.styles;
+    return [
+      ...this.sectionTitle(title),
+      new Paragraph({
+        spacing: spacing.sectionBody,
+        alignment: AlignmentType.JUSTIFIED,
+        children: [
+          new TextRun({
+            text: items.join("  •  "),
+            size: size.body,
+            font,
+          }),
+        ],
       }),
     ];
   }
@@ -379,6 +399,16 @@ export class SimpleTemplate {
                   text: ` · ${item.issuer}`,
                   italics: true,
                   size: size.body,
+                  font,
+                }),
+              ]
+            : []),
+          ...(item.year
+            ? [
+                new TextRun({
+                  text: ` (${item.year})`,
+                  italics: true,
+                  size: size.contactLine,
                   font,
                 }),
               ]

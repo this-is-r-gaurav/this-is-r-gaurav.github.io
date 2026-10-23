@@ -57,6 +57,9 @@ jobs:
       - name: Patch missing meta tags
         run: npm run patch-meta
 
+      - name: Install poppler-utils
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
       - name: Validate generated documents
         run: npm run validate-docs
 

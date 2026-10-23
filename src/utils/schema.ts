@@ -33,6 +33,7 @@ export const experienceSchema = z.object({
   to: z.string(),
   location: z.string().optional(),
   highlights: z.array(z.string()),
+  hide: z.boolean().optional(),
 });
 
 export const projectSchema = z.object({
@@ -44,6 +45,7 @@ export const projectSchema = z.object({
   badge: z.string().optional(),
   prs: z.array(z.union([z.number(), z.string()])).optional(),
   prStatus: z.enum(["merged", "open", "closed"]).optional(),
+  hide: z.boolean().optional(),
 });
 
 export const certificationSchema = z.object({
@@ -59,6 +61,7 @@ export const certificationSchema = z.object({
   credentialId: z.string().optional(),
   image: z.string().optional(),
   skills: z.array(z.string()).optional(),
+  hide: z.boolean().optional(),
 });
 
 export const academicProjectSchema = z.object({
@@ -67,6 +70,7 @@ export const academicProjectSchema = z.object({
   duration: z.string(),
   tech: z.array(z.string()),
   description: z.string(),
+  hide: z.boolean().optional(),
 });
 
 export const skillItemSchema = z.union([
@@ -77,6 +81,7 @@ export const skillItemSchema = z.union([
 export const skillsGroupSchema = z.object({
   group: z.string(),
   items: z.array(skillItemSchema),
+  hide: z.boolean().optional(),
 });
 
 export const educationSchema = z.object({
@@ -86,6 +91,7 @@ export const educationSchema = z.object({
   to: z.string(),
   grade: z.number().optional(),
   location: z.string().optional(),
+  hide: z.boolean().optional(),
 });
 
 export const languageSchema = z.object({
@@ -106,6 +112,7 @@ export type LanguageData = z.infer<typeof languageSchema>;
 
 export const projectGroupSchema = z.object({
   group: z.string(),
+  hide: z.boolean().optional(),
   items: z.array(academicProjectSchema),
 });
 

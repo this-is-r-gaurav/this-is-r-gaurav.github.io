@@ -1,13 +1,43 @@
 ---
-const sections = [
-  { id: "summary", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "open-source", label: "Open Source" },
-  { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skills" },
-  { id: "certifications", label: "Certifications" },
-  { id: "education", label: "Education" },
+import { resumeData as data } from "../utils/data";
+
+const allSections = [
+  { id: "summary", label: "About", show: Boolean(data.summary) },
+  {
+    id: "experience",
+    label: "Experience",
+    show: Boolean(data.experience && data.experience.length > 0),
+  },
+  {
+    id: "open-source",
+    label: "Open Source",
+    show: Boolean(
+      data.open_source_contributions && data.open_source_contributions.length > 0,
+    ),
+  },
+  {
+    id: "projects",
+    label: "Projects",
+    show: Boolean(data.projects && data.projects.length > 0),
+  },
+  {
+    id: "skills",
+    label: "Skills",
+    show: Boolean(data.skills && data.skills.length > 0),
+  },
+  {
+    id: "certifications",
+    label: "Certifications",
+    show: Boolean(data.certifications && data.certifications.length > 0),
+  },
+  {
+    id: "education",
+    label: "Education",
+    show: Boolean(data.education && data.education.length > 0),
+  },
 ];
+
+const sections = allSections.filter((s) => s.show);
 ---
 
 <!-- Desktop: sticky top bar -->

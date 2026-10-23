@@ -210,28 +210,33 @@ certifications:
 
 projects:
   - group: "Academic"
+    hide: true
     items:
       - name: "Dynamo Scrapper"
         institution: "Btech. GJUS&T"
         duration: "3 Months"
         tech: ["Python", "Django", "Scrapy", "Twisted", "NativeScript"]
         description: "Architected a no-code web scraping platform featuring a GUI for crawler creation and mobile-based deployment, simplifying data extraction for non-technical users."
+        hide: true
       - name: "MedBot"
         institution: "Btech. GJUS&T"
         duration: "1 Month"
         tech: ["C#", "HTML", "Agility Pack", "RestPlus"]
         description: "Developed a medical prescription analysis tool that identifies drugs and cross-references them with online alternatives via 3rd-party APIs to improve medication accessibility."
+        hide: true
       - name: "SCAP"
         institution: "Btech. GJUS&T"
         duration: "1 Month"
         tech:
           ["Arduino", "Ultrasonic sensor", "Node Red", "Embedded", "Twillio"]
         description: "Engineered an IoT-based vehicular safety system using Arduino and ultrasonic sensors for proximity detection, automatic speed control, and SOS emergency messaging."
+        hide: true
       - name: "Training Placement Portal"
         institution: "Btech. GJUS&T"
         duration: "5 Months"
         tech: ["PHP", "HTML", "JS", "CSS", "Bootstrap3"]
         description: "Designed and implemented a centralized university portal to streamline the management and communication of academic events, training sessions, and placement drives."
+        hide: true
 
 skills:
   - group: "AI & Agentic Systems"
@@ -286,21 +291,25 @@ education:
     from: "2019"
     to: "2020"
     location: "Hyderabad, IN"
+    hide: false
   - institution: "Guru Jambheshwar University of Science & Technology"
     degree: "Bachelor of Computer Science & Tech."
     from: "2015"
     to: "2019"
     location: "Hisar, IN"
+    hide: false
   - institution: "Nav Bharat Vidya Mandir Sr. Sec. School"
     degree: "Higher Secondary School Certification"
     from: "2012"
     to: "2014"
     location: "Hisar, IN"
+    hide: true
   - institution: "K.L. Arya D.A.V. Public School"
     degree: "Secondary School Certification"
     from: "2010"
     to: "2012"
     location: "Hisar, IN"
+    hide: true
 
 languages:
   - name: "Hindi"

@@ -174,6 +174,7 @@ async function main() {
   const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 
   for (const item of contributions) {
+    if (item.hide) continue;
     const repoInfo = parseGithubRepo(item.url);
     if (!repoInfo) continue;
 

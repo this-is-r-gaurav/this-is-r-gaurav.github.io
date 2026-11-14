@@ -1,0 +1,89 @@
+/* =========================================================
+   components/fab.css — Floating Action Buttons & Toast
+   ========================================================= */
+
+.fab-container {
+  position: fixed;
+  bottom: var(--sp-xl);
+  right: var(--sp-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+  z-index: 1000;
+}
+
+.fab {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  padding: 0.6rem 1.1rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    transform var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease),
+    opacity var(--duration) var(--ease);
+  backdrop-filter: blur(12px) saturate(180%);
+}
+
+.fab svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.fab:hover {
+  transform: translateY(-2px);
+}
+
+.fab:active {
+  transform: scale(0.96);
+}
+
+.fab--pdf {
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-2));
+  color: #fff;
+  box-shadow: 0 4px 20px var(--clr-accent-glow);
+}
+
+.fab--pdf:hover {
+  box-shadow: 0 8px 32px var(--clr-accent-glow);
+}
+
+.fab--theme {
+  background: var(--clr-surface);
+  color: var(--clr-text);
+  border: 1px solid var(--clr-border);
+  box-shadow: var(--shadow-card);
+}
+
+/* ── TOAST ──────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 6rem;
+  right: var(--sp-xl);
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.3s var(--ease);
+  z-index: 1001;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}

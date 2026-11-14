@@ -1,0 +1,72 @@
+/* =========================================================
+   tokens.css — Design Tokens & Theme Palettes
+   ========================================================= */
+
+:root,
+[data-theme="light"] {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "Fira Code", monospace;
+
+  /* Colors — Light Theme (Navy/Slate) */
+  --clr-bg: #f8fafc;
+  --clr-surface: #ffffff;
+  --clr-surface-2: #e2e8f0;
+  --clr-border: rgba(30, 64, 175, 0.15);
+  --clr-text: #0f172a;
+  --clr-text-muted: #475569;
+  --clr-accent: #1d4ed8;
+  --clr-accent-2: #3b82f6;
+  --clr-accent-glow: rgba(29, 78, 216, 0.2);
+  --clr-tag-bg: rgba(29, 78, 216, 0.08);
+  --clr-tag-text: #1e40af;
+  --clr-timeline: #1d4ed8;
+  --clr-star: #f59e0b;
+  --shadow-card: 0 4px 24px rgba(15, 23, 42, 0.08);
+  --shadow-card-hover: 0 8px 40px rgba(29, 78, 216, 0.15);
+
+  /* Spacing */
+  --sp-xs: 0.25rem;
+  --sp-sm: 0.5rem;
+  --sp-md: 1rem;
+  --sp-lg: 1.5rem;
+  --sp-xl: 2rem;
+  --sp-2xl: 3rem;
+  --sp-3xl: 4rem;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 0.3s;
+
+  /* Hero gradient */
+  --hero-grad: linear-gradient(
+    135deg,
+    #020818 0%,
+    #061530 40%,
+    #0a1f4e 70%,
+    #0f2a6b 100%
+  );
+}
+
+/* ── DARK THEME (Midnight + Navy) ──────────────────────── */
+[data-theme="dark"] {
+  --clr-bg: #020818;
+  --clr-surface: #0c1629;
+  --clr-surface-2: #132040;
+  --clr-border: rgba(96, 165, 250, 0.18);
+  --clr-text: #f1f5f9;
+  --clr-text-muted: #94a3b8;
+  --clr-accent: #60a5fa;
+  --clr-accent-2: #93c5fd;
+  --clr-accent-glow: rgba(96, 165, 250, 0.25);
+  --clr-tag-bg: rgba(96, 165, 250, 0.12);
+  --clr-tag-text: #93c5fd;
+  --clr-timeline: #60a5fa;
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: 0 8px 40px rgba(96, 165, 250, 0.18);
+}

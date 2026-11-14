@@ -1,5 +1,5 @@
 ---
-import PostHog from "../components/posthog.astro";
+import PostHog from "../../../src/components/posthog.astro";
 import "@fontsource/inter/300.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
@@ -17,13 +17,15 @@ import "@fontsource/eb-garamond/800.css";
 interface Props {
   title: string;
   description?: string;
+  fullWidth?: boolean;
+  class?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, fullWidth = false, class: className } = Astro.props;
 
 import fs from "node:fs";
 import path from "node:path";
-import { resumeData as data } from "../utils/data";
+import { resumeData as data } from "../data";
 
 // In CI, assets are generated after the Astro build — patch-meta.ts removes
 // tags for missing assets as a post-build step, so we always emit them here.
@@ -155,7 +157,7 @@ const shareImage = `${siteUrl}/og-image.jpg`;
     </style></noscript
   >
   <body>
-    <div id="resume-root" style="opacity:0">
+    <div id="resume-root" class:list={[{ "full-width": fullWidth }, className]} style="opacity:0">
       <slot />
     </div>
 
@@ -243,5 +245,5 @@ const shareImage = `${siteUrl}/og-image.jpg`;
   </body>
 </html>
 <style is:global>
-  @import "../styles/global.css";
+  @import "../../../src/styles/global.css";
 </style>

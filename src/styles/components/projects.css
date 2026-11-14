@@ -1,0 +1,197 @@
+/* =========================================================
+   components/projects.css — Projects Grid, Cards & Tags
+   ========================================================= */
+
+.group-heading {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--clr-text-muted);
+  margin-bottom: var(--sp-md);
+  margin-top: var(--sp-xl);
+  padding-bottom: var(--sp-xs);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.group-heading:first-child {
+  margin-top: 0;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+  gap: var(--sp-lg);
+}
+
+.project-card {
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-lg);
+  transition:
+    transform var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease),
+    border-color var(--duration);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent-2));
+  opacity: 0;
+  transition: opacity var(--duration);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--clr-accent);
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+}
+
+.project-name-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.project-name {
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  color: var(--clr-text);
+}
+
+.project-pr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(137, 87, 229, 0.1);
+  color: #8957e5;
+  border: 1px solid rgba(137, 87, 229, 0.28);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .project-pr-badge {
+  background: rgba(163, 113, 247, 0.14);
+  color: #c297ff;
+  border-color: rgba(163, 113, 247, 0.35);
+}
+
+.project-pr-badge--open {
+  background: rgba(46, 164, 79, 0.1);
+  color: #2ea44f;
+  border-color: rgba(46, 164, 79, 0.28);
+}
+
+[data-theme="dark"] .project-pr-badge--open {
+  background: rgba(63, 185, 80, 0.15);
+  color: #3fb950;
+  border-color: rgba(63, 185, 80, 0.35);
+}
+
+.project-pr-badge--closed {
+  background: rgba(110, 119, 129, 0.1);
+  color: #6e7781;
+  border-color: rgba(110, 119, 129, 0.28);
+}
+
+[data-theme="dark"] .project-pr-badge--closed {
+  background: rgba(139, 148, 158, 0.15);
+  color: #8b949e;
+  border-color: rgba(139, 148, 158, 0.35);
+}
+
+.project-pr-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.project-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-star);
+  font-family: var(--font-mono);
+}
+
+.project-stars svg {
+  width: 13px;
+  height: 13px;
+  fill: var(--clr-star);
+  stroke: none;
+}
+
+.project-desc {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-xs);
+  margin-top: auto;
+}
+
+.tech-tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: var(--clr-tag-bg);
+  color: var(--clr-tag-text);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--clr-text-muted);
+  transition: color var(--duration);
+}
+
+.project-link:hover {
+  color: var(--clr-accent);
+  text-decoration: none;
+}
+
+.project-link svg {
+  width: 12px;
+  height: 12px;
+}

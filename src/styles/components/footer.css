@@ -1,0 +1,57 @@
+/* =========================================================
+   components/footer.css — Contact Footer & Links
+   ========================================================= */
+
+.contact-section {
+  text-align: center;
+}
+
+.contact-cta {
+  font-size: 1.05rem;
+  color: var(--clr-text);
+  margin-bottom: var(--sp-lg);
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  justify-content: center;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-pill);
+  color: var(--clr-text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition:
+    background var(--duration),
+    border-color var(--duration),
+    transform var(--duration);
+  text-decoration: none;
+}
+
+.contact-link svg {
+  width: 15px;
+  height: 15px;
+  color: var(--clr-accent);
+}
+
+.contact-link:hover {
+  border-color: var(--clr-accent);
+  background: var(--clr-tag-bg);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.footer-note {
+  margin-top: var(--sp-lg);
+  font-size: 0.78rem;
+  color: var(--clr-text-muted);
+}

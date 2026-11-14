@@ -1,0 +1,117 @@
+/* =========================================================
+   templates/print.css — Print & PDF Media Queries
+   ========================================================= */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 4mm 0 4mm 0;
+  }
+
+  @page :first {
+    margin: 0 0 4mm 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  :root {
+    --clr-bg: #ffffff;
+    --clr-surface: #ffffff;
+    --clr-surface-2: #f8fafc;
+    --clr-text: #000000;
+    --clr-text-muted: #334155;
+    --clr-accent: #1e1b4b;
+    --clr-accent-2: #0f172a;
+    --clr-border: #cbd5e1;
+    --clr-tag-bg: #f1f5f9;
+    --clr-tag-text: #1e1b4b;
+    --clr-timeline: #1e1b4b;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    overflow: initial !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  #resume-root {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide web-only elements */
+  .fab-container,
+  .fab,
+  .loader,
+  .toast,
+  #loader,
+  nav,
+  .section-nav,
+  header:not(.pdf-header):not(.simple-pdf-header),
+  footer,
+  aside,
+  #theme-toggle,
+  .hero::before,
+  .hero::after,
+  .section-title__bar,
+  .project-card::before {
+    display: none !important;
+  }
+
+  /* Hide all top-level elements except root */
+  body > *:not(#resume-root) {
+    display: none !important;
+  }
+
+  /* Hide all print templates by default */
+  #professional-resume-pdf,
+  #simple-resume-pdf {
+    display: none !important;
+  }
+
+  /* Template Selection Logic */
+  [data-current-template="professional"] #professional-resume-pdf {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 210mm !important;
+    margin: 0 auto !important;
+    z-index: 99999 !important;
+  }
+
+  [data-current-template="simple"] #simple-resume-pdf {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 210mm !important;
+    margin: 0 auto !important;
+    z-index: 99999 !important;
+  }
+
+  /* Hide the web version components when printing */
+  #main-content-wrapper
+    > *:not(#professional-resume-pdf):not(#simple-resume-pdf) {
+    display: none !important;
+  }
+}

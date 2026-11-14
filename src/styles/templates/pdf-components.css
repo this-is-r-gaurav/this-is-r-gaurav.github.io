@@ -1,0 +1,159 @@
+/* =========================================================
+   templates/pdf-components.css — PDF Skills, Badges, OS, Projects
+   ========================================================= */
+
+.pdf-skill-group {
+  margin-bottom: 5pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.pdf-skill-group-label {
+  font-size: 7.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #555;
+  margin-bottom: 2pt;
+}
+
+/* Skills Table */
+.pdf-skills-table {
+  display: flex;
+  flex-direction: column;
+  gap: 3pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.pdf-skill-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8pt;
+  border-bottom: none;
+  padding-bottom: 2pt;
+}
+
+.pdf-skill-name {
+  color: #333;
+}
+
+.pdf-skill-level {
+  font-weight: 600;
+  color: #666;
+}
+
+/* Badges */
+.pdf-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4pt;
+}
+
+.pdf-badge {
+  background: #76b041 !important;
+  color: #ffffff !important;
+  font-size: 8pt;
+  font-weight: 700;
+  padding: 2pt 8pt;
+  border-radius: 4pt;
+}
+
+/* OS Contributions */
+.pdf-os-name {
+  font-weight: 700;
+  font-size: 10pt;
+  margin-bottom: 1pt;
+}
+
+.pdf-os-dates {
+  font-size: 8pt;
+  color: #76b041;
+  margin-bottom: 3pt;
+}
+
+.pdf-os-url {
+  font-size: 8.5pt !important;
+  color: #0066cc !important;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+/* Academic Projects Specifics */
+.pdf-item-company {
+  max-width: 27em;
+}
+
+.pdf-project-tech-line {
+  font-size: 6pt;
+  font-weight: 700;
+  color: #555;
+  margin-top: 2pt;
+}
+
+.pdf-project-desc-mini {
+  font-size: 7.5pt;
+  color: #444;
+  margin-top: 1pt;
+  line-height: 1.25;
+}
+
+/* Bullet Consistency */
+.pdf-item-list {
+  padding-left: 14pt;
+  margin-top: 4pt;
+}
+
+.pdf-item-list li {
+  list-style-type: none;
+  position: relative;
+  margin-bottom: 2pt;
+}
+
+.pdf-item-list li::before {
+  content: "■";
+  color: #76b041;
+  font-size: 2pt;
+  position: absolute;
+  left: -4pt;
+  top: 4pt;
+}
+
+/* Education Consistency */
+.pdf-edu-inst {
+  font-weight: 700;
+  font-size: 10pt;
+  color: #111;
+}
+
+.pdf-edu-deg {
+  font-size: 9pt;
+  color: #444;
+  font-style: italic;
+}
+
+.pdf-edu-meta {
+  font-size: 8pt;
+  color: #76b041;
+  margin-top: 1pt;
+}
+
+/* Font Unification */
+#professional-resume-pdf {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif !important;
+  color: #1a1a1a !important;
+}
+
+.pdf-name {
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+}
+
+.pdf-section-title {
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.02em;
+}

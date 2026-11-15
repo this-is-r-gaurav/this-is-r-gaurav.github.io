@@ -5,21 +5,18 @@ import Section from "../components/Section.astro";
 import Experience from "../components/Experience.astro";
 import Skills from "../components/Skills.astro";
 import Projects from "../components/Projects.astro";
+import Writing from "../components/Writing.astro";
 import Education from "../components/Education.astro";
 import Certifications from "../components/Certifications.astro";
 import SectionNav from "../components/SectionNav.astro";
 import Competencies from "../components/Competencies.astro";
 import Fab from "../components/Fab.astro";
 import ProfessionalTemplate from "../../packages/resume-core/templates/pdf/ProfessionalTemplate.astro";
+import { computeProofMarks } from "../../packages/resume-core/proofMarks";
 
 import { resumeData as data } from "../utils/data";
 
-const verifiedSkills = new Set(
-  (data.certifications || [])
-    .filter((c: any) => Boolean(c.url && c.url.includes("credly.com")))
-    .flatMap((c: any) => c.skills || [])
-    .map((s: string) => s.toLowerCase().trim())
-);
+const proofMarks = computeProofMarks(data);
 ---
 
 <Layout
@@ -81,6 +78,15 @@ const verifiedSkills = new Set(
           </Section>
         )}
 
+        {data.writing && (
+          <Section id="writing" title="Writing">
+            <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />
+            </svg>
+            <Writing entries={data.writing} />
+          </Section>
+        )}
+
         {data.projects && (
           <Section id="projects" title="Projects">
             <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -93,8 +99,12 @@ const verifiedSkills = new Set(
                   {group.items.map((p: any) => (
                     <div class="project-card reveal">
                       <div class="project-header">
-                        <span class="project-name">{p.name}</span>
-                        <span class="timeline-badge">{p.duration}</span>
+                        {p.url ? (
+                          <a href={p.url} class="project-name" target="_blank" rel="noopener noreferrer">{p.name}</a>
+                        ) : (
+                          <span class="project-name">{p.name}</span>
+                        )}
+                        {p.duration && <span class="timeline-badge">{p.duration}</span>}
                       </div>
                       <p class="project-desc">{p.description}</p>
                       <div class="project-tech">
@@ -102,6 +112,12 @@ const verifiedSkills = new Set(
                           <span class="tech-tag">{t}</span>
                         ))}
                       </div>
+                      {(p.repo || p.demo) && (
+                        <div class="project-links">
+                          {p.repo && <a href={p.repo} target="_blank" rel="noopener noreferrer">Repo</a>}
+                          {p.demo && <a href={p.demo} target="_blank" rel="noopener noreferrer">Demo</a>}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -119,7 +135,7 @@ const verifiedSkills = new Set(
               <polyline points="16 18 22 12 16 6" />
               <polyline points="8 6 2 12 8 18" />
             </svg>
-            <Skills skills={data.skills} verifiedSkills={verifiedSkills} />
+            <Skills skills={data.skills} proofMarks={proofMarks} />
           </Section>
         )}
 

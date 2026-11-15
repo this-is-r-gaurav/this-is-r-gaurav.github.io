@@ -1,5 +1,6 @@
 import type { Paragraph } from "docx";
 import type { ResumeData } from "../../schema";
+import { computeProofMarks } from "../../proofMarks";
 import { SIMPLE_STYLES } from "./simpleStyles";
 import {
   renderHeader,
@@ -12,15 +13,21 @@ import {
   renderNameLevel,
   renderGroupedProjects,
   renderNameDescription,
+  renderWriting,
 } from "./simpleSections";
 
 export class SimpleTemplate {
   public readonly styles = SIMPLE_STYLES;
   private readonly data: ResumeData;
+  private readonly proofMarks: Record<string, unknown[]>;
 
   constructor(data: ResumeData) {
     this.data = data;
+    this.proofMarks = computeProofMarks(data);
   }
+
+  private hasProof = (name: string): boolean =>
+    (this.proofMarks[name.toLowerCase().trim()] || []).length > 0;
 
   render(key: string, value: unknown): Paragraph[] {
     if (key === "header") return renderHeader(value, this.styles);
@@ -37,6 +44,8 @@ export class SimpleTemplate {
       return renderExperience(title, value, this.styles);
     if ("degree" in first)
       return renderEducation(title, value, this.styles);
+    if ("topics" in first)
+      return renderWriting(title, value, this.styles);
     if ("group" in first) {
       const firstItem = first.items?.[0];
       if (
@@ -46,7 +55,7 @@ export class SimpleTemplate {
       ) {
         return renderGroupedProjects(title, value, this.styles);
       }
-      return renderSkillGroups(title, value, this.styles);
+      return renderSkillGroups(title, value, this.styles, this.hasProof);
     }
     if ("level" in first && typeof first.level === "string")
       return renderNameLevel(title, value, this.styles);

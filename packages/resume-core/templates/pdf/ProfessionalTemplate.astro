@@ -1,6 +1,7 @@
 ---
 import { icons } from "../../pdfIcons";
 import type { ResumeData } from "../../schema";
+import { computeProofMarks } from "../../proofMarks";
 import PdfHeader from "./PdfHeader.astro";
 
 interface Props {
@@ -8,6 +9,9 @@ interface Props {
 }
 
 const { data } = Astro.props;
+const proofMarks = computeProofMarks(data);
+const hasProof = (name: string) =>
+  (proofMarks[name.toLowerCase().trim()] || []).length > 0;
 ---
 
 <div id="professional-resume-pdf">
@@ -94,8 +98,13 @@ const { data } = Astro.props;
                 {group.items.map((p: any) => (
                   <div class="pdf-item" style="margin-bottom: 5pt;">
                     <div class="pdf-item-header">
-                      <span class="pdf-item-company" style="font-size: 9pt;">{p.name} <small style="font-weight: normal; color: #666;">({p.institution})</small></span>
-                      <span class="pdf-item-dates" style="font-size: 7.5pt;">{p.duration}</span>
+                      <span class="pdf-item-company" style="font-size: 9pt;">
+                        {p.name}
+                        {p.institution && <small style="font-weight: normal; color: #666;"> ({p.institution})</small>}
+                      </span>
+                      {(p.duration || p.url) && (
+                        <span class="pdf-item-dates" style="font-size: 7.5pt;">{p.duration || p.url}</span>
+                      )}
                     </div>
                     <div
                       class="pdf-project-tech-line"
@@ -109,8 +118,43 @@ const { data } = Astro.props;
                     >
                       {p.description}
                     </p>
+                    {(p.repo || p.demo) && (
+                      <div class="pdf-project-desc-mini" style="margin-top: 1pt; font-size: 7.5pt; color: #1d4ed8;">
+                        {[p.repo && `Repo: ${p.repo}`, p.demo && `Demo: ${p.demo}`].filter(Boolean).join("  ·  ")}
+                      </div>
+                    )}
                   </div>
                 ))}
+              </div>
+            ))}
+          </section>
+        )
+      }
+
+      {
+        data.writing && (
+          <section class="pdf-section">
+            <h2 class="pdf-section-title">
+              <img src={icons.book} alt="" class="pdf-section-icon" />
+              Writing
+            </h2>
+            {data.writing.map((w: any) => (
+              <div class="pdf-item" style="margin-bottom: 4pt;">
+                <div class="pdf-item-header">
+                  <span class="pdf-item-company" style="font-size: 8.5pt;">{w.title}</span>
+                  <span class="pdf-item-dates" style="font-size: 7.5pt;">{w.date}</span>
+                </div>
+                <div class="pdf-project-desc-mini" style="margin-top: 1pt; font-size: 7pt; color: #1d4ed8;">
+                  {w.url}
+                </div>
+                {w.topics && (
+                  <div
+                    class="pdf-project-tech-line"
+                    style="font-size: 7pt; color: #555; margin-top: 1pt;"
+                  >
+                    {w.topics.join(", ")}
+                  </div>
+                )}
               </div>
             ))}
           </section>
@@ -173,7 +217,7 @@ const { data } = Astro.props;
                   <div class="pdf-skills-table">
                     {group.items.map((skill: any) => (
                       <div class="pdf-skill-row">
-                        <span class="pdf-skill-name">{skill.name}</span>
+                        <span class="pdf-skill-name">{skill.name}{hasProof(skill.name) && " ✓"}</span>
                         <span class="pdf-skill-level">
                           {skill.level > 85
                             ? "Proficient"
@@ -187,7 +231,7 @@ const { data } = Astro.props;
                 ) : (
                   <div class="pdf-badges">
                     {group.items.map((s: string) => (
-                      <span class="pdf-badge">{s}</span>
+                      <span class="pdf-badge">{s}{hasProof(s) && " ✓"}</span>
                     ))}
                   </div>
                 )}

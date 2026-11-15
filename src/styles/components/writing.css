@@ -1,0 +1,37 @@
+/* =========================================================
+   components/writing.css — Writing section
+   ========================================================= */
+
+.writing-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-lg);
+}
+
+.writing-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.writing-title {
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+.writing-title:hover {
+  color: var(--clr-accent);
+}
+
+.writing-date {
+  font-size: 0.78rem;
+  color: var(--clr-text-muted);
+  font-family: var(--font-mono);
+}
+
+.writing-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-xs);
+  margin-top: var(--sp-xs);
+}

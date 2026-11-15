@@ -1,0 +1,29 @@
+---
+import type { WritingItemData } from "../utils/schema";
+
+interface Props {
+  entries: WritingItemData[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="writing-list stagger">
+  {
+    entries.map((w) => (
+      <div class="writing-item reveal">
+        <a href={w.url} class="writing-title" target="_blank" rel="noopener noreferrer">
+          {w.title}
+        </a>
+        <span class="writing-date">{w.date}</span>
+        {w.topics && (
+          <div class="writing-topics">
+            {w.topics.map((t: string) => (
+              <span class="tech-tag">{t}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    ))
+  }
+</div>

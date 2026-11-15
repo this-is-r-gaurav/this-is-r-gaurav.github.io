@@ -1,31 +1,16 @@
 ---
 import type { SkillsGroup } from '../utils/schema';
+import type { ProofMark } from '../../packages/resume-core/proofMarks';
 
 interface Props {
   skills: SkillsGroup[];
-  verifiedSkills?: Set<string>;
+  proofMarks?: Record<string, ProofMark[]>;
 }
 
-const { skills, verifiedSkills = new Set<string>() } = Astro.props;
-const verifiedList = Array.from(verifiedSkills);
+const { skills, proofMarks = {} } = Astro.props;
 
-function checkVerified(skillName: string): boolean {
-  const normalized = skillName.toLowerCase().trim();
-  if (verifiedSkills.has(normalized)) return true;
-
-  return verifiedList.some((v) => {
-    if (normalized.length <= 3) {
-      const tokens = v.split(/[\s,()/-]+/).filter(Boolean);
-      return tokens.includes(normalized);
-    }
-    const wordsV = v.split(/[\s,()/-]+/).filter(Boolean);
-    const wordsN = normalized.split(/[\s,()/-]+/).filter(Boolean);
-    return (
-      v.includes(normalized) ||
-      normalized.includes(v) ||
-      wordsV.some((w) => wordsN.includes(w) && w.length > 3)
-    );
-  });
+function marksFor(skillName: string): ProofMark[] {
+  return proofMarks[skillName.toLowerCase().trim()] || [];
 }
 ---
 
@@ -37,44 +22,73 @@ function checkVerified(skillName: string): boolean {
         {group.group && <div class="skill-category__name">{group.group}</div>}
         {hasBars ? (
           <div class="skill-list" style={!group.group ? "margin-top: 0" : ""}>
-            {group.items.map((skill: any) => (
-              <div class="skill-item">
-                <div class="skill-label">
-                  <span>{typeof skill === 'string' ? skill : skill.name}</span>
-                  <span class="skill-level">{typeof skill === 'string' ? '' : `${skill.level}%`}</span>
+            {group.items.map((skill: any) => {
+              const skillName = typeof skill === 'string' ? skill : skill.name;
+              const marks = marksFor(skillName);
+              return (
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>
+                      {skillName}
+                      {marks.length > 0 && (
+                        <span class="skill-proof-marks">
+                          {marks.map((m) => (
+                            <a
+                              href={m.url}
+                              class="skill-proof-mark"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title={m.label}
+                              aria-label={m.label}
+                            >
+                              {m.icon}
+                            </a>
+                          ))}
+                        </span>
+                      )}
+                    </span>
+                    <span class="skill-level">{typeof skill === 'string' ? '' : `${skill.level}%`}</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div
+                      class="skill-bar__fill"
+                      data-level={typeof skill === 'string' ? '0' : skill.level}
+                    ></div>
+                  </div>
                 </div>
-                <div class="skill-bar">
-                  <div
-                    class="skill-bar__fill"
-                    data-level={typeof skill === 'string' ? '0' : skill.level}
-                  ></div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div class="skill-pills">
             {group.items.map((skill: any) => {
               const skillName = typeof skill === 'string' ? skill : skill.name;
-              const isVerified = checkVerified(skillName);
+              const marks = marksFor(skillName);
               return (
                 <span
-                  class={`skill-pill ${isVerified ? 'skill-pill--verified' : ''}`}
+                  class="skill-pill"
                   data-skill-filter={skillName}
                   role="button"
                   tabindex="0"
-                  title={
-                    isVerified
-                      ? `Verified credential on Credly · Filter by ${skillName}`
-                      : `Filter experience & projects by ${skillName}`
-                  }
+                  title={`Filter experience & projects by ${skillName}`}
                 >
-                  {isVerified && (
-                    <svg viewBox="0 0 24 24" class="skill-verified-icon" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z" />
-                    </svg>
-                  )}
                   {skillName}
+                  {marks.length > 0 && (
+                    <span class="skill-proof-marks">
+                      {marks.map((m) => (
+                        <a
+                          href={m.url}
+                          class="skill-proof-mark"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title={m.label}
+                          aria-label={m.label}
+                        >
+                          {m.icon}
+                        </a>
+                      ))}
+                    </span>
+                  )}
                 </span>
               );
             })}

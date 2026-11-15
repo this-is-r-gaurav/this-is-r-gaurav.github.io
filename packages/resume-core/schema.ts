@@ -73,6 +73,24 @@ export const academicProjectSchema = z.object({
   hide: z.boolean().optional(),
 });
 
+export const personalProjectSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  url: z.string().optional().transform(urlFixer),
+  tech: z.array(z.string()),
+  repo: z.string().optional().transform(urlFixer),
+  demo: z.string().optional().transform(urlFixer),
+  hide: z.boolean().optional(),
+});
+
+export const writingItemSchema = z.object({
+  title: z.string(),
+  url: z.string().transform(urlFixer),
+  date: z.string(),
+  topics: z.array(z.string()).optional(),
+  hide: z.boolean().optional(),
+});
+
 export const skillItemSchema = z.union([
   z.string(),
   z.object({ name: z.string(), level: z.number().optional() }),
@@ -105,6 +123,8 @@ export type ExperienceData = z.infer<typeof experienceSchema>;
 export type ProjectData = z.infer<typeof projectSchema>;
 export type CertificationData = z.infer<typeof certificationSchema>;
 export type AcademicProjectData = z.infer<typeof academicProjectSchema>;
+export type PersonalProjectData = z.infer<typeof personalProjectSchema>;
+export type WritingItemData = z.infer<typeof writingItemSchema>;
 export type SkillItem = z.infer<typeof skillItemSchema>;
 export type SkillsGroup = z.infer<typeof skillsGroupSchema>;
 export type EducationData = z.infer<typeof educationSchema>;
@@ -113,7 +133,7 @@ export type LanguageData = z.infer<typeof languageSchema>;
 export const projectGroupSchema = z.object({
   group: z.string(),
   hide: z.boolean().optional(),
-  items: z.array(academicProjectSchema),
+  items: z.array(z.union([academicProjectSchema, personalProjectSchema])),
 });
 
 export type ProjectGroupData = z.infer<typeof projectGroupSchema>;
@@ -135,6 +155,7 @@ export const resumeSchema = z
     skills: z.array(skillsGroupSchema).optional(),
     education: z.array(educationSchema).optional(),
     languages: z.array(languageSchema).optional(),
+    writing: z.array(writingItemSchema).optional(),
     yearsOfExperience: z.number().optional(),
   })
   .passthrough(); // allows unknown keys to pass through for new dynamic sections

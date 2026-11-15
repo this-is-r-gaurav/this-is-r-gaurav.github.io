@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import yaml from "js-yaml";
 import { resumeSchema, type ResumeData } from "./schema";
-import { calculateYearsOfExperience } from "./common";
+import { calculateYearsOfExperience, parseMonthYear } from "./common";
 
 const dataFilePath = path.join(process.cwd(), "src", "data", "resume.yaml");
 let fileContents = fs.readFileSync(dataFilePath, "utf8");
@@ -77,6 +77,16 @@ if (parsedDoc && typeof parsedDoc === "object") {
     if (parsedDoc.projects.length === 0) {
       delete parsedDoc.projects;
     }
+  }
+
+  if (Array.isArray(parsedDoc.writing)) {
+    parsedDoc.writing = parsedDoc.writing
+      .filter((item: any) => item?.hide !== true)
+      .sort(
+        (a: any, b: any) =>
+          parseMonthYear(b.date).getTime() - parseMonthYear(a.date).getTime(),
+      );
+    if (parsedDoc.writing.length === 0) delete parsedDoc.writing;
   }
 
   // Merge live GitHub PR cache if present

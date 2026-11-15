@@ -1,11 +1,15 @@
 ---
 import type { ResumeData } from "../../schema";
+import { computeProofMarks } from "../../proofMarks";
 
 interface Props {
   data: ResumeData;
 }
 
 const { data } = Astro.props;
+const proofMarks = computeProofMarks(data);
+const hasProof = (name: string) =>
+  (proofMarks[name.toLowerCase().trim()] || []).length > 0;
 ---
 
 <div id="simple-resume-pdf">
@@ -125,17 +129,44 @@ const { data } = Astro.props;
                 <div class="simple-pdf-item">
                   <div class="simple-pdf-item-header">
                     <span class="simple-pdf-item-role">{p.name}</span>
-                    <span class="simple-pdf-item-meta">{p.duration}</span>
+                    {(p.duration || p.url) && <span class="simple-pdf-item-meta">{p.duration || p.url}</span>}
                   </div>
-                  <div class="simple-pdf-item-company">{p.institution}</div>
+                  {p.institution && <div class="simple-pdf-item-company">{p.institution}</div>}
                   <ul class="simple-pdf-list">
                     <li>
                       <strong>Tech Stack:</strong> {p.tech.join(", ")}
                     </li>
                     <li>{p.description}</li>
+                    {(p.repo || p.demo) && (
+                      <li class="url-item">
+                        {[p.repo && `Repo: ${p.repo}`, p.demo && `Demo: ${p.demo}`].filter(Boolean).join("  ·  ")}
+                      </li>
+                    )}
                   </ul>
                 </div>
               ))}
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    <!-- WRITING -->
+    {
+      data.writing && (
+        <section class="simple-pdf-section">
+          <h2 class="simple-pdf-section-title">WRITING</h2>
+          <div class="section-line" />
+          {data.writing.map((w: any) => (
+            <div class="simple-pdf-item">
+              <div class="simple-pdf-item-header">
+                <span class="simple-pdf-item-role">{w.title}</span>
+                <span class="simple-pdf-item-meta">{w.date}</span>
+              </div>
+              <ul class="simple-pdf-list">
+                <li class="url-item">{w.url}</li>
+                {w.topics && <li>{w.topics.join(", ")}</li>}
+              </ul>
             </div>
           ))}
         </section>
@@ -168,7 +199,10 @@ const { data } = Astro.props;
               <p>
                 <strong>{group.group}:</strong>{" "}
                 {group.items
-                  .map((s: any) => (typeof s === "string" ? s : s.name))
+                  .map((s: any) => {
+                    const name = typeof s === "string" ? s : s.name;
+                    return hasProof(name) ? `${name} ✓` : name;
+                  })
                   .join(", ")}
               </p>
             ))}

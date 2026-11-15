@@ -98,13 +98,21 @@ export function renderEducation(title: string, entries: any[], styles = SIMPLE_S
   ];
 }
 
-export function renderSkillGroups(title: string, groups: any[], styles = SIMPLE_STYLES): Paragraph[] {
+export function renderSkillGroups(
+  title: string,
+  groups: any[],
+  styles = SIMPLE_STYLES,
+  hasProof: (name: string) => boolean = () => false,
+): Paragraph[] {
   const { font, size, spacing } = styles;
   return [
     ...buildSectionTitle(title, styles),
     ...groups.flatMap((g) => {
       const names = g.items
-        .map((s: any) => (typeof s === "string" ? s : s.name))
+        .map((s: any) => {
+          const name = typeof s === "string" ? s : s.name;
+          return hasProof(name) ? `${name} ✓` : name;
+        })
         .join(", ");
       return [
         new Paragraph({
@@ -245,5 +253,79 @@ export function renderNameDescriptionItems(entries: any[], styles = SIMPLE_STYLE
           }),
         ]
       : []),
+    ...(["repo", "demo"] as const).flatMap((kind) =>
+      item[kind]
+        ? [
+            new Paragraph({
+              spacing: spacing.expSub,
+              children: [
+                new TextRun({
+                  text: `${kind === "repo" ? "Repo" : "Demo"}: `,
+                  bold: true,
+                  size: size.contactLine,
+                  font,
+                }),
+                new ExternalHyperlink({
+                  children: [
+                    new TextRun({
+                      text: item[kind],
+                      size: size.contactLine,
+                      font,
+                      color: "0000EE",
+                      underline: {},
+                    }),
+                  ],
+                  link: item[kind],
+                }),
+              ],
+            }),
+          ]
+        : [],
+    ),
   ]);
+}
+
+export function renderWriting(title: string, entries: any[], styles = SIMPLE_STYLES): Paragraph[] {
+  const { font, size, spacing } = styles;
+  return [
+    ...buildSectionTitle(title, styles),
+    ...entries.flatMap((w) => [
+      new Paragraph({
+        spacing: spacing.expHeader,
+        tabStops: [styles.tabStop],
+        children: [
+          new ExternalHyperlink({
+            children: [
+              new TextRun({
+                text: w.title,
+                bold: true,
+                size: size.subHeading,
+                font,
+                color: "0000EE",
+                underline: {},
+              }),
+            ],
+            link: w.url,
+          }),
+          new Tab(),
+          new TextRun({ text: w.date, size: size.body, font }),
+        ],
+      }),
+      ...(w.topics
+        ? [
+            new Paragraph({
+              spacing: spacing.expSub,
+              children: [
+                new TextRun({
+                  text: w.topics.join(", "),
+                  italics: true,
+                  size: size.contactLine,
+                  font,
+                }),
+              ],
+            }),
+          ]
+        : []),
+    ]),
+  ];
 }

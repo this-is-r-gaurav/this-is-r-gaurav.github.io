@@ -16,6 +16,7 @@
     "generate-favicon": "tsx scripts/generate-favicon.ts",
     "patch-meta": "tsx scripts/patch-meta.ts",
     "validate-docs": "tsx scripts/validate-docs.ts",
+    "build:all": "npm run build && npm run generate-favicon && npm run generate-og && npm run generate-pdf && npm run generate-docx && npm run patch-meta && npm run validate-docs",
     "format": "prettier --write .",
     "astro": "astro"
   },

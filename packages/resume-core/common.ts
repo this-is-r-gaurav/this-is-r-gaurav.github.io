@@ -1,3 +1,15 @@
+export function buildDownloadFilename(
+  name: string | undefined,
+  variant: "Professional" | "Simple",
+  ext: string,
+): string {
+  const safeName = (name || "Resume")
+    .trim()
+    .replace(/\s+/g, "_")
+    .replace(/[^A-Za-z0-9_-]/g, "");
+  return `${safeName}_Resume_${variant}.${ext}`;
+}
+
 export function urlFixer(url: string | undefined) {
   if (!url) return "";
   return `https://${url.replace(/^https?:\/\//, "")}`;

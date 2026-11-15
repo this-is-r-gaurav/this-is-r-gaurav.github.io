@@ -1,4 +1,10 @@
 ---
+import { resumeData as data } from "../../packages/resume-core/data";
+import { buildDownloadFilename } from "../../packages/resume-core/common";
+
+const filename2Col = buildDownloadFilename(data.header.name, "Professional", "pdf");
+const filenameExecPdf = buildDownloadFilename(data.header.name, "Simple", "pdf");
+const filenameExecDocx = buildDownloadFilename(data.header.name, "Simple", "docx");
 ---
 
 <div class="fab-menu" id="fab-menu">
@@ -6,7 +12,7 @@
   <div class="download-group" id="download-group">
     <div class="download-options">
       <!-- 2 Column PDF -->
-      <button class="download-item" id="dl-2col">
+      <button class="download-item" id="dl-2col" data-filename={filename2Col}>
         <span class="item-label">2 Column Layout</span>
         <div class="item-icon pdf-pro">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -16,7 +22,7 @@
       </button>
 
       <!-- Executive PDF -->
-      <button class="download-item" id="dl-exec-pdf">
+      <button class="download-item" id="dl-exec-pdf" data-filename={filenameExecPdf}>
         <span class="item-label">Executive Format</span>
         <div class="item-icon pdf-simple">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -26,7 +32,7 @@
       </button>
 
       <!-- Executive DOCX -->
-      <button class="download-item" id="dl-exec-docx">
+      <button class="download-item" id="dl-exec-docx" data-filename={filenameExecDocx}>
         <span class="item-label">Executive DOCX</span>
         <div class="item-icon docx">DOC</div>
       </button>
@@ -225,7 +231,7 @@
     }
   });
 
-  const handleDownload = async (filename: string, path: string, formatName: string) => {
+  const handleDownload = async (filename: string, path: string, formatName: string, downloadName: string) => {
     // Track download event
     if (typeof window !== 'undefined' && (window as any).posthog) {
       (window as any).posthog.capture('resume_downloaded', {
@@ -240,7 +246,7 @@
       if (filename.endsWith('.docx')) {
         const link = document.createElement('a');
         link.href = path;
-        link.download = 'Gaurav_Resume_Simple.docx';
+        link.download = downloadName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -273,9 +279,7 @@
       if (response.ok) {
         const link = document.createElement('a');
         link.href = `/${filename}`;
-        link.download = filename.startsWith('resume-simple') 
-          ? `Gaurav_Resume_Simple.${filename.split('.').pop()}` 
-          : 'Gaurav_Resume_Professional.pdf';
+        link.download = downloadName;
         link.click();
       } else {
         window.location.href = path;
@@ -285,9 +289,9 @@
     }
   };
 
-  dl2Col?.addEventListener('click', () => handleDownload('resume.pdf', '/', 'Professional 2-Column'));
-  dlExecPdf?.addEventListener('click', () => handleDownload('resume-simple.pdf', '/simple', 'Executive PDF'));
-  dlExecDocx?.addEventListener('click', () => handleDownload('resume-simple.docx', '/download-simple-docx', 'Executive DOCX'));
+  dl2Col?.addEventListener('click', () => handleDownload('resume.pdf', '/', 'Professional 2-Column', dl2Col.dataset.filename || 'Resume_Professional.pdf'));
+  dlExecPdf?.addEventListener('click', () => handleDownload('resume-simple.pdf', '/simple', 'Executive PDF', dlExecPdf.dataset.filename || 'Resume_Simple.pdf'));
+  dlExecDocx?.addEventListener('click', () => handleDownload('resume-simple.docx', '/download-simple-docx', 'Executive DOCX', dlExecDocx.dataset.filename || 'Resume_Simple.docx'));
 
   const syncThemeIcon = (theme: string) => {
     if (iconSun && iconMoon) {

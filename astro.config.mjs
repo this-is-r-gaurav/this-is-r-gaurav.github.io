@@ -4,13 +4,14 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://gaurav.raheja.dev",
+  site: process.env.SITE_URL || "https://gaurav.raheja.dev",
   base: "/",
   integrations: [
     sitemap({
       filter: (page) =>
         !page.includes("/og-template") &&
-        !page.includes("/download-simple-docx"),
+        !page.includes("/download-simple-docx") &&
+        !page.includes("/resume.yaml"),
     }),
   ],
   server: {
